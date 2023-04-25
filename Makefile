@@ -1,9 +1,9 @@
 .PHONY: run
 
 build:
-	go build -o ./.bin/meet-site cmd/meet-site/main.go
+	go build -o ./.bin/nfc-cash cmd/nfc-cash/main.go
 
 run: build
-	./.bin/meet-site
+	./.bin/nfc-cash
 
-.DEFAULT_GOAL := run
+.DEFAULT_GOAL := run 

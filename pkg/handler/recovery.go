@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/rob-bender/meetsite-backend/appl_row"
+	"github.com/rob-bender/nfc-cash-backend/appl_row"
 )
 
 // @Summary		RecoveryPasswordSendMessage

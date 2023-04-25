@@ -3,10 +3,10 @@ package service
 import (
 	"net/http"
 
-	"github.com/rob-bender/meetsite-backend/appl_row"
-	"github.com/rob-bender/meetsite-backend/pkg/email"
-	"github.com/rob-bender/meetsite-backend/pkg/hash"
-	"github.com/rob-bender/meetsite-backend/pkg/repository"
+	"github.com/rob-bender/nfc-cash-backend/appl_row"
+	"github.com/rob-bender/nfc-cash-backend/pkg/email"
+	"github.com/rob-bender/nfc-cash-backend/pkg/hash"
+	"github.com/rob-bender/nfc-cash-backend/pkg/repository"
 )
 
 type RecoveryService struct {

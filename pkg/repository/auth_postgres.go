@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/jmoiron/sqlx"
-	"github.com/rob-bender/meetsite-backend/appl_row"
+	"github.com/rob-bender/nfc-cash-backend/appl_row"
 )
 
 type AuthPostgres struct {
@@ -48,4 +48,30 @@ func (r *AuthPostgres) GetUser(username string, password string) ([]appl_row.Use
 		return []appl_row.User{}, fmt.Errorf("ошибка конвертации в функции GetUser, %s", err)
 	}
 	return user, nil
+}
+
+func (r *AuthPostgres) CheckEmailExist(userForm appl_row.CheckEmailExist) (bool, int, error) {
+	var isEmailExist bool
+	userFormJson, err := json.Marshal(userForm)
+	if err != nil {
+		return true, http.StatusInternalServerError, fmt.Errorf("ошибка конвертации userForm, %s", err)
+	}
+	err = r.db.QueryRow("SELECT user_check_exist_email($1)", userFormJson).Scan(&isEmailExist)
+	if err != nil {
+		return true, http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции user_check_exist_email из базы данных, %s", err)
+	}
+	return isEmailExist, http.StatusOK, nil
+}
+
+func (r *AuthPostgres) CheckUsernameExist(userForm appl_row.CheckUsernameExist) (bool, int, error) {
+	var isUsernameExist bool
+	userFormJson, err := json.Marshal(userForm)
+	if err != nil {
+		return true, http.StatusInternalServerError, fmt.Errorf("ошибка конвертации userForm, %s", err)
+	}
+	err = r.db.QueryRow("SELECT user_check_exist_username($1)", userFormJson).Scan(&isUsernameExist)
+	if err != nil {
+		return true, http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции user_check_exist_username из базы данных, %s", err)
+	}
+	return isUsernameExist, http.StatusOK, nil
 }

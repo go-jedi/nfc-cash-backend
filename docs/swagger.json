@@ -9,6 +9,108 @@
     "host": "localhost:8080",
     "basePath": "/",
     "paths": {
+        "/auth/check-email-exist": {
+            "post": {
+                "description": "check email exist",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auth"
+                ],
+                "summary": "CheckEmailExist",
+                "operationId": "check-email-exist",
+                "parameters": [
+                    {
+                        "description": "credentials",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appl_row.CheckEmailExist"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "res",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/auth/check-username-exist": {
+            "post": {
+                "description": "check username exist",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auth"
+                ],
+                "summary": "CheckUsernameExist",
+                "operationId": "check-username-exist",
+                "parameters": [
+                    {
+                        "description": "credentials",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appl_row.CheckUsernameExist"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "res",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/auth/sign-in": {
             "post": {
                 "description": "login",
@@ -82,6 +184,108 @@
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/appl_row.CreateUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/recovery/recoveryPassword": {
+            "post": {
+                "description": "recovery password",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "recovery"
+                ],
+                "summary": "RecoveryPassword",
+                "operationId": "recovery-password",
+                "parameters": [
+                    {
+                        "description": "account info",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appl_row.RecoveryPassword"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/recovery/recoveryPasswordSendMessage": {
+            "post": {
+                "description": "recovery passwordSendMessage",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "recovery"
+                ],
+                "summary": "RecoveryPasswordSendMessage",
+                "operationId": "recovery-passwordSendMessage",
+                "parameters": [
+                    {
+                        "description": "account info",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appl_row.RecoveryPasswordSendMessage"
                         }
                     }
                 ],
@@ -263,6 +467,46 @@
                     }
                 }
             }
+        },
+        "/verify/emailver/:uid": {
+            "get": {
+                "description": "verify email",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "verify"
+                ],
+                "summary": "VerifyEmail",
+                "operationId": "verify-email",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {}
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -281,17 +525,56 @@
                 }
             }
         },
+        "appl_row.CheckEmailExist": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                }
+            }
+        },
+        "appl_row.CheckUsernameExist": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
         "appl_row.CreateUser": {
             "type": "object",
             "required": [
+                "email",
                 "password",
                 "username"
             ],
             "properties": {
+                "email": {
+                    "type": "string"
+                },
                 "password": {
                     "type": "string"
                 },
                 "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "appl_row.RecoveryPassword": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "uid": {
+                    "type": "string"
+                }
+            }
+        },
+        "appl_row.RecoveryPasswordSendMessage": {
+            "type": "object",
+            "properties": {
+                "email": {
                     "type": "string"
                 }
             }

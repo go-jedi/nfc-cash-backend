@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/rob-bender/meetsite-backend/pkg/validate"
+	"github.com/rob-bender/nfc-cash-backend/pkg/validate"
 )
 
 // @Summary		ValidateEmail

@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/jmoiron/sqlx"
-	"github.com/rob-bender/meetsite-backend/appl_row"
+	"github.com/rob-bender/nfc-cash-backend/appl_row"
 )
 
 type RecoveryPostgres struct {

@@ -57,10 +57,64 @@ POSSIBLE MISTAKES:
   -message: "неправильный логин или пароль";
 ````
 
+### Проверка существование email в базе данных
+
+````sh
+Url: http://localhost:8080/auth/check-email-exist
+```js
+{
+  "body": {
+    "email": string, <- email пользователя
+  }
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "пользователь с такой электронной почтой уже существует" <- typeof string
+  -result: true <- typeof string
+OR:
+RETURN:
+  -status: 200 <- typeof int
+  -message: "пользователь с такой электронной почтой не существует" <- typeof string
+  -result: false <- typeof string
+
+POSSIBLE MISTAKES:
+  -message: "некорректно переданы данные в body";
+  -message: "ошибка конвертации userForm, {err}";
+  -message: "ошибка выполнения функции user_check_exist_email из базы данных, {err}";
+````
+
+### Проверка существование username в базе данных
+
+````sh
+Url: http://localhost:8080/auth/check-username-exist
+```js
+{
+  "body": {
+    "username": string, <- username пользователя
+  }
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "пользователь с таким username уже существует" <- typeof string
+  -result: true <- typeof string
+OR:
+RETURN:
+  -status: 200 <- typeof int
+  -message: "пользователь с таким username не существует" <- typeof string
+  -result: false <- typeof string
+
+POSSIBLE MISTAKES:
+  -message: "некорректно переданы данные в body";
+  -message: "ошибка конвертации userForm, {err}";
+  -message: "ошибка выполнения функции user_check_exist_username из базы данных, {err}";
+````
+
 ### Валидация электронной почты
 
 ````sh
-Url: http://localhost:8080/validate/validateEmail
+Url: http://localhost:8080/validate/validate-email
 ```js
 {
   "body": {
@@ -83,7 +137,7 @@ POSSIBLE MISTAKES:
 ### Валидация пароля
 
 ````sh
-Url: http://localhost:8080/validate/validatePassword
+Url: http://localhost:8080/validate/validate-password
 ```js
 {
   "body": {
@@ -112,7 +166,7 @@ POSSIBLE MISTAKES:
 ### Валидация username
 
 ````sh
-Url: http://localhost:8080/validate/validateUsername
+Url: http://localhost:8080/validate/validate-username
 ```js
 {
   "body": {
@@ -156,7 +210,7 @@ POSSIBLE MISTAKES:
 ### Отправка письма на почту пользователя для восстановления пароля
 
 ````sh
-Url: http://localhost:8080/recovery/recoveryPasswordSendMessage
+Url: http://localhost:8080/recovery/recovery-password-send-message
 ```js
 {
   "body": {
@@ -180,7 +234,7 @@ POSSIBLE MISTAKES:
 ### Изменение пароля пользователя
 
 ````sh
-Url: http://localhost:8080/recovery/recoveryPassword
+Url: http://localhost:8080/recovery/recovery-password
 ```js
 {
   "body": {

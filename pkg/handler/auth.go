@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/rob-bender/meetsite-backend/appl_row"
+	"github.com/rob-bender/nfc-cash-backend/appl_row"
 )
 
 // @Summary		SignUp
@@ -85,4 +85,100 @@ func (h *Handler) signIn(c *gin.Context) { // Авторизация польз�
 		"message": "успешная авторизация пользователя",
 		"token":   token,
 	})
+}
+
+// @Summary		CheckEmailExist
+// @Tags			auth
+// @Description	check email exist
+// @ID				check-email-exist
+// @Accept			json
+// @Produce		json
+// @Param			input	body		appl_row.CheckEmailExist	true	"credentials"
+// @Success		200		{string}	string				"res"
+// @Failure		400,404	{object}	error
+// @Failure		500		{object}	error
+// @Failure		default	{object}	error
+// @Router			/auth/check-email-exist [post]
+func (h *Handler) checkEmailExist(c *gin.Context) { // Есть ли в базе данных зарегистрированный email
+	type Body struct {
+		Email string `json:"email"`
+	}
+	var body Body
+	if err := c.BindJSON(&body); err != nil {
+		c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"status":  http.StatusBadRequest,
+			"message": "некорректно переданы данные в body",
+		})
+		return
+	}
+	res, statusCode, err := h.services.CheckEmailExist(appl_row.CheckEmailExist(body))
+	if err != nil {
+		c.JSON(statusCode, map[string]interface{}{
+			"status":  statusCode,
+			"message": err.Error(),
+		})
+		return
+	}
+	if res {
+		c.JSON(http.StatusOK, map[string]interface{}{
+			"status":  http.StatusOK,
+			"message": "пользователь с такой электронной почтой уже существует",
+			"result":  res,
+		})
+	}
+	if !res {
+		c.JSON(http.StatusOK, map[string]interface{}{
+			"status":  http.StatusOK,
+			"message": "пользователь с такой электронной почтой не существует",
+			"result":  res,
+		})
+	}
+}
+
+// @Summary		CheckUsernameExist
+// @Tags			auth
+// @Description	check username exist
+// @ID				check-username-exist
+// @Accept			json
+// @Produce		json
+// @Param			input	body		appl_row.CheckUsernameExist	true	"credentials"
+// @Success		200		{string}	string				"res"
+// @Failure		400,404	{object}	error
+// @Failure		500		{object}	error
+// @Failure		default	{object}	error
+// @Router			/auth/check-username-exist [post]
+func (h *Handler) checkUsernameExist(c *gin.Context) { // Есть ли в базе данных зарегистрированный username
+	type Body struct {
+		Username string `json:"username"`
+	}
+	var body Body
+	if err := c.BindJSON(&body); err != nil {
+		c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"status":  http.StatusBadRequest,
+			"message": "некорректно переданы данные в body",
+		})
+		return
+	}
+	res, statusCode, err := h.services.CheckUsernameExist(appl_row.CheckUsernameExist(body))
+	if err != nil {
+		c.JSON(statusCode, map[string]interface{}{
+			"status":  statusCode,
+			"message": err.Error(),
+		})
+		return
+	}
+	if res {
+		c.JSON(http.StatusOK, map[string]interface{}{
+			"status":  http.StatusOK,
+			"message": "пользователь с таким username уже существует",
+			"result":  res,
+		})
+	}
+	if !res {
+		c.JSON(http.StatusOK, map[string]interface{}{
+			"status":  http.StatusOK,
+			"message": "пользователь с таким username не существует",
+			"result":  res,
+		})
+	}
 }

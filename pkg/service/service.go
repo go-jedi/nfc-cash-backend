@@ -1,14 +1,16 @@
 package service
 
 import (
-	"github.com/rob-bender/meetsite-backend/appl_row"
-	"github.com/rob-bender/meetsite-backend/pkg/repository"
+	"github.com/rob-bender/nfc-cash-backend/appl_row"
+	"github.com/rob-bender/nfc-cash-backend/pkg/repository"
 )
 
 type TodoAuth interface {
 	CreateUser(userForm appl_row.CreateUser) (int, error)
 	GenerateToken(username string, password string) (string, error)
 	ParseToken(token string) (int, error)
+	CheckEmailExist(userForm appl_row.CheckEmailExist) (bool, int, error)
+	CheckUsernameExist(userForm appl_row.CheckUsernameExist) (bool, int, error)
 }
 
 type TodoVerify interface {

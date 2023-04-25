@@ -1,4 +1,4 @@
-module github.com/rob-bender/meetsite-backend
+module github.com/rob-bender/nfc-cash-backend
 
 go 1.18
 

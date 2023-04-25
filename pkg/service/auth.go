@@ -7,10 +7,10 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 
-	"github.com/rob-bender/meetsite-backend/appl_row"
-	"github.com/rob-bender/meetsite-backend/pkg/email"
-	"github.com/rob-bender/meetsite-backend/pkg/hash"
-	"github.com/rob-bender/meetsite-backend/pkg/repository"
+	"github.com/rob-bender/nfc-cash-backend/appl_row"
+	"github.com/rob-bender/nfc-cash-backend/pkg/email"
+	"github.com/rob-bender/nfc-cash-backend/pkg/hash"
+	"github.com/rob-bender/nfc-cash-backend/pkg/repository"
 )
 
 const (
@@ -91,4 +91,12 @@ func (s *AuthService) ParseToken(accessToken string) (int, error) {
 	}
 
 	return claims.UserId, nil
+}
+
+func (s *AuthService) CheckEmailExist(userForm appl_row.CheckEmailExist) (bool, int, error) {
+	return s.repo.CheckEmailExist(userForm)
+}
+
+func (s *AuthService) CheckUsernameExist(userForm appl_row.CheckUsernameExist) (bool, int, error) {
+	return s.repo.CheckUsernameExist(userForm)
 }

@@ -10,3 +10,11 @@ type AuthUser struct {
 	Username string `json:"username" binding:"required"`
 	Password string `json:"password" binding:"required"`
 }
+
+type CheckEmailExist struct {
+	Email string `json:"email"`
+}
+
+type CheckUsernameExist struct {
+	Username string `json:"username"`
+}

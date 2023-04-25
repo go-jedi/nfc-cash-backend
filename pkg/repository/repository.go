@@ -2,12 +2,14 @@ package repository
 
 import (
 	"github.com/jmoiron/sqlx"
-	"github.com/rob-bender/meetsite-backend/appl_row"
+	"github.com/rob-bender/nfc-cash-backend/appl_row"
 )
 
 type TodoAuth interface {
 	CreateUser(userForm appl_row.CreateUser) (string, int, error)
 	GetUser(username string, password string) ([]appl_row.User, error)
+	CheckEmailExist(userForm appl_row.CheckEmailExist) (bool, int, error)
+	CheckUsernameExist(userForm appl_row.CheckUsernameExist) (bool, int, error)
 }
 
 type TodoVerify interface {

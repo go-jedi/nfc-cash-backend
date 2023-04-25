@@ -1,6 +1,6 @@
 package service
 
-import "github.com/rob-bender/meetsite-backend/pkg/repository"
+import "github.com/rob-bender/nfc-cash-backend/pkg/repository"
 
 type VerifyService struct {
 	repo repository.TodoVerify

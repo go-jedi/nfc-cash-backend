@@ -6,10 +6,10 @@ import (
 
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
-	server "github.com/rob-bender/meetsite-backend"
-	"github.com/rob-bender/meetsite-backend/pkg/handler"
-	"github.com/rob-bender/meetsite-backend/pkg/repository"
-	"github.com/rob-bender/meetsite-backend/pkg/service"
+	server "github.com/rob-bender/nfc-cash-backend"
+	"github.com/rob-bender/nfc-cash-backend/pkg/handler"
+	"github.com/rob-bender/nfc-cash-backend/pkg/repository"
+	"github.com/rob-bender/nfc-cash-backend/pkg/service"
 	"github.com/sirupsen/logrus"
 )
 

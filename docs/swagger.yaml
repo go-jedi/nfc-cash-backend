@@ -10,15 +10,40 @@ definitions:
     - password
     - username
     type: object
+  appl_row.CheckEmailExist:
+    properties:
+      email:
+        type: string
+    type: object
+  appl_row.CheckUsernameExist:
+    properties:
+      username:
+        type: string
+    type: object
   appl_row.CreateUser:
     properties:
+      email:
+        type: string
       password:
         type: string
       username:
         type: string
     required:
+    - email
     - password
     - username
+    type: object
+  appl_row.RecoveryPassword:
+    properties:
+      password:
+        type: string
+      uid:
+        type: string
+    type: object
+  appl_row.RecoveryPasswordSendMessage:
+    properties:
+      email:
+        type: string
     type: object
   appl_row.ValidateEmail:
     properties:
@@ -42,6 +67,76 @@ info:
   title: NFC-cash backend
   version: "1.0"
 paths:
+  /auth/check-email-exist:
+    post:
+      consumes:
+      - application/json
+      description: check email exist
+      operationId: check-email-exist
+      parameters:
+      - description: credentials
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/appl_row.CheckEmailExist'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: res
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: CheckEmailExist
+      tags:
+      - auth
+  /auth/check-username-exist:
+    post:
+      consumes:
+      - application/json
+      description: check username exist
+      operationId: check-username-exist
+      parameters:
+      - description: credentials
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/appl_row.CheckUsernameExist'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: res
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: CheckUsernameExist
+      tags:
+      - auth
   /auth/sign-in:
     post:
       consumes:
@@ -112,6 +207,76 @@ paths:
       summary: SignUp
       tags:
       - auth
+  /recovery/recoveryPassword:
+    post:
+      consumes:
+      - application/json
+      description: recovery password
+      operationId: recovery-password
+      parameters:
+      - description: account info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/appl_row.RecoveryPassword'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: RecoveryPassword
+      tags:
+      - recovery
+  /recovery/recoveryPasswordSendMessage:
+    post:
+      consumes:
+      - application/json
+      description: recovery passwordSendMessage
+      operationId: recovery-passwordSendMessage
+      parameters:
+      - description: account info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/appl_row.RecoveryPasswordSendMessage'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: RecoveryPasswordSendMessage
+      tags:
+      - recovery
   /validate/validateEmail:
     post:
       consumes:
@@ -217,6 +382,34 @@ paths:
       summary: ValidateUsername
       tags:
       - validate
+  /verify/emailver/:uid:
+    get:
+      consumes:
+      - application/json
+      description: verify email
+      operationId: verify-email
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: VerifyEmail
+      tags:
+      - verify
 securityDefinitions:
   ApiKeyAuth:
     in: header

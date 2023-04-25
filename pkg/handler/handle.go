@@ -3,11 +3,11 @@ package handler
 import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/rob-bender/meetsite-backend/pkg/service"
+	"github.com/rob-bender/nfc-cash-backend/pkg/service"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 
-	_ "github.com/rob-bender/meetsite-backend/docs"
+	_ "github.com/rob-bender/nfc-cash-backend/docs"
 )
 
 type Handler struct {
@@ -29,8 +29,10 @@ func (h *Handler) InitRoutes() *gin.Engine { // обработчик роуто�
 
 	auth := router.Group("/auth")
 	{
-		auth.POST("/sign-up", h.signUp) // Регистрация пользователя
-		auth.POST("/sign-in", h.signIn) // Авторизация пользователя
+		auth.POST("/sign-up", h.signUp)                          // Регистрация пользователя
+		auth.POST("/sign-in", h.signIn)                          // Авторизация пользователя
+		auth.POST("/check-email-exist", h.checkEmailExist)       // Есть ли в базе данных зарегистрированный email
+		auth.POST("/check-username-exist", h.checkUsernameExist) // Есть ли в базе данных зарегистрированный username
 	}
 
 	email := router.Group("/verify")
@@ -40,15 +42,15 @@ func (h *Handler) InitRoutes() *gin.Engine { // обработчик роуто�
 
 	recovery := router.Group("/recovery")
 	{
-		recovery.POST("/recoveryPasswordSendMessage", h.recoveryPasswordSendMessage)
-		recovery.POST("/recoveryPassword", h.recoveryPassword)
+		recovery.POST("/recovery-password-send-message", h.recoveryPasswordSendMessage)
+		recovery.POST("/recovery-password", h.recoveryPassword)
 	}
 
 	validate := router.Group("/validate")
 	{
-		validate.POST("/validateEmail", h.validateEmail)
-		validate.POST("/validatePassword", h.validatePassword)
-		validate.POST("/validateUsername", h.validateUsername)
+		validate.POST("/validate-email", h.validateEmail)
+		validate.POST("/validate-password", h.validatePassword)
+		validate.POST("/validate-username", h.validateUsername)
 	}
 
 	api := router.Group("/api-v1", h.userIdentity)
