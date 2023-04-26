@@ -15,9 +15,19 @@ definitions:
       email:
         type: string
     type: object
+  appl_row.CheckRecoveryPassword:
+    properties:
+      uid:
+        type: string
+    type: object
   appl_row.CheckUsernameExist:
     properties:
       username:
+        type: string
+    type: object
+  appl_row.CompleteRecoveryPassword:
+    properties:
+      uid:
         type: string
     type: object
   appl_row.CreateUser:
@@ -34,6 +44,13 @@ definitions:
     - username
     type: object
   appl_row.RecoveryPassword:
+    properties:
+      password:
+        type: string
+      uid:
+        type: string
+    type: object
+  appl_row.RecoveryPasswordCompare:
     properties:
       password:
         type: string
@@ -207,7 +224,112 @@ paths:
       summary: SignUp
       tags:
       - auth
-  /recovery/recoveryPassword:
+  /recovery-password-compare:
+    post:
+      consumes:
+      - application/json
+      description: recovery password compare
+      operationId: recovery-password-compare
+      parameters:
+      - description: account info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/appl_row.RecoveryPasswordCompare'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: RecoveryPasswordCompare
+      tags:
+      - recovery
+  /recovery-password-complete:
+    post:
+      consumes:
+      - application/json
+      description: complete recovery password
+      operationId: complete-recovery-password
+      parameters:
+      - description: account info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/appl_row.CompleteRecoveryPassword'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: CompleteRecoveryPassword
+      tags:
+      - recovery
+  /recovery/check-recovery-password:
+    post:
+      consumes:
+      - application/json
+      description: check recovery password
+      operationId: check-recovery-password
+      parameters:
+      - description: account info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/appl_row.CheckRecoveryPassword'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: CheckRecoveryPassword
+      tags:
+      - recovery
+  /recovery/recovery-password:
     post:
       consumes:
       - application/json
@@ -242,12 +364,12 @@ paths:
       summary: RecoveryPassword
       tags:
       - recovery
-  /recovery/recoveryPasswordSendMessage:
+  /recovery/recovery-password-send-message:
     post:
       consumes:
       - application/json
-      description: recovery passwordSendMessage
-      operationId: recovery-passwordSendMessage
+      description: recovery password send message
+      operationId: recovery-password-send-message
       parameters:
       - description: account info
         in: body
@@ -277,7 +399,7 @@ paths:
       summary: RecoveryPasswordSendMessage
       tags:
       - recovery
-  /validate/validateEmail:
+  /validate/validate-email:
     post:
       consumes:
       - application/json
@@ -312,7 +434,7 @@ paths:
       summary: ValidateEmail
       tags:
       - validate
-  /validate/validatePassword:
+  /validate/validate-password:
     post:
       consumes:
       - application/json
@@ -347,7 +469,7 @@ paths:
       summary: ValidatePassword
       tags:
       - validate
-  /validate/validateUsername:
+  /validate/validate-username:
     post:
       consumes:
       - application/json
@@ -382,7 +504,7 @@ paths:
       summary: ValidateUsername
       tags:
       - validate
-  /verify/checkEmailVerify:
+  /verify/check-email-verify:
     post:
       consumes:
       - application/json

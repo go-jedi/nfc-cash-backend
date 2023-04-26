@@ -9,8 +9,8 @@ import (
 
 // @Summary		RecoveryPasswordSendMessage
 // @Tags			recovery
-// @Description	recovery passwordSendMessage
-// @ID				recovery-passwordSendMessage
+// @Description	recovery password send message
+// @ID				recovery-password-send-message
 // @Accept			json
 // @Produce		json
 // @Param			input	body		appl_row.RecoveryPasswordSendMessage	true	"account info"
@@ -56,6 +56,18 @@ func (h *Handler) recoveryPasswordSendMessage(c *gin.Context) { // отправ�
 	}
 }
 
+// @Summary		CheckRecoveryPassword
+// @Tags			recovery
+// @Description	check recovery password
+// @ID				check-recovery-password
+// @Accept			json
+// @Produce		json
+// @Param			input	body		appl_row.CheckRecoveryPassword	true	"account info"
+// @Success		200		{integer}	integer					1
+// @Failure		400,404	{object}	error
+// @Failure		500		{object}	error
+// @Failure		default	{object}	error
+// @Router			/recovery/check-recovery-password [post]
 func (h *Handler) checkRecoveryPassword(c *gin.Context) {
 	type Body struct {
 		Uid string `json:"uid"`
@@ -93,6 +105,18 @@ func (h *Handler) checkRecoveryPassword(c *gin.Context) {
 	}
 }
 
+// @Summary		CompleteRecoveryPassword
+// @Tags			recovery
+// @Description	complete recovery password
+// @ID				complete-recovery-password
+// @Accept			json
+// @Produce		json
+// @Param			input	body		appl_row.CompleteRecoveryPassword	true	"account info"
+// @Success		200		{integer}	integer					1
+// @Failure		400,404	{object}	error
+// @Failure		500		{object}	error
+// @Failure		default	{object}	error
+// @Router			/recovery-password-complete [post]
 func (h *Handler) completeRecoveryPassword(c *gin.Context) {
 	type Body struct {
 		Uid string `json:"uid"`

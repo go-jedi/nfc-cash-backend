@@ -264,6 +264,7 @@ Url: http://localhost:8080/recovery/recovery-password-compare
 ```js
 {
   "body": {
+    "uid": string, <- uid пользователя
     "password": string, <- пароль пользователя
   }
 }
@@ -275,12 +276,58 @@ RETURN:
 OR:
   -status: 200 <- typeof int
   -message: "ошибка сравнения паролей" <- typeof string
-  -result: true <- typeof bool
+  -result: false <- typeof bool
 
 POSSIBLE MISTAKES:
   -message: "некорректно переданы данные в body";
   -message: "ошибка выполнения функции user_compare_password из базы данных, {err}";
   -message: "ошибка сравнения паролей";
+````
+
+### Проверка запуска восстановления пароля
+
+````sh
+Url: http://localhost:8080/recovery/check-recovery-password
+```js
+{
+  "body": {
+    "uid": string, <- uid пользователя
+  }
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "запуск восстановления пароля запущен" <- typeof string
+  -result: true <- typeof bool
+OR:
+  -status: 200 <- typeof int
+  -message: "запуск восстановления пароля не запущен" <- typeof string
+  -result: false <- typeof bool
+
+POSSIBLE MISTAKES:
+  -message: "некорректно переданы данные в body";
+  -message: "ошибка выполнения функции user_check_recovery_password из базы данных, {err}";
+  -message: "запуск восстановления пароля не запущен";
+````
+
+### Завершение восстановления пароля
+
+````sh
+Url: http://localhost:8080/recovery/recovery-password-complete
+```js
+{
+  "body": {
+    "uid": string, <- uid пользователя
+  }
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "успешное завершение восстановления пароля" <- typeof string
+
+POSSIBLE MISTAKES:
+  -message: "некорректно переданы данные в body";
+  -message: "ошибка выполнения функции user_complete_recovery_password из базы данных, {err}";
 ````
 
 ### Изменение пароля пользователя

@@ -220,7 +220,160 @@ const docTemplate = `{
                 }
             }
         },
-        "/recovery/recoveryPassword": {
+        "/recovery-password-compare": {
+            "post": {
+                "description": "recovery password compare",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "recovery"
+                ],
+                "summary": "RecoveryPasswordCompare",
+                "operationId": "recovery-password-compare",
+                "parameters": [
+                    {
+                        "description": "account info",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appl_row.RecoveryPasswordCompare"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/recovery-password-complete": {
+            "post": {
+                "description": "complete recovery password",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "recovery"
+                ],
+                "summary": "CompleteRecoveryPassword",
+                "operationId": "complete-recovery-password",
+                "parameters": [
+                    {
+                        "description": "account info",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appl_row.CompleteRecoveryPassword"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/recovery/check-recovery-password": {
+            "post": {
+                "description": "check recovery password",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "recovery"
+                ],
+                "summary": "CheckRecoveryPassword",
+                "operationId": "check-recovery-password",
+                "parameters": [
+                    {
+                        "description": "account info",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appl_row.CheckRecoveryPassword"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/recovery/recovery-password": {
             "post": {
                 "description": "recovery password",
                 "consumes": [
@@ -271,9 +424,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/recovery/recoveryPasswordSendMessage": {
+        "/recovery/recovery-password-send-message": {
             "post": {
-                "description": "recovery passwordSendMessage",
+                "description": "recovery password send message",
                 "consumes": [
                     "application/json"
                 ],
@@ -284,7 +437,7 @@ const docTemplate = `{
                     "recovery"
                 ],
                 "summary": "RecoveryPasswordSendMessage",
-                "operationId": "recovery-passwordSendMessage",
+                "operationId": "recovery-password-send-message",
                 "parameters": [
                     {
                         "description": "account info",
@@ -322,7 +475,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/validate/validateEmail": {
+        "/validate/validate-email": {
             "post": {
                 "description": "validate email",
                 "consumes": [
@@ -373,7 +526,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/validate/validatePassword": {
+        "/validate/validate-password": {
             "post": {
                 "description": "validate password",
                 "consumes": [
@@ -424,7 +577,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/validate/validateUsername": {
+        "/validate/validate-username": {
             "post": {
                 "description": "validate username",
                 "consumes": [
@@ -475,7 +628,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/verify/checkEmailVerify": {
+        "/verify/check-email-verify": {
             "post": {
                 "description": "check email verify",
                 "consumes": [
@@ -580,10 +733,26 @@ const docTemplate = `{
                 }
             }
         },
+        "appl_row.CheckRecoveryPassword": {
+            "type": "object",
+            "properties": {
+                "uid": {
+                    "type": "string"
+                }
+            }
+        },
         "appl_row.CheckUsernameExist": {
             "type": "object",
             "properties": {
                 "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "appl_row.CompleteRecoveryPassword": {
+            "type": "object",
+            "properties": {
+                "uid": {
                     "type": "string"
                 }
             }
@@ -608,6 +777,17 @@ const docTemplate = `{
             }
         },
         "appl_row.RecoveryPassword": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "uid": {
+                    "type": "string"
+                }
+            }
+        },
+        "appl_row.RecoveryPasswordCompare": {
             "type": "object",
             "properties": {
                 "password": {
