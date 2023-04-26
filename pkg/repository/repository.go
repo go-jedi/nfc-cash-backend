@@ -13,6 +13,7 @@ type TodoAuth interface {
 }
 
 type TodoVerify interface {
+	CheckEmailVerify(uid string) (bool, int, error)
 	EmailVerify(uid string) (bool, int, error)
 }
 

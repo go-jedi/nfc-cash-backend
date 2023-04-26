@@ -37,6 +37,7 @@ func (h *Handler) InitRoutes() *gin.Engine { // обработчик роуто�
 
 	email := router.Group("/verify")
 	{
+		email.POST("/checkEmailVerify", h.checkEmailVerify)
 		email.GET("/emailver/:uid", h.emailVerify)
 	}
 

@@ -24,10 +24,10 @@ func SendActivationMail(to string, uidHash string) (int, error) { // оптра�
 			"Content-Type: text/html; charset=\"UTF-8\";\r\n" +
 			`<html> 
 			<h1>Click Link to Veify Email</h1>
-			<a href="` + "http://localhost:8080" + `/verify/emailver/` + uidHash + `">click to verify email</a>
+			<a href="` + "http://localhost:9000/#" + `/verify/verify-email/` + uidHash + `">click to verify email</a>
 		</html>`,
 	)
-
+	// localhost:9000/#/verify/verify-email
 	err := smtp.SendMail(address, auth, smtpEmail, []string{to}, msg)
 	if err != nil {
 		return http.StatusOK, fmt.Errorf("ошибка отправки письма активации на вашу почту")

@@ -186,6 +186,32 @@ POSSIBLE MISTAKES:
   -message: "ошибка валидации username";
 ````
 
+### Проверка на верификацию электронной почты
+
+````sh
+Url: http://localhost:8080/verify/checkEmailVerify
+```js
+{
+  "body": {
+    "uid": string, <- uid пользователя
+  }
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "электронная почта подтверждена" <- typeof string
+  -result: true <- typeof bool
+OR:
+  -status: 200 <- typeof int
+  -message: "электронная почта не подтверждена" <- typeof string
+  -result: false <- typeof bool
+
+POSSIBLE MISTAKES:
+  -message: "некорректно переданы данные в body";
+  -message: "ошибка выполнения функции user_verify_email из базы данных, {err}";
+  -message: "ошибка подтверждения электронной почты";
+````
+
 ### Верификация электронной почты
 
 ````sh

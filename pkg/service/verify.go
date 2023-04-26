@@ -12,6 +12,10 @@ func NewVerifyService(r repository.TodoVerify) *VerifyService {
 	}
 }
 
+func (s *VerifyService) CheckEmailVerify(uid string) (bool, int, error) {
+	return s.repo.CheckEmailVerify(uid)
+}
+
 func (s *VerifyService) EmailVerify(uid string) (bool, int, error) {
 	return s.repo.EmailVerify(uid)
 }

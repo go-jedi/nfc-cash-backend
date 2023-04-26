@@ -382,6 +382,34 @@ paths:
       summary: ValidateUsername
       tags:
       - validate
+  /verify/checkEmailVerify:
+    post:
+      consumes:
+      - application/json
+      description: check email verify
+      operationId: check-email-verify
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: CheckEmailVerify
+      tags:
+      - checkEmailVerify
   /verify/emailver/:uid:
     get:
       consumes:
