@@ -18,7 +18,7 @@ import (
 // @Failure		400,404	{object}	error
 // @Failure		500		{object}	error
 // @Failure		default	{object}	error
-// @Router			/validate/validateEmail [post]
+// @Router			/validate/validate-email [post]
 func (h *Handler) validateEmail(c *gin.Context) { // Валидация электронной почты
 	type Body struct {
 		Email string `json:"email"`
@@ -67,7 +67,7 @@ func (h *Handler) validateEmail(c *gin.Context) { // Валидация элек
 // @Failure		400,404	{object}	error
 // @Failure		500		{object}	error
 // @Failure		default	{object}	error
-// @Router			/validate/validatePassword [post]
+// @Router			/validate/validate-password [post]
 func (h *Handler) validatePassword(c *gin.Context) { // Валидация пароля
 	type Body struct {
 		Password string `json:"password"`
@@ -116,7 +116,7 @@ func (h *Handler) validatePassword(c *gin.Context) { // Валидация па�
 // @Failure		400,404	{object}	error
 // @Failure		500		{object}	error
 // @Failure		default	{object}	error
-// @Router			/validate/validateUsername [post]
+// @Router			/validate/validate-username [post]
 func (h *Handler) validateUsername(c *gin.Context) { // Валидация username
 	type Body struct {
 		Username string `json:"username"`

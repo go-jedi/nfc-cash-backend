@@ -18,8 +18,12 @@ type TodoVerify interface {
 }
 
 type TodoRecovery interface {
-	RecoveryPassword(userForm appl_row.RecoveryPassword) (bool, int, error)
 	GetUserUidByEmail(userForm appl_row.RecoveryPasswordSendMessage) (string, int, error)
+	CheckRecoveryPassword(uid string) (bool, int, error)
+	LaunchRecoveryPassword(uid string) (int, error)
+	CompleteRecoveryPassword(uid string) (int, error)
+	RecoveryPasswordCompare(uid string, password string) (bool, int, error)
+	RecoveryPassword(userForm appl_row.RecoveryPassword) (bool, int, error)
 }
 
 type Repository struct {

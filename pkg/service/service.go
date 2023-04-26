@@ -20,6 +20,9 @@ type TodoVerify interface {
 
 type TodoRecovery interface {
 	RecoveryPasswordSendMessage(userForm appl_row.RecoveryPasswordSendMessage) (bool, int, error)
+	CheckRecoveryPassword(uid string) (bool, int, error)
+	CompleteRecoveryPassword(uid string) (int, error)
+	RecoveryPasswordCompare(uid string, password string) (bool, int, error)
 	RecoveryPassword(userForm appl_row.RecoveryPassword) (bool, int, error)
 }
 

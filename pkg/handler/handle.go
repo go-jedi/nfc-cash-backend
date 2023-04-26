@@ -37,13 +37,16 @@ func (h *Handler) InitRoutes() *gin.Engine { // обработчик роуто�
 
 	email := router.Group("/verify")
 	{
-		email.POST("/checkEmailVerify", h.checkEmailVerify)
+		email.POST("/check-email-verify", h.checkEmailVerify)
 		email.GET("/emailver/:uid", h.emailVerify)
 	}
 
 	recovery := router.Group("/recovery")
 	{
 		recovery.POST("/recovery-password-send-message", h.recoveryPasswordSendMessage)
+		recovery.POST("/check-recovery-password", h.checkRecoveryPassword)
+		recovery.POST("/recovery-password-complete", h.completeRecoveryPassword)
+		recovery.POST("/recovery-password-compare", h.recoveryPasswordCompare)
 		recovery.POST("/recovery-password", h.recoveryPassword)
 	}
 

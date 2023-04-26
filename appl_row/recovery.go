@@ -8,3 +8,8 @@ type RecoveryPassword struct {
 type RecoveryPasswordSendMessage struct {
 	Email string `json:"email"`
 }
+
+type RecoveryPasswordCompare struct {
+	Uid      string `json:"uid"`
+	Password string `json:"password"`
+}

@@ -257,6 +257,32 @@ POSSIBLE MISTAKES:
   -message: "ошибка отправки письма для восстановления пароля";
 ````
 
+### Сравнение паролей пользователя
+
+````sh
+Url: http://localhost:8080/recovery/recovery-password-compare
+```js
+{
+  "body": {
+    "password": string, <- пароль пользователя
+  }
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "успешное сравнение паролей" <- typeof string
+  -result: true <- typeof bool
+OR:
+  -status: 200 <- typeof int
+  -message: "ошибка сравнения паролей" <- typeof string
+  -result: true <- typeof bool
+
+POSSIBLE MISTAKES:
+  -message: "некорректно переданы данные в body";
+  -message: "ошибка выполнения функции user_compare_password из базы данных, {err}";
+  -message: "ошибка сравнения паролей";
+````
+
 ### Изменение пароля пользователя
 
 ````sh

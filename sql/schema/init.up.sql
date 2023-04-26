@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS users (
 	 username VARCHAR(255) NOT NULL,
 	 email VARCHAR(255) NOT NULL,
 	 is_verify_email BOOLEAN NOT NULL DEFAULT 'f',
+	 is_change_password BOOLEAN NOT NULL DEFAULT 'f',
 	 password VARCHAR(255) NOT NULL,
 	 role VARCHAR(255) NOT NULL DEFAULT 'user'
 );

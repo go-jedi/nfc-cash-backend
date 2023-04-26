@@ -32,6 +32,40 @@ func (r *RecoveryPostgres) GetUserUidByEmail(userForm appl_row.RecoveryPasswordS
 	return uid, http.StatusOK, nil
 }
 
+func (r *RecoveryPostgres) CheckRecoveryPassword(uid string) (bool, int, error) {
+	var isRecoveryPassword bool
+	err := r.db.QueryRow("SELECT user_check_recovery_password($1)", uid).Scan(&isRecoveryPassword)
+	if err != nil {
+		return false, http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции user_check_recovery_password из базы данных, %s", err)
+	}
+	return isRecoveryPassword, http.StatusOK, nil
+}
+
+func (r *RecoveryPostgres) LaunchRecoveryPassword(uid string) (int, error) {
+	_, err := r.db.Exec("SELECT user_launch_recovery_password($1)", uid)
+	if err != nil {
+		return http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции user_launch_recovery_password из базы данных, %s", err)
+	}
+	return http.StatusOK, nil
+}
+
+func (r *RecoveryPostgres) CompleteRecoveryPassword(uid string) (int, error) {
+	_, err := r.db.Exec("SELECT user_complete_recovery_password($1)", uid)
+	if err != nil {
+		return http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции user_complete_recovery_password из базы данных, %s", err)
+	}
+	return http.StatusOK, nil
+}
+
+func (r *RecoveryPostgres) RecoveryPasswordCompare(uid string, password string) (bool, int, error) {
+	var isComparePasswords bool
+	err := r.db.QueryRow("SELECT user_compare_password($1, $2)", uid, password).Scan(&isComparePasswords)
+	if err != nil {
+		return false, http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции user_compare_password из базы данных, %s", err)
+	}
+	return isComparePasswords, http.StatusOK, nil
+}
+
 func (r *RecoveryPostgres) RecoveryPassword(userForm appl_row.RecoveryPassword) (bool, int, error) {
 	userFormJson, err := json.Marshal(userForm)
 	if err != nil {

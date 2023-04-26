@@ -23,11 +23,10 @@ func SendActivationMail(to string, uidHash string) (int, error) { // оптра�
 			"\r\n" + "MIME: MIME-version: 1.0\r\n" +
 			"Content-Type: text/html; charset=\"UTF-8\";\r\n" +
 			`<html> 
-			<h1>Click Link to Veify Email</h1>
-			<a href="` + "http://localhost:9000/#" + `/verify/verify-email/` + uidHash + `">click to verify email</a>
+			<h1>Нажмите ссылку, чтобы подтвердить адрес электронной почты</h1>
+			<a href="` + "http://localhost:9000/#" + `/verify/verify-email/` + uidHash + `">подтвердить адрес электронной почты</a>
 		</html>`,
 	)
-	// localhost:9000/#/verify/verify-email
 	err := smtp.SendMail(address, auth, smtpEmail, []string{to}, msg)
 	if err != nil {
 		return http.StatusOK, fmt.Errorf("ошибка отправки письма активации на вашу почту")
@@ -36,7 +35,7 @@ func SendActivationMail(to string, uidHash string) (int, error) { // оптра�
 	return http.StatusOK, nil
 }
 
-func SendRecoveryPasswordMail(to string, uidHash string) (int, error) {
+func SendRecoveryPasswordMail(to string, uidHash string) (int, error) { // оптравка письма для восстановления пароля на почту пользователя
 	var smtpEmail string = os.Getenv("SMTP_EMAIL")
 	var smtpPassword string = os.Getenv("SMTP_PASSWORD")
 
@@ -52,10 +51,10 @@ func SendRecoveryPasswordMail(to string, uidHash string) (int, error) {
 			"\r\n" + "MIME: MIME-version: 1.0\r\n" +
 			"Content-Type: text/html; charset=\"UTF-8\";\r\n" +
 			`<html> 
-			<h1>Click Link to Recovery Password</h1>
-			<a href="` + "http://localhost:8080" + `/recovery/emailver/` + uidHash + `">click to verify email</a>
+			<h1>Нажмите ссылку для восстановления пароля</h1>
+			<a href="` + "http://localhost:9000/#" + `/recovery/recovery-password/` + uidHash + `">восстановить пароль</a>
 		</html>`,
-	) // здесь выставить страницу, где форма (Введите новый пароль и повторить пароль)
+	)
 
 	err := smtp.SendMail(address, auth, smtpEmail, []string{to}, msg)
 	if err != nil {

@@ -16,7 +16,7 @@ import (
 // @Failure		400,404	{object}	error
 // @Failure		500		{object}	error
 // @Failure		default	{object}	error
-// @Router			/verify/checkEmailVerify [post]
+// @Router			/verify/check-email-verify [post]
 func (h *Handler) checkEmailVerify(c *gin.Context) { // проверка на верификацию электронной почты
 	type Body struct {
 		Uid string `json:"uid"`

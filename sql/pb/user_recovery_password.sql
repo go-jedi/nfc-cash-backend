@@ -14,6 +14,6 @@ BEGIN
 		RAISE EXCEPTION 'пользователь с таким uid не существует';
 	END IF;
 
-	UPDATE users SET password = js->>'password' WHERE uid = js->>'uid';
+	UPDATE users SET password = js->>'password', is_change_password = FALSE WHERE uid = js->>'uid';
 END;
 $function$
