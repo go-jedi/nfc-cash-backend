@@ -26,10 +26,15 @@ type TodoRecovery interface {
 	RecoveryPassword(userForm appl_row.RecoveryPassword) (bool, int, error)
 }
 
+type TodoUser interface {
+	GetUserProfile(id int) ([]appl_row.UserProfile, int, error)
+}
+
 type Service struct {
 	TodoAuth
 	TodoVerify
 	TodoRecovery
+	TodoUser
 }
 
 func NewService(r *repository.Repository) *Service {
@@ -37,5 +42,6 @@ func NewService(r *repository.Repository) *Service {
 		TodoAuth:     NewAuthService(r.TodoAuth),
 		TodoVerify:   NewVerifyService(r.TodoVerify),
 		TodoRecovery: NewRecoveryService(r.TodoRecovery),
+		TodoUser:     NewUserService(r.TodoUser),
 	}
 }

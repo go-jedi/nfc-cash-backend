@@ -399,6 +399,34 @@ paths:
       summary: RecoveryPasswordSendMessage
       tags:
       - recovery
+  /user/get-user-profile:
+    get:
+      consumes:
+      - application/json
+      description: get user profile
+      operationId: get-user-profile
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: GetUserProfile
+      tags:
+      - user
   /validate/validate-email:
     post:
       consumes:

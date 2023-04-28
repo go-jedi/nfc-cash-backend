@@ -353,3 +353,26 @@ POSSIBLE MISTAKES:
   -message: "ошибка выполнения функции user_recovery_password из базы данных, {err}";
   -message: "ошибка изменения пароля";
 ````
+
+### Получение профиля пользователя
+
+````sh
+Url: http://localhost:8080/user/get-user-profile
+```js
+{
+  "body": {}
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "успешное получение профиля пользователя" <- typeof string
+  -result: []appl_row.UserProfile{} <- typeof bool
+
+POSSIBLE MISTAKES:
+  -message: "пустой заголовок авторизации";
+  -message: "неверный заголовок авторизации";
+  -message: "идентификатор пользователя не найден";
+  -message: "идентификатор пользователя имеет недопустимый тип";
+  -message: "ошибка выполнения функции user_get_profile из базы данных, {err}";
+  -message: "ошибка конвертации в функции GetUserProfile";
+````

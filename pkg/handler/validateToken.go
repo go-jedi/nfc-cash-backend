@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (h *Handler) getAllLists(c *gin.Context) {
+func (h *Handler) checkValidateToken(c *gin.Context) {
 	userId, err := getUserId(c)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, map[string]interface{}{

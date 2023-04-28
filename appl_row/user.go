@@ -9,3 +9,10 @@ type User struct {
 	Password      string `json:"password"`
 	Role          string `json:"role"`
 }
+
+type UserProfile struct {
+	Id       int    `json:"id"`
+	Username string `json:"username"`
+	Email    string `json:"email"`
+	Role     string `json:"role"`
+}

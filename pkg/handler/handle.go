@@ -60,9 +60,13 @@ func (h *Handler) InitRoutes() *gin.Engine { // обработчик роуто�
 	api := router.Group("/api-v1", h.userIdentity)
 	{
 
-		lists := api.Group("/lists")
+		validateToken := api.Group("/validate-token")
 		{
-			lists.GET("/", h.getAllLists)
+			validateToken.GET("/", h.checkValidateToken)
+		}
+		users := api.Group("/user")
+		{
+			users.GET("/get-user-profile", h.getUserProfile)
 		}
 	}
 

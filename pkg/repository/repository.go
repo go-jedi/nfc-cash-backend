@@ -26,10 +26,15 @@ type TodoRecovery interface {
 	RecoveryPassword(userForm appl_row.RecoveryPassword) (bool, int, error)
 }
 
+type TodoUser interface {
+	GetUserProfile(id int) ([]appl_row.UserProfile, int, error)
+}
+
 type Repository struct {
 	TodoAuth
 	TodoVerify
 	TodoRecovery
+	TodoUser
 }
 
 func NewRepository(db *sqlx.DB) *Repository {
@@ -37,5 +42,6 @@ func NewRepository(db *sqlx.DB) *Repository {
 		TodoAuth:     NewAuthPostgres(db),
 		TodoVerify:   NewVerifyPostgres(db),
 		TodoRecovery: NewRecoveryPostgres(db),
+		TodoUser:     NewUserPostgres(db),
 	}
 }
