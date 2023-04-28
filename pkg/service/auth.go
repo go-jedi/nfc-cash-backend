@@ -100,3 +100,7 @@ func (s *AuthService) CheckEmailExist(userForm appl_row.CheckEmailExist) (bool, 
 func (s *AuthService) CheckUsernameExist(userForm appl_row.CheckUsernameExist) (bool, int, error) {
 	return s.repo.CheckUsernameExist(userForm)
 }
+
+func (s *AuthService) CheckConfirmAccount(userForm appl_row.CheckConfirmAccount) (bool, int, error) {
+	return s.repo.CheckConfirmAccount(userForm)
+}

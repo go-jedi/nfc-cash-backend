@@ -111,7 +111,7 @@ func (h *Handler) checkEmailExist(c *gin.Context) { // Есть ли в базе
 		})
 		return
 	}
-	res, statusCode, err := h.services.CheckEmailExist(appl_row.CheckEmailExist(body))
+	resCheckEmailExist, statusCode, err := h.services.CheckEmailExist(appl_row.CheckEmailExist(body))
 	if err != nil {
 		c.JSON(statusCode, map[string]interface{}{
 			"status":  statusCode,
@@ -119,18 +119,18 @@ func (h *Handler) checkEmailExist(c *gin.Context) { // Есть ли в базе
 		})
 		return
 	}
-	if res {
+	if resCheckEmailExist {
 		c.JSON(http.StatusOK, map[string]interface{}{
 			"status":  http.StatusOK,
 			"message": "пользователь с такой электронной почтой уже существует",
-			"result":  res,
+			"result":  resCheckEmailExist,
 		})
 	}
-	if !res {
+	if !resCheckEmailExist {
 		c.JSON(http.StatusOK, map[string]interface{}{
 			"status":  http.StatusOK,
 			"message": "пользователь с такой электронной почтой не существует",
-			"result":  res,
+			"result":  resCheckEmailExist,
 		})
 	}
 }
@@ -159,7 +159,7 @@ func (h *Handler) checkUsernameExist(c *gin.Context) { // Есть ли в ба�
 		})
 		return
 	}
-	res, statusCode, err := h.services.CheckUsernameExist(appl_row.CheckUsernameExist(body))
+	resCheckUsernameExist, statusCode, err := h.services.CheckUsernameExist(appl_row.CheckUsernameExist(body))
 	if err != nil {
 		c.JSON(statusCode, map[string]interface{}{
 			"status":  statusCode,
@@ -167,18 +167,66 @@ func (h *Handler) checkUsernameExist(c *gin.Context) { // Есть ли в ба�
 		})
 		return
 	}
-	if res {
+	if resCheckUsernameExist {
 		c.JSON(http.StatusOK, map[string]interface{}{
 			"status":  http.StatusOK,
 			"message": "пользователь с таким username уже существует",
-			"result":  res,
+			"result":  resCheckUsernameExist,
 		})
 	}
-	if !res {
+	if !resCheckUsernameExist {
 		c.JSON(http.StatusOK, map[string]interface{}{
 			"status":  http.StatusOK,
 			"message": "пользователь с таким username не существует",
-			"result":  res,
+			"result":  resCheckUsernameExist,
+		})
+	}
+}
+
+// @Summary		CheckConfirmAccount
+// @Tags			auth
+// @Description	check confirm account
+// @ID				check-confirm-account
+// @Accept			json
+// @Produce		json
+// @Param			input	body		appl_row.CheckConfirmAccount	true	"credentials"
+// @Success		200		{string}	string				"res"
+// @Failure		400,404	{object}	error
+// @Failure		500		{object}	error
+// @Failure		default	{object}	error
+// @Router			/auth/check-confirm-account [post]
+func (h *Handler) checkConfirmAccount(c *gin.Context) {
+	type Body struct {
+		Username string `json:"username"`
+	}
+	var body Body
+	if err := c.BindJSON(&body); err != nil {
+		c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"status":  http.StatusBadRequest,
+			"message": "некорректно переданы данные в body",
+		})
+		return
+	}
+	resCheckConfirmAccount, statusCode, err := h.services.CheckConfirmAccount(appl_row.CheckConfirmAccount(body))
+	if err != nil {
+		c.JSON(statusCode, map[string]interface{}{
+			"status":  statusCode,
+			"message": err.Error(),
+		})
+		return
+	}
+	if resCheckConfirmAccount {
+		c.JSON(http.StatusOK, map[string]interface{}{
+			"status":  http.StatusOK,
+			"message": "аккаунт пользователя успешно подтверждён администратором",
+			"result":  resCheckConfirmAccount,
+		})
+	}
+	if !resCheckConfirmAccount {
+		c.JSON(http.StatusOK, map[string]interface{}{
+			"status":  http.StatusOK,
+			"message": "аккаунт пользователя ещё не подтверждён администратором",
+			"result":  resCheckConfirmAccount,
 		})
 	}
 }

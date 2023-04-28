@@ -75,3 +75,16 @@ func (r *AuthPostgres) CheckUsernameExist(userForm appl_row.CheckUsernameExist) 
 	}
 	return isUsernameExist, http.StatusOK, nil
 }
+
+func (r *AuthPostgres) CheckConfirmAccount(userForm appl_row.CheckConfirmAccount) (bool, int, error) {
+	var isConfirmAccount bool
+	userFormJson, err := json.Marshal(userForm)
+	if err != nil {
+		return false, http.StatusInternalServerError, fmt.Errorf("ошибка конвертации userForm, %s", err)
+	}
+	err = r.db.QueryRow("SELECT user_check_confirm_account($1)", userFormJson).Scan(&isConfirmAccount)
+	if err != nil {
+		return true, http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции user_check_confirm_account из базы данных, %s", err)
+	}
+	return isConfirmAccount, http.StatusOK, nil
+}

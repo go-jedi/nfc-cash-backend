@@ -18,3 +18,7 @@ type CheckEmailExist struct {
 type CheckUsernameExist struct {
 	Username string `json:"username"`
 }
+
+type CheckConfirmAccount struct {
+	Username string `json:"username"`
+}

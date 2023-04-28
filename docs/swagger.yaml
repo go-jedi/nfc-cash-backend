@@ -10,6 +10,11 @@ definitions:
     - password
     - username
     type: object
+  appl_row.CheckConfirmAccount:
+    properties:
+      username:
+        type: string
+    type: object
   appl_row.CheckEmailExist:
     properties:
       email:
@@ -84,6 +89,41 @@ info:
   title: NFC-cash backend
   version: "1.0"
 paths:
+  /auth/check-confirm-account:
+    post:
+      consumes:
+      - application/json
+      description: check confirm account
+      operationId: check-confirm-account
+      parameters:
+      - description: credentials
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/appl_row.CheckConfirmAccount'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: res
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: CheckConfirmAccount
+      tags:
+      - auth
   /auth/check-email-exist:
     post:
       consumes:

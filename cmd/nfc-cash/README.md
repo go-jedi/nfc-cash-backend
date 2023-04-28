@@ -111,6 +111,33 @@ POSSIBLE MISTAKES:
   -message: "ошибка выполнения функции user_check_exist_username из базы данных, {err}";
 ````
 
+### Проверка подтверждение аккаунта пользователя администратором
+
+````sh
+Url: http://localhost:8080/auth/check-confirm-account
+```js
+{
+  "body": {
+    "username": string, <- username пользователя
+  }
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "аккаунт пользователя успешно подтверждён администратором" <- typeof string
+  -result: true <- typeof string
+OR:
+RETURN:
+  -status: 200 <- typeof int
+  -message: "аккаунт пользователя ещё не подтверждён администратором" <- typeof string
+  -result: false <- typeof string
+
+POSSIBLE MISTAKES:
+  -message: "некорректно переданы данные в body";
+  -message: "ошибка конвертации userForm, {err}";
+  -message: "ошибка выполнения функции user_check_confirm_account из базы данных, {err}";
+````
+
 ### Валидация электронной почты
 
 ````sh

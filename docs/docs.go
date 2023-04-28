@@ -16,6 +16,57 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/auth/check-confirm-account": {
+            "post": {
+                "description": "check confirm account",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auth"
+                ],
+                "summary": "CheckConfirmAccount",
+                "operationId": "check-confirm-account",
+                "parameters": [
+                    {
+                        "description": "credentials",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appl_row.CheckConfirmAccount"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "res",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/auth/check-email-exist": {
             "post": {
                 "description": "check email exist",
@@ -760,6 +811,14 @@ const docTemplate = `{
                 "password": {
                     "type": "string"
                 },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "appl_row.CheckConfirmAccount": {
+            "type": "object",
+            "properties": {
                 "username": {
                     "type": "string"
                 }

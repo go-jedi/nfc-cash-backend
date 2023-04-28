@@ -10,6 +10,7 @@ type TodoAuth interface {
 	GetUser(username string, password string) ([]appl_row.User, error)
 	CheckEmailExist(userForm appl_row.CheckEmailExist) (bool, int, error)
 	CheckUsernameExist(userForm appl_row.CheckUsernameExist) (bool, int, error)
+	CheckConfirmAccount(userForm appl_row.CheckConfirmAccount) (bool, int, error)
 }
 
 type TodoVerify interface {

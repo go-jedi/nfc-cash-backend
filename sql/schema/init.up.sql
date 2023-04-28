@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS users (
 	 email VARCHAR(255) NOT NULL,
 	 is_verify_email BOOLEAN NOT NULL DEFAULT 'f',
 	 is_change_password BOOLEAN NOT NULL DEFAULT 'f',
+	 is_confirm_account BOOLEAN NOT NULL DEFAULT 'f',
 	 password VARCHAR(255) NOT NULL,
 	 role VARCHAR(255) NOT NULL DEFAULT 'user'
-);
+); 

@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"time"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/rob-bender/nfc-cash-backend/pkg/service"
@@ -23,16 +25,26 @@ func NewHandler(s *service.Service) *Handler { // создаём новый hand
 func (h *Handler) InitRoutes() *gin.Engine { // обработчик роутов, Создание роутов
 	router := gin.New() // инициализация роутов
 
-	router.Use(cors.Default())
+	// router.Use(cors.Default())
+
+	router.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:9000"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"},
+		AllowHeaders:     []string{"Origin", "Content-Length", "Content-Type", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	auth := router.Group("/auth")
 	{
-		auth.POST("/sign-up", h.signUp)                          // Регистрация пользователя
-		auth.POST("/sign-in", h.signIn)                          // Авторизация пользователя
-		auth.POST("/check-email-exist", h.checkEmailExist)       // Есть ли в базе данных зарегистрированный email
-		auth.POST("/check-username-exist", h.checkUsernameExist) // Есть ли в базе данных зарегистрированный username
+		auth.POST("/sign-up", h.signUp)                            // Регистрация пользователя
+		auth.POST("/sign-in", h.signIn)                            // Авторизация пользователя
+		auth.POST("/check-email-exist", h.checkEmailExist)         // Есть ли в базе данных зарегистрированный email
+		auth.POST("/check-username-exist", h.checkUsernameExist)   // Есть ли в базе данных зарегистрированный username
+		auth.POST("/check-confirm-account", h.checkConfirmAccount) // подтверждён ли аккаунт администратором
 	}
 
 	email := router.Group("/verify")

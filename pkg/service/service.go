@@ -11,6 +11,7 @@ type TodoAuth interface {
 	ParseToken(token string) (int, error)
 	CheckEmailExist(userForm appl_row.CheckEmailExist) (bool, int, error)
 	CheckUsernameExist(userForm appl_row.CheckUsernameExist) (bool, int, error)
+	CheckConfirmAccount(userForm appl_row.CheckConfirmAccount) (bool, int, error)
 }
 
 type TodoVerify interface {
