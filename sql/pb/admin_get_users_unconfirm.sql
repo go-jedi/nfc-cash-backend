@@ -25,7 +25,7 @@ BEGIN
 	(
 		SELECT json_agg(ag.*)::JSONB s
 		FROM (
-			SELECT u.id, u.username, u.email, u.role
+			SELECT u.id, u.username, u.tele_id, u.email, u.role
 			FROM users u
 			WHERE u.is_confirm_account = FALSE
 		) ag
