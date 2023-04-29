@@ -102,5 +102,10 @@ func (s *AuthService) CheckUsernameExist(userForm appl_row.CheckUsernameExist) (
 }
 
 func (s *AuthService) CheckConfirmAccount(userForm appl_row.CheckConfirmAccount) (bool, int, error) {
+	resGeneratePasswordHash, err := hash.GeneratePasswordHash(userForm.Password)
+	if err != nil {
+		return false, http.StatusInternalServerError, err
+	}
+	userForm.Password = resGeneratePasswordHash
 	return s.repo.CheckConfirmAccount(userForm)
 }

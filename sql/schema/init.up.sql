@@ -1,11 +1,13 @@
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY NOT NULL,
     uid VARCHAR(255) NOT NULL,
+	 tele_id BIGINT NOT NULL,
 	 username VARCHAR(255) NOT NULL,
 	 email VARCHAR(255) NOT NULL,
 	 is_verify_email BOOLEAN NOT NULL DEFAULT 'f',
 	 is_change_password BOOLEAN NOT NULL DEFAULT 'f',
 	 is_confirm_account BOOLEAN NOT NULL DEFAULT 'f',
 	 password VARCHAR(255) NOT NULL,
-	 role VARCHAR(255) NOT NULL DEFAULT 'user'
+	 role VARCHAR(255) NOT NULL DEFAULT 'user',
+	 created TIMESTAMP NOT NULL DEFAULT now()
 ); 

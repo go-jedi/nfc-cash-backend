@@ -2,6 +2,7 @@ package appl_row
 
 type CreateUser struct {
 	Username string `json:"username" binding:"required"`
+	TeleId   int64  `json:"tele_id"`
 	Email    string `json:"email" binding:"required"`
 	Password string `json:"password" binding:"required"`
 }
@@ -21,4 +22,5 @@ type CheckUsernameExist struct {
 
 type CheckConfirmAccount struct {
 	Username string `json:"username"`
+	Password string `json:"password"`
 }

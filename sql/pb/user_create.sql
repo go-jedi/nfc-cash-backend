@@ -23,7 +23,7 @@ BEGIN
 	END IF;
 	
 	IF _u.id ISNULL THEN
-		INSERT INTO users(uid, username, email, password) VALUES(_UID, js->>'username', js->>'email', js->>'password');
+		INSERT INTO users(uid, username, tele_id, email, password) VALUES(_uid, js->>'username', (js->>'tele_id')::BIGINT, js->>'email', js->>'password');
 	ELSE
 		RAISE EXCEPTION 'пользователь с таким именем уже существует';
 	END IF;

@@ -22,6 +22,7 @@ import (
 func (h *Handler) signUp(c *gin.Context) { // Регистрация пользователя
 	type Body struct {
 		Username string `json:"username"`
+		TeleId   int64  `json:"tele_id"`
 		Email    string `json:"email"`
 		Password string `json:"password"`
 	}
@@ -198,6 +199,7 @@ func (h *Handler) checkUsernameExist(c *gin.Context) { // Есть ли в ба�
 func (h *Handler) checkConfirmAccount(c *gin.Context) {
 	type Body struct {
 		Username string `json:"username"`
+		Password string `json:"password"`
 	}
 	var body Body
 	if err := c.BindJSON(&body); err != nil {

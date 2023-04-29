@@ -14,6 +14,12 @@ BEGIN
 		RAISE EXCEPTION 'пользователь с таким username не существует';
 	END IF;
 
+	IF _u.password = js->>'password' THEN
+		-- do nothing
+	ELSE
+		RAISE EXCEPTION 'пользователь с таким username и паролем не существует';
+	END IF;
+
 	IF _u.is_confirm_account = TRUE THEN
 		RETURN TRUE;
 	ELSE
