@@ -15,7 +15,7 @@ func SendActivationMail(to string, uidHash string) (int, error) { // оптра�
 	port := "587"
 	address := host + ":" + port
 	auth := smtp.PlainAuth("", smtpEmail, smtpPassword, host)
-	subject := "Email Verificaion"
+	subject := "Верификация электронной почты"
 	msg := []byte(
 		"From: " + smtpEmail + "\r\n" +
 			"To: " + to + "\r\n" +
@@ -43,7 +43,7 @@ func SendRecoveryPasswordMail(to string, uidHash string) (int, error) { // оп�
 	port := "587"
 	address := host + ":" + port
 	auth := smtp.PlainAuth("", smtpEmail, smtpPassword, host)
-	subject := "Password Recovery"
+	subject := "Восстановление пароля"
 	msg := []byte(
 		"From: " + smtpEmail + "\r\n" +
 			"To: " + to + "\r\n" +
@@ -59,6 +59,35 @@ func SendRecoveryPasswordMail(to string, uidHash string) (int, error) { // оп�
 	err := smtp.SendMail(address, auth, smtpEmail, []string{to}, msg)
 	if err != nil {
 		return http.StatusOK, fmt.Errorf("ошибка отправки письма восстановления пароля на вашу почту")
+	}
+
+	return http.StatusOK, nil
+}
+
+func SendConfirmAccountMail(to string) (int, error) {
+	var smtpEmail string = os.Getenv("SMTP_EMAIL")
+	var smtpPassword string = os.Getenv("SMTP_PASSWORD")
+
+	host := "mail.inbox.lv"
+	port := "587"
+	address := host + ":" + port
+	auth := smtp.PlainAuth("", smtpEmail, smtpPassword, host)
+	subject := "Подтверждение аккаунта"
+	msg := []byte(
+		"From: " + smtpEmail + "\r\n" +
+			"To: " + to + "\r\n" +
+			"Subject: " + subject +
+			"\r\n" + "MIME: MIME-version: 1.0\r\n" +
+			"Content-Type: text/html; charset=\"UTF-8\";\r\n" +
+			`<html> 
+			<h1>Ваш аккаунт успешно подтвержден администратором</h1>
+			<a href="` + "http://localhost:9000/#/sign-in" + `">Войти в кабинет</a>
+		</html>`,
+	)
+
+	err := smtp.SendMail(address, auth, smtpEmail, []string{to}, msg)
+	if err != nil {
+		return http.StatusOK, fmt.Errorf("ошибка отправки письма подтверждения аккаунта на вашу почту")
 	}
 
 	return http.StatusOK, nil

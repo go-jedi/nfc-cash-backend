@@ -2,6 +2,7 @@ package service
 
 import (
 	"github.com/rob-bender/nfc-cash-backend/appl_row"
+	"github.com/rob-bender/nfc-cash-backend/pkg/email"
 	"github.com/rob-bender/nfc-cash-backend/pkg/repository"
 )
 
@@ -24,5 +25,21 @@ func (s *AdminService) GetUsersUnConfirm(id int) ([]appl_row.GetUsersUnConfirm, 
 }
 
 func (s *AdminService) UserConfirmAccount(id int, userForm appl_row.UserConfirmAccount) (bool, int, error) {
-	return s.repo.UserConfirmAccount(id, userForm)
+	resUserConfirmAccount, statusCode, err := s.repo.UserConfirmAccount(id, userForm)
+	if err != nil {
+		return resUserConfirmAccount, statusCode, err
+	}
+	if resUserConfirmAccount {
+		resGetUserProfile, statusCodeUserProfile, err := s.repo.GetUserProfile(userForm.Id)
+		if err != nil {
+			return false, statusCodeUserProfile, err
+		}
+		StatusCodeSendConfirmAccountMail, err := email.SendConfirmAccountMail(resGetUserProfile[0].Email)
+		if err != nil {
+			return false, StatusCodeSendConfirmAccountMail, err
+		}
+		return true, statusCode, nil
+	} else {
+		return false, statusCode, err
+	}
 }

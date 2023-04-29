@@ -35,6 +35,7 @@ type TodoUser interface {
 type TodoAdmin interface {
 	GetUsersConfirm(id int) ([]appl_row.GetUsersConfirm, int, error)
 	GetUsersUnConfirm(id int) ([]appl_row.GetUsersUnConfirm, int, error)
+	GetUserProfile(id int) ([]appl_row.UserProfile, int, error)
 	UserConfirmAccount(id int, userForm appl_row.UserConfirmAccount) (bool, int, error)
 }
 
