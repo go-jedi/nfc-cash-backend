@@ -13,6 +13,7 @@ Url: http://localhost:8080/auth/sign-up
 {
   "body": {
     "username": string, <- username пользователя
+    "tele_id": int64, <- telegram id пользователя
     "email": string, <- email пользователя
     "password": string <- password пользователя
   }
@@ -119,6 +120,7 @@ Url: http://localhost:8080/auth/check-confirm-account
 {
   "body": {
     "username": string, <- username пользователя
+    "password": string, <- пароль пользователя
   }
 }
 ```sh
