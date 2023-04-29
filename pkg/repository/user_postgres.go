@@ -32,3 +32,12 @@ func (r *UserPostgres) GetUserProfile(id int) ([]appl_row.UserProfile, int, erro
 	}
 	return userProfile, http.StatusOK, nil
 }
+
+func (r *UserPostgres) CheckIsAdmin(id int) (bool, int, error) {
+	var isAdmin bool
+	err := r.db.QueryRow("SELECT user_check_is_admin($1)", id).Scan(&isAdmin)
+	if err != nil {
+		return true, http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции user_check_is_admin из базы данных, %s", err)
+	}
+	return isAdmin, http.StatusOK, nil
+}

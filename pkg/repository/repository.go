@@ -29,6 +29,12 @@ type TodoRecovery interface {
 
 type TodoUser interface {
 	GetUserProfile(id int) ([]appl_row.UserProfile, int, error)
+	CheckIsAdmin(id int) (bool, int, error)
+}
+
+type TodoAdmin interface {
+	GetUsersUnConfirm(id int) ([]appl_row.GetUsersUnConfirm, int, error)
+	UserConfirmAccount(id int, userForm appl_row.UserConfirmAccount) (bool, int, error)
 }
 
 type Repository struct {
@@ -36,6 +42,7 @@ type Repository struct {
 	TodoVerify
 	TodoRecovery
 	TodoUser
+	TodoAdmin
 }
 
 func NewRepository(db *sqlx.DB) *Repository {
@@ -44,5 +51,6 @@ func NewRepository(db *sqlx.DB) *Repository {
 		TodoVerify:   NewVerifyPostgres(db),
 		TodoRecovery: NewRecoveryPostgres(db),
 		TodoUser:     NewUserPostgres(db),
+		TodoAdmin:    NewAdminPostgres(db),
 	}
 }

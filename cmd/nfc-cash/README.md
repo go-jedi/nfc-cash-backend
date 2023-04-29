@@ -403,3 +403,86 @@ POSSIBLE MISTAKES:
   -message: "ошибка выполнения функции user_get_profile из базы данных, {err}";
   -message: "ошибка конвертации в функции GetUserProfile";
 ````
+
+### Проверка пользователя на администратора
+
+````sh
+Url: http://localhost:8080/user/check-is-admin
+```js
+{
+  "body": {}
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "пользователь является администратором" <- typeof string
+  -result: true <- typeof bool
+OR:
+  -status: 200 <- typeof int
+  -message: "пользователь не является администратором" <- typeof string
+  -result: false <- typeof bool
+
+POSSIBLE MISTAKES:
+  -message: "пустой заголовок авторизации";
+  -message: "неверный заголовок авторизации";
+  -message: "идентификатор пользователя не найден";
+  -message: "идентификатор пользователя имеет недопустимый тип";
+  -message: "ошибка выполнения функции user_check_is_admin из базы данных, {err}";
+````
+
+### Получение пользователей с не подтвержденными аккаунтами
+
+````sh
+Url: http://localhost:8080/admin/get-users-un-confirm
+```js
+{
+  "body": {}
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "успешное получение не подтвержденных пользователей" <- typeof string
+  -result: []appl_row.GetUsersUnConfirm{} <- typeof bool
+OR:
+  -status: 200 <- typeof int
+  -message: "успешное получение не подтвержденных пользователей" <- typeof string
+  -result: []appl_row.GetUsersUnConfirm{} <- typeof bool
+
+POSSIBLE MISTAKES:
+  -message: "пустой заголовок авторизации";
+  -message: "неверный заголовок авторизации";
+  -message: "идентификатор пользователя не найден";
+  -message: "идентификатор пользователя имеет недопустимый тип";
+  -message: "ошибка выполнения функции admin_get_users_unconfirm из базы данных, {err}";
+  -message: "ошибка конвертации в функции GetUserProfile, {err}";
+````
+
+### подтверждение аккаунта пользователя администратором
+
+````sh
+Url: http://localhost:8080/admin/user-confirm-account
+```js
+{
+  "body": {
+	"int": int, <- id пользователя
+  }
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "успешное подтверждение аккаунта пользователя" <- typeof string
+  -result: true <- typeof bool
+OR:
+  -status: 200 <- typeof int
+  -message: "ошибка подтверждения аккаунта пользователя" <- typeof string
+  -result: false <- typeof bool
+
+POSSIBLE MISTAKES:
+  -message: "пустой заголовок авторизации";
+  -message: "неверный заголовок авторизации";
+  -message: "идентификатор пользователя не найден";
+  -message: "идентификатор пользователя имеет недопустимый тип";
+  -message: "некорректно переданы данные в body";
+  -message: "ошибка конвертации userForm, {err}";
+  -message: "ошибка выполнения функции admin_user_confirm_account из базы данных, {err}";
+````

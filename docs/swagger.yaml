@@ -67,6 +67,11 @@ definitions:
       email:
         type: string
     type: object
+  appl_row.UserConfirmAccount:
+    properties:
+      id:
+        type: integer
+    type: object
   appl_row.ValidateEmail:
     properties:
       email:
@@ -89,6 +94,69 @@ info:
   title: NFC-cash backend
   version: "1.0"
 paths:
+  /admin/get-users-un-confirm:
+    get:
+      consumes:
+      - application/json
+      description: get users un confirm
+      operationId: get-users-un-confirm
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: GetUsersUnConfirm
+      tags:
+      - admin
+  /admin/user-confirm-account:
+    post:
+      consumes:
+      - application/json
+      description: user confirm account
+      operationId: user-confirm-account
+      parameters:
+      - description: account info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/appl_row.UserConfirmAccount'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: UserConfirmAccount
+      tags:
+      - admin
   /auth/check-confirm-account:
     post:
       consumes:
@@ -439,6 +507,34 @@ paths:
       summary: RecoveryPasswordSendMessage
       tags:
       - recovery
+  /user/check-is-admin:
+    get:
+      consumes:
+      - application/json
+      description: check is admin
+      operationId: check-is-admin
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: CheckIsAdmin
+      tags:
+      - user
   /user/get-user-profile:
     get:
       consumes:

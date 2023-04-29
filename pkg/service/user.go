@@ -18,3 +18,7 @@ func NewUserService(r repository.TodoUser) *UserService {
 func (s *UserService) GetUserProfile(id int) ([]appl_row.UserProfile, int, error) {
 	return s.repo.GetUserProfile(id)
 }
+
+func (s *UserService) CheckIsAdmin(id int) (bool, int, error) {
+	return s.repo.CheckIsAdmin(id)
+}

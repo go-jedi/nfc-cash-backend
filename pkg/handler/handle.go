@@ -49,24 +49,24 @@ func (h *Handler) InitRoutes() *gin.Engine { // обработчик роуто�
 
 	email := router.Group("/verify")
 	{
-		email.POST("/check-email-verify", h.checkEmailVerify)
-		email.GET("/emailver/:uid", h.emailVerify)
+		email.POST("/check-email-verify", h.checkEmailVerify) // проверка является ли почта подтвержденной
+		email.GET("/emailver/:uid", h.emailVerify)            // переход по ссылки из почты для подтверждения почты
 	}
 
 	recovery := router.Group("/recovery")
 	{
-		recovery.POST("/recovery-password-send-message", h.recoveryPasswordSendMessage)
-		recovery.POST("/check-recovery-password", h.checkRecoveryPassword)
-		recovery.POST("/recovery-password-complete", h.completeRecoveryPassword)
-		recovery.POST("/recovery-password-compare", h.recoveryPasswordCompare)
-		recovery.POST("/recovery-password", h.recoveryPassword)
+		recovery.POST("/recovery-password-send-message", h.recoveryPasswordSendMessage) // отправка пользователю на почту сообщения о восстановлении пароля
+		recovery.POST("/check-recovery-password", h.checkRecoveryPassword)              // проверка запущен ли процесс восстановления пароля
+		recovery.POST("/recovery-password-complete", h.completeRecoveryPassword)        // завершение восстановления пароля
+		recovery.POST("/recovery-password-compare", h.recoveryPasswordCompare)          // сравнивание нового пароля и старого
+		recovery.POST("/recovery-password", h.recoveryPassword)                         // изменение пароля пользователя на новый
 	}
 
 	validate := router.Group("/validate")
 	{
-		validate.POST("/validate-email", h.validateEmail)
-		validate.POST("/validate-password", h.validatePassword)
-		validate.POST("/validate-username", h.validateUsername)
+		validate.POST("/validate-email", h.validateEmail)       // проверка почты на валидность
+		validate.POST("/validate-password", h.validatePassword) // проверка пароль на валидность
+		validate.POST("/validate-username", h.validateUsername) // проверка username на валидность
 	}
 
 	api := router.Group("/api-v1", h.userIdentity)
@@ -74,11 +74,17 @@ func (h *Handler) InitRoutes() *gin.Engine { // обработчик роуто�
 
 		validateToken := api.Group("/validate-token")
 		{
-			validateToken.GET("/", h.checkValidateToken)
+			validateToken.GET("/", h.checkValidateToken) // проверка на валидный токен
 		}
-		users := api.Group("/user")
+		user := api.Group("/user")
 		{
-			users.GET("/get-user-profile", h.getUserProfile)
+			user.GET("/get-user-profile", h.getUserProfile) // получение профиля пользователя
+			user.GET("/check-is-admin", h.checkIsAdmin)     // проверка пользователя на администратора
+		}
+		admin := api.Group("/admin")
+		{
+			admin.GET("/get-users-un-confirm", h.getUsersUnConfirm)   // получить пользователей не подтвержденными аккаунтами
+			admin.POST("/user-confirm-account", h.userConfirmAccount) // подтверждение аккаунта пользователя администратором
 		}
 	}
 

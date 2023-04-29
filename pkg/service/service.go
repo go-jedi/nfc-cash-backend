@@ -29,6 +29,12 @@ type TodoRecovery interface {
 
 type TodoUser interface {
 	GetUserProfile(id int) ([]appl_row.UserProfile, int, error)
+	CheckIsAdmin(id int) (bool, int, error)
+}
+
+type TodoAdmin interface {
+	GetUsersUnConfirm(id int) ([]appl_row.GetUsersUnConfirm, int, error)
+	UserConfirmAccount(id int, userForm appl_row.UserConfirmAccount) (bool, int, error)
 }
 
 type Service struct {
@@ -36,6 +42,7 @@ type Service struct {
 	TodoVerify
 	TodoRecovery
 	TodoUser
+	TodoAdmin
 }
 
 func NewService(r *repository.Repository) *Service {
@@ -44,5 +51,6 @@ func NewService(r *repository.Repository) *Service {
 		TodoVerify:   NewVerifyService(r.TodoVerify),
 		TodoRecovery: NewRecoveryService(r.TodoRecovery),
 		TodoUser:     NewUserService(r.TodoUser),
+		TodoAdmin:    NewAdminService(r.TodoAdmin),
 	}
 }
