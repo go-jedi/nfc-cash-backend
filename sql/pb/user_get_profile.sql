@@ -13,6 +13,7 @@ BEGIN
 		FROM (
 			SELECT u.id, u.username, u.email, u.role
 			FROM users u
+			WHERE u.id = _id
 		) ag
 	) ugp
 	INTO _response;
