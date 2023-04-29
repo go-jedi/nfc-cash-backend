@@ -15,6 +15,10 @@ func NewAdminService(r repository.TodoAdmin) *AdminService {
 	}
 }
 
+func (s *AdminService) GetUsersConfirm(id int) ([]appl_row.GetUsersConfirm, int, error) {
+	return s.repo.GetUsersConfirm(id)
+}
+
 func (s *AdminService) GetUsersUnConfirm(id int) ([]appl_row.GetUsersUnConfirm, int, error) {
 	return s.repo.GetUsersUnConfirm(id)
 }

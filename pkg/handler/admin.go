@@ -7,6 +7,58 @@ import (
 	"github.com/rob-bender/nfc-cash-backend/appl_row"
 )
 
+// @Summary		GetUsersConfirm
+// @Tags			admin
+// @Description	get users confirm
+// @ID				get-users-confirm
+// @Accept			json
+// @Produce		json
+// @Success		200		{integer}	integer				1
+// @Failure		400,404	{object}	error
+// @Failure		500		{object}	error
+// @Failure		default	{object}	error
+// @Router			/admin/get-users-confirm [get]
+func (h *Handler) getUsersConfirm(c *gin.Context) {
+	userId, err := getUserId(c)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, map[string]interface{}{
+			"status":  http.StatusUnauthorized,
+			"message": err.Error(),
+		})
+		return
+	}
+	if userId == 0 {
+		c.JSON(http.StatusUnauthorized, map[string]interface{}{
+			"status":  http.StatusUnauthorized,
+			"message": "идентификатор пользователя имеет недопустимый тип",
+		})
+		return
+	}
+	if userId > 0 {
+		resGetUsersConfirm, statusCode, err := h.services.GetUsersConfirm(userId)
+		if err != nil {
+			c.JSON(statusCode, map[string]interface{}{
+				"status":  statusCode,
+				"message": err.Error(),
+			})
+			return
+		}
+		if len(resGetUsersConfirm) > 0 {
+			c.JSON(http.StatusOK, map[string]interface{}{
+				"status":  http.StatusOK,
+				"message": "успешное получение подтвержденных пользователей",
+				"result":  resGetUsersConfirm,
+			})
+		} else {
+			c.JSON(http.StatusOK, map[string]interface{}{
+				"status":  http.StatusOK,
+				"message": "успешное получение подтвержденных пользователей",
+				"result":  resGetUsersConfirm,
+			})
+		}
+	}
+}
+
 // @Summary		GetUsersUnConfirm
 // @Tags			admin
 // @Description	get users un confirm

@@ -9,6 +9,46 @@
     "host": "localhost:8080",
     "basePath": "/",
     "paths": {
+        "/admin/get-users-confirm": {
+            "get": {
+                "description": "get users confirm",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "GetUsersConfirm",
+                "operationId": "get-users-confirm",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/admin/get-users-un-confirm": {
             "get": {
                 "description": "get users un confirm",

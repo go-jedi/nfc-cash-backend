@@ -430,6 +430,33 @@ POSSIBLE MISTAKES:
   -message: "ошибка выполнения функции user_check_is_admin из базы данных, {err}";
 ````
 
+### Получение пользователей с подтвержденными аккаунтами (без супер администратора)
+
+````sh
+Url: http://localhost:8080/admin/get-users-confirm
+```js
+{
+  "body": {}
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "успешное получение подтвержденных пользователей" <- typeof string
+  -result: []appl_row.GetUsersConfirm{} <- typeof bool
+OR:
+  -status: 200 <- typeof int
+  -message: "успешное получение подтвержденных пользователей" <- typeof string
+  -result: []appl_row.GetUsersConfirm{} <- typeof bool
+
+POSSIBLE MISTAKES:
+  -message: "пустой заголовок авторизации";
+  -message: "неверный заголовок авторизации";
+  -message: "идентификатор пользователя не найден";
+  -message: "идентификатор пользователя имеет недопустимый тип";
+  -message: "ошибка выполнения функции admin_get_users_confirm из базы данных, {err}";
+  -message: "ошибка конвертации в функции GetUsersConfirm, {err}";
+````
+
 ### Получение пользователей с не подтвержденными аккаунтами
 
 ````sh
@@ -454,7 +481,7 @@ POSSIBLE MISTAKES:
   -message: "идентификатор пользователя не найден";
   -message: "идентификатор пользователя имеет недопустимый тип";
   -message: "ошибка выполнения функции admin_get_users_unconfirm из базы данных, {err}";
-  -message: "ошибка конвертации в функции GetUserProfile, {err}";
+  -message: "ошибка конвертации в функции GetUsersUnConfirm, {err}";
 ````
 
 ### подтверждение аккаунта пользователя администратором

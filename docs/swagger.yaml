@@ -94,6 +94,34 @@ info:
   title: NFC-cash backend
   version: "1.0"
 paths:
+  /admin/get-users-confirm:
+    get:
+      consumes:
+      - application/json
+      description: get users confirm
+      operationId: get-users-confirm
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: GetUsersConfirm
+      tags:
+      - admin
   /admin/get-users-un-confirm:
     get:
       consumes:

@@ -19,6 +19,20 @@ func NewAdminPostgres(db *sqlx.DB) *AdminPostgres {
 	}
 }
 
+func (r *AdminPostgres) GetUsersConfirm(id int) ([]appl_row.GetUsersConfirm, int, error) {
+	var usersConfirm []appl_row.GetUsersConfirm
+	var usersConfirmByte []byte
+	err := r.db.QueryRow("SELECT admin_get_users_confirm($1)", id).Scan(&usersConfirmByte)
+	if err != nil {
+		return []appl_row.GetUsersConfirm{}, http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции admin_get_users_confirm из базы данных, %s", err)
+	}
+	err = json.Unmarshal(usersConfirmByte, &usersConfirm)
+	if err != nil {
+		return []appl_row.GetUsersConfirm{}, http.StatusInternalServerError, fmt.Errorf("ошибка конвертации в функции GetUsersConfirm, %s", err)
+	}
+	return usersConfirm, http.StatusOK, nil
+}
+
 func (r *AdminPostgres) GetUsersUnConfirm(id int) ([]appl_row.GetUsersUnConfirm, int, error) {
 	var usersUnConfirm []appl_row.GetUsersUnConfirm
 	var usersUnConfirmByte []byte
@@ -28,7 +42,7 @@ func (r *AdminPostgres) GetUsersUnConfirm(id int) ([]appl_row.GetUsersUnConfirm,
 	}
 	err = json.Unmarshal(usersUnConfirmByte, &usersUnConfirm)
 	if err != nil {
-		return []appl_row.GetUsersUnConfirm{}, http.StatusInternalServerError, fmt.Errorf("ошибка конвертации в функции GetUserProfile, %s", err)
+		return []appl_row.GetUsersUnConfirm{}, http.StatusInternalServerError, fmt.Errorf("ошибка конвертации в функции GetUsersUnConfirm, %s", err)
 	}
 	return usersUnConfirm, http.StatusOK, nil
 }
