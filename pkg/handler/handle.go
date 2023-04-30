@@ -87,6 +87,10 @@ func (h *Handler) InitRoutes() *gin.Engine { // обработчик роуто�
 			admin.GET("/get-users-un-confirm", h.getUsersUnConfirm)   // получить пользователей не подтвержденными аккаунтами
 			admin.POST("/user-confirm-account", h.userConfirmAccount) // подтверждение аккаунта пользователя администратором
 		}
+		order := api.Group("/order")
+		{
+			order.POST("/order-create", h.orderCreate) // создание ордер
+		}
 	}
 
 	return router

