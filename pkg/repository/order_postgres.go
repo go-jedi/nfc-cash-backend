@@ -40,3 +40,17 @@ func (r *OrderPostgres) OrderCreate(orderForm appl_row.OrderCreate) (bool, int, 
 	}
 	return isOrderCreate, http.StatusOK, nil
 }
+
+func (r *OrderPostgres) GetOrder(uidOrder string) ([]appl_row.GetOrder, int, error) {
+	var order []appl_row.GetOrder
+	var orderByte []byte
+	err := r.db.QueryRow("SELECT order_get($1)", uidOrder).Scan(&orderByte)
+	if err != nil {
+		return []appl_row.GetOrder{}, http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции order_get из базы данных, %s", err)
+	}
+	err = json.Unmarshal(orderByte, &order)
+	if err != nil {
+		return []appl_row.GetOrder{}, http.StatusInternalServerError, fmt.Errorf("ошибка конвертации в функции GetUsersConfirm, %s", err)
+	}
+	return order, http.StatusOK, nil
+}

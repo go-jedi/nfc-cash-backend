@@ -18,3 +18,7 @@ func NewOrderService(r repository.TodoOrder) *OrderService {
 func (s *OrderService) OrderCreate(orderForm appl_row.OrderCreate) (bool, int, error) {
 	return s.repo.OrderCreate(orderForm)
 }
+
+func (s *OrderService) GetOrder(uidOrder string) ([]appl_row.GetOrder, int, error) {
+	return s.repo.GetOrder(uidOrder)
+}

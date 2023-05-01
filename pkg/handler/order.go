@@ -60,7 +60,7 @@ func (h *Handler) orderCreate(c *gin.Context) {
 
 func (h *Handler) getOrder(c *gin.Context) {
 	type Body struct {
-		UidRoom string `json:"uidRoom"`
+		UidOrder string `json:"uid_order"`
 	}
 	var body Body
 	if err := c.BindJSON(&body); err != nil {
@@ -69,5 +69,26 @@ func (h *Handler) getOrder(c *gin.Context) {
 			"message": "некорректно переданы данные в body",
 		})
 		return
+	}
+	resGetOrder, statusCode, err := h.services.GetOrder(body.UidOrder)
+	if err != nil {
+		c.JSON(statusCode, map[string]interface{}{
+			"status":  statusCode,
+			"message": err.Error(),
+		})
+		return
+	}
+	if len(resGetOrder) > 0 {
+		c.JSON(http.StatusOK, map[string]interface{}{
+			"status":  http.StatusOK,
+			"message": "успешное получение заказа",
+			"result":  resGetOrder,
+		})
+	} else {
+		c.JSON(http.StatusOK, map[string]interface{}{
+			"status":  http.StatusOK,
+			"message": "успешное получение заказа",
+			"result":  resGetOrder,
+		})
 	}
 }
