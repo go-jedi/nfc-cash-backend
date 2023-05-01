@@ -8,6 +8,17 @@ import (
 	"github.com/rob-bender/nfc-cash-backend/pkg/wsRoom"
 )
 
+// @Summary		CreateRoom
+// @Tags			room
+// @Description	create room
+// @ID				create-room
+// @Accept			json
+// @Produce		json
+// @Success		200		{integer}	integer				1
+// @Failure		400,404	{object}	error
+// @Failure		500		{object}	error
+// @Failure		default	{object}	error
+// @Router			/room/create-room [post]
 func (h *Handler) createRoom(c *gin.Context) {
 	resCreateRoom, statusCode, err := h.services.CreateRoom()
 	if err != nil {
@@ -45,6 +56,17 @@ var upgrader = websocket.Upgrader{
 	},
 }
 
+// @Summary		JoinRoom
+// @Tags			room
+// @Description	join room
+// @ID				join-room
+// @Accept			json
+// @Produce		json
+// @Success		200		{integer}	integer				1
+// @Failure		400,404	{object}	error
+// @Failure		500		{object}	error
+// @Failure		default	{object}	error
+// @Router			/room/join-room/:roomId [get]
 func (h *Handler) joinRoom(c *gin.Context) {
 	uidRoom := c.Param("roomId")
 	uidUser := c.Query("uidUser")
@@ -82,6 +104,18 @@ func (h *Handler) joinRoom(c *gin.Context) {
 	cl.ReadMessage(h.hub)
 }
 
+// @Summary		LeaveRoom
+// @Tags			room
+// @Description	leave room
+// @ID				leave-room
+// @Accept			json
+// @Produce		json
+// @Param			input	body		appl_row.LeaveRoom	true	"account info"
+// @Success		200		{integer}	integer				1
+// @Failure		400,404	{object}	error
+// @Failure		500		{object}	error
+// @Failure		default	{object}	error
+// @Router			/room/leave-room [post]
 func (h *Handler) leaveRoom(c *gin.Context) {
 	type Body struct {
 		UidRoom string `json:"uidRoom"`
@@ -113,36 +147,36 @@ type RoomRes struct {
 	UidRoom string `json:"uidRoom"`
 }
 
-func (h *Handler) getRooms(c *gin.Context) {
-	rooms := make([]RoomRes, 0)
+// func (h *Handler) getRooms(c *gin.Context) {
+// 	rooms := make([]RoomRes, 0)
 
-	for _, r := range h.hub.Rooms {
-		rooms = append(rooms, RoomRes{
-			UidRoom: r.UidRoom,
-		})
-	}
+// 	for _, r := range h.hub.Rooms {
+// 		rooms = append(rooms, RoomRes{
+// 			UidRoom: r.UidRoom,
+// 		})
+// 	}
 
-	c.JSON(http.StatusOK, rooms)
-}
+// 	c.JSON(http.StatusOK, rooms)
+// }
 
-type ClientRes struct {
-	UidUser string `json:"uidUser"`
-}
+// type ClientRes struct {
+// 	UidUser string `json:"uidUser"`
+// }
 
-func (h *Handler) getClients(c *gin.Context) {
-	var clients []ClientRes
-	roomId := c.Param("roomId")
+// func (h *Handler) getClients(c *gin.Context) {
+// 	var clients []ClientRes
+// 	roomId := c.Param("roomId")
 
-	if _, ok := h.hub.Rooms[roomId]; !ok {
-		clients = make([]ClientRes, 0)
-		c.JSON(http.StatusOK, clients)
-	}
+// 	if _, ok := h.hub.Rooms[roomId]; !ok {
+// 		clients = make([]ClientRes, 0)
+// 		c.JSON(http.StatusOK, clients)
+// 	}
 
-	for _, c := range h.hub.Rooms[roomId].Clients {
-		clients = append(clients, ClientRes{
-			UidUser: c.UidUser,
-		})
-	}
+// 	for _, c := range h.hub.Rooms[roomId].Clients {
+// 		clients = append(clients, ClientRes{
+// 			UidUser: c.UidUser,
+// 		})
+// 	}
 
-	c.JSON(http.StatusOK, clients)
-}
+// 	c.JSON(http.StatusOK, clients)
+// }

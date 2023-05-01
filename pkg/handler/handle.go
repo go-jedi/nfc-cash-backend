@@ -72,18 +72,24 @@ func (h *Handler) InitRoutes() *gin.Engine { // обработчик роуто�
 		validate.POST("/validate-username", h.validateUsername) // проверка username на валидность
 	}
 
-	webSocket := router.Group("/ws")
+	webSocket := router.Group("/room")
 	{
-		webSocket.GET("/join-room/:roomId", h.joinRoom)
-		webSocket.GET("/get-rooms", h.getRooms)
-		webSocket.GET("/get-clients/:roomId", h.getClients)
-		webSocket.POST("/create-room", h.createRoom)
-		webSocket.POST("/leave-room", h.leaveRoom)
+		webSocket.GET("/join-room/:roomId", h.joinRoom) // вступить в нужную комнату
+		// webSocket.GET("/get-rooms", h.getRooms)
+		// webSocket.GET("/get-clients/:roomId", h.getClients)
+		webSocket.POST("/create-room", h.createRoom) // создать комнату для чата
+		webSocket.POST("/leave-room", h.leaveRoom)   // покинуть комнату
 	}
 
 	order := router.Group("/order")
 	{
-		order.POST("/order-create", h.orderCreate) // создание ордера (заказа)
+		order.POST("/create-order", h.orderCreate) // создание ордера (заказа)
+	}
+
+	message := router.Group("/message")
+	{
+		message.POST("/create-message", h.createMessage)    // создать сообщение
+		message.POST("/get-all-messages", h.getAllMessages) // получить все сообщения в чате
 	}
 
 	api := router.Group("/api-v1", h.userIdentity)

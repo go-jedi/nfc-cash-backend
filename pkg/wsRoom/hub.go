@@ -54,7 +54,7 @@ func (h *Hub) Run() {
 
 		case m := <-h.Broadcast: // здесь происходит отправка сообщения клиентам
 			if _, ok := h.Rooms[m.RoomID]; ok {
-				for _, cl := range h.Rooms[m.RoomID].Clients {
+				for _, cl := range h.Rooms[m.RoomID].Clients { // делается цикл, для рассылки всем пользователям кто в данном чате находится
 					if cl.UidUser != m.UidUser {
 						cl.Message <- m
 					}

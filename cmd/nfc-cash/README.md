@@ -486,14 +486,14 @@ POSSIBLE MISTAKES:
   -message: "ошибка конвертации в функции GetUsersUnConfirm, {err}";
 ````
 
-### подтверждение аккаунта пользователя администратором
+### Подтверждение аккаунта пользователя администратором
 
 ````sh
 Url: http://localhost:8080/admin/user-confirm-account
 ```js
 {
   "body": {
-	"int": int, <- id пользователя
+	"id": int, <- id пользователя
   }
 }
 ```sh
@@ -514,4 +514,70 @@ POSSIBLE MISTAKES:
   -message: "некорректно переданы данные в body";
   -message: "ошибка конвертации userForm, {err}";
   -message: "ошибка выполнения функции admin_user_confirm_account из базы данных, {err}";
+````
+
+### Создание комнаты для чата
+
+````sh
+Url: http://localhost:8080/room/create-room
+```js
+{
+  none
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "успешное создание комнаты" <- typeof string
+  -result: true <- typeof bool
+OR:
+  -status: 200 <- typeof int
+  -message: "ошибка создания комнаты" <- typeof string
+  -result: false <- typeof bool
+
+POSSIBLE MISTAKES:
+  -message: "ошибка выполнения функции room_uid из базы данных, {err}";
+  -message: "ошибка выполнения функции room_create из базы данных, {err}";
+````
+
+### Вступить в нужную комнату (чат)
+
+````sh
+Url: ws://localhost:8080/room/join-room/:roomId?uidUser=
+```js
+{
+	"params": {
+		"roomId": string, <- uid комнаты
+	},
+  "query": {
+	"uidUser": string, <- uid пользователя (по умолчанию 'none', если у нас нету uid)
+  }
+}
+```sh
+RETURN:
+	подключение к websockets
+
+POSSIBLE MISTAKES:
+  -message: "ошибка выполнения функции room_user_uid из базы данных, {err}";
+  -message: "ошибка выполнения функции room_join из базы данных, {err}";
+````
+
+### Покинуть комнату (чат) пользователем
+
+````sh
+Url: http://localhost:8080/room/leave-room
+```js
+{
+  "body": {
+    "uidRoom": string, <- uid комнаты
+    "uidUser": string, <- uid пользователя
+  }
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "пользователь успешно покинул чат" <- typeof string
+
+POSSIBLE MISTAKES:
+  -message: "некорректно переданы данные в body";
+  -message: "ошибка выполнения функции room_leave из базы данных, {err}";
 ````

@@ -657,6 +657,137 @@ const docTemplate = `{
                 }
             }
         },
+        "/room/create-room": {
+            "post": {
+                "description": "create room",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "room"
+                ],
+                "summary": "CreateRoom",
+                "operationId": "create-room",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/room/join-room/:roomId": {
+            "get": {
+                "description": "join room",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "room"
+                ],
+                "summary": "JoinRoom",
+                "operationId": "join-room",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/room/leave-room": {
+            "post": {
+                "description": "leave room",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "room"
+                ],
+                "summary": "LeaveRoom",
+                "operationId": "leave-room",
+                "parameters": [
+                    {
+                        "description": "account info",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appl_row.LeaveRoom"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/user/check-is-admin": {
             "get": {
                 "description": "check is admin",
@@ -990,6 +1121,9 @@ const docTemplate = `{
         "appl_row.CheckConfirmAccount": {
             "type": "object",
             "properties": {
+                "password": {
+                    "type": "string"
+                },
                 "username": {
                     "type": "string"
                 }
@@ -1041,7 +1175,21 @@ const docTemplate = `{
                 "password": {
                     "type": "string"
                 },
+                "tele_id": {
+                    "type": "integer"
+                },
                 "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "appl_row.LeaveRoom": {
+            "type": "object",
+            "properties": {
+                "uidRoom": {
+                    "type": "string"
+                },
+                "uidUser": {
                     "type": "string"
                 }
             }
