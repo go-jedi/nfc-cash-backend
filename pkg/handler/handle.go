@@ -71,7 +71,6 @@ func (h *Handler) InitRoutes() *gin.Engine { // обработчик роуто�
 
 	api := router.Group("/api-v1", h.userIdentity)
 	{
-
 		validateToken := api.Group("/validate-token")
 		{
 			validateToken.GET("/", h.checkValidateToken) // проверка на валидный токен

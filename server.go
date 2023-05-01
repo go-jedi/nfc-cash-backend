@@ -19,6 +19,7 @@ func (s *Server) Run(port string, handler http.Handler) error { // запуск 
 		WriteTimeout:   10 * time.Second,
 	}
 
+	// return s.httpServer.ListenAndServeTLS("tls/server.crt", "tls/server.key") // запуск https
 	return s.httpServer.ListenAndServe() // запуск http сервера
 }
 
