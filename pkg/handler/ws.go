@@ -43,21 +43,19 @@ func (h *Handler) joinRoom(c *gin.Context) {
 	}
 
 	roomID := c.Param("roomId")
-	clientID := c.Query("userId")
-	username := c.Query("username")
+	uid := c.Query("uid")
 
 	cl := &ws.Client{
-		Conn:     conn,
-		Message:  make(chan *ws.Message, 10),
-		ID:       clientID,
-		RoomID:   roomID,
-		Username: username,
+		Conn:    conn,
+		Message: make(chan *ws.Message, 10),
+		RoomID:  roomID,
+		Uid:     uid,
 	}
 
 	m := &ws.Message{
-		Content:  "A new user has joined the room",
-		RoomID:   roomID,
-		Username: username,
+		Content: "A new user has joined the room",
+		RoomID:  roomID,
+		Uid:     uid,
 	}
 
 	h.hub.Register <- cl
@@ -84,8 +82,7 @@ func (h *Handler) getRooms(c *gin.Context) {
 }
 
 type ClientRes struct {
-	ID       string `json:"id"`
-	Username string `json:"username"`
+	Uid string `json:"uid"`
 }
 
 func (h *Handler) getClients(c *gin.Context) {
@@ -99,8 +96,7 @@ func (h *Handler) getClients(c *gin.Context) {
 
 	for _, c := range h.hub.Rooms[roomId].Clients {
 		clients = append(clients, ClientRes{
-			ID:       c.ID,
-			Username: c.Username,
+			Uid: c.Uid,
 		})
 	}
 

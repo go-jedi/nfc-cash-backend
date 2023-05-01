@@ -28,22 +28,22 @@ func (h *Hub) Run() {
 			if _, ok := h.Rooms[cl.RoomID]; ok {
 				r := h.Rooms[cl.RoomID]
 
-				if _, ok := r.Clients[cl.ID]; !ok {
-					r.Clients[cl.ID] = cl
+				if _, ok := r.Clients[cl.Uid]; !ok {
+					r.Clients[cl.Uid] = cl
 				}
 			}
 		case cl := <-h.Unregister:
 			if _, ok := h.Rooms[cl.RoomID]; ok {
-				if _, ok := h.Rooms[cl.RoomID].Clients[cl.ID]; ok {
+				if _, ok := h.Rooms[cl.RoomID].Clients[cl.Uid]; ok {
 					if len(h.Rooms[cl.RoomID].Clients) != 0 {
 						h.Broadcast <- &Message{
-							Content:  "user left the chat",
-							RoomID:   cl.RoomID,
-							Username: cl.Username,
+							Content: "user left the chat",
+							RoomID:  cl.RoomID,
+							Uid:     cl.Uid,
 						}
 					}
 
-					delete(h.Rooms[cl.RoomID].Clients, cl.ID)
+					delete(h.Rooms[cl.RoomID].Clients, cl.Uid)
 					close(cl.Message)
 				}
 			}
