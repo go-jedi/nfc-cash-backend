@@ -10,6 +10,7 @@ import (
 	"github.com/rob-bender/nfc-cash-backend/pkg/handler"
 	"github.com/rob-bender/nfc-cash-backend/pkg/repository"
 	"github.com/rob-bender/nfc-cash-backend/pkg/service"
+	"github.com/rob-bender/nfc-cash-backend/pkg/ws"
 	"github.com/sirupsen/logrus"
 )
 
@@ -39,7 +40,9 @@ func main() {
 	}
 	repos := repository.NewRepository(db)
 	services := service.NewService(repos)
-	handlers := handler.NewHandler(services)
+	hub := ws.NewHub()
+	handlers := handler.NewHandler(services, hub)
+	go hub.Run()
 	srv := new(server.Server)
 	if err := srv.Run(os.Getenv("PORT"), handlers.InitRoutes()); err != nil {
 		log.Fatalf("error accured while running http server in main.go: %s", err.Error())
