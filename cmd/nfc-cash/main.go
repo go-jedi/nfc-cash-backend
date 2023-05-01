@@ -10,7 +10,7 @@ import (
 	"github.com/rob-bender/nfc-cash-backend/pkg/handler"
 	"github.com/rob-bender/nfc-cash-backend/pkg/repository"
 	"github.com/rob-bender/nfc-cash-backend/pkg/service"
-	"github.com/rob-bender/nfc-cash-backend/pkg/ws"
+	"github.com/rob-bender/nfc-cash-backend/pkg/wsRoom"
 	"github.com/sirupsen/logrus"
 )
 
@@ -40,7 +40,7 @@ func main() {
 	}
 	repos := repository.NewRepository(db)
 	services := service.NewService(repos)
-	hub := ws.NewHub()
+	hub := wsRoom.NewHub()
 	handlers := handler.NewHandler(services, hub)
 	go hub.Run()
 	srv := new(server.Server)

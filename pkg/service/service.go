@@ -27,6 +27,11 @@ type TodoRecovery interface {
 	RecoveryPassword(userForm appl_row.RecoveryPassword) (bool, int, error)
 }
 
+type TodoRoom interface {
+	CreateRoom() (string, int, error)
+	JoinRoom(uidRoom string, uidUser string) (string, int, error)
+}
+
 type TodoUser interface {
 	GetUserProfile(id int) ([]appl_row.UserProfile, int, error)
 	CheckIsAdmin(id int) (bool, int, error)
@@ -42,6 +47,7 @@ type Service struct {
 	TodoAuth
 	TodoVerify
 	TodoRecovery
+	TodoRoom
 	TodoUser
 	TodoAdmin
 }
@@ -51,6 +57,7 @@ func NewService(r *repository.Repository) *Service {
 		TodoAuth:     NewAuthService(r.TodoAuth),
 		TodoVerify:   NewVerifyService(r.TodoVerify),
 		TodoRecovery: NewRecoveryService(r.TodoRecovery),
+		TodoRoom:     NewRoomService(r.TodoRoom),
 		TodoUser:     NewUserService(r.TodoUser),
 		TodoAdmin:    NewAdminService(r.TodoAdmin),
 	}

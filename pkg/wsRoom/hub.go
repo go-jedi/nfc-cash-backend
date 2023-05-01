@@ -1,4 +1,4 @@
-package ws
+package wsRoom
 
 type Room struct {
 	UidRoom string             `json:"uidRoom"`

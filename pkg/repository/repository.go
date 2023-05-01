@@ -27,6 +27,11 @@ type TodoRecovery interface {
 	RecoveryPassword(userForm appl_row.RecoveryPassword) (bool, int, error)
 }
 
+type TodoRoom interface {
+	CreateRoom() (string, int, error)
+	JoinRoom(uidRoom string, uidUser string) (string, int, error)
+}
+
 type TodoUser interface {
 	GetUserProfile(id int) ([]appl_row.UserProfile, int, error)
 	CheckIsAdmin(id int) (bool, int, error)
@@ -43,6 +48,7 @@ type Repository struct {
 	TodoAuth
 	TodoVerify
 	TodoRecovery
+	TodoRoom
 	TodoUser
 	TodoAdmin
 }
@@ -52,6 +58,7 @@ func NewRepository(db *sqlx.DB) *Repository {
 		TodoAuth:     NewAuthPostgres(db),
 		TodoVerify:   NewVerifyPostgres(db),
 		TodoRecovery: NewRecoveryPostgres(db),
+		TodoRoom:     NewRoomPostgres(db),
 		TodoUser:     NewUserPostgres(db),
 		TodoAdmin:    NewAdminPostgres(db),
 	}

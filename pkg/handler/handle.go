@@ -6,7 +6,7 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/rob-bender/nfc-cash-backend/pkg/service"
-	"github.com/rob-bender/nfc-cash-backend/pkg/ws"
+	"github.com/rob-bender/nfc-cash-backend/pkg/wsRoom"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 
@@ -14,11 +14,11 @@ import (
 )
 
 type Handler struct {
-	hub      *ws.Hub
+	hub      *wsRoom.Hub
 	services *service.Service
 }
 
-func NewHandler(s *service.Service, h *ws.Hub) *Handler { // создаём новый handler с полем services
+func NewHandler(s *service.Service, h *wsRoom.Hub) *Handler { // создаём новый handler с полем services
 	return &Handler{
 		services: s,
 		hub:      h,
