@@ -9,8 +9,7 @@ import (
 )
 
 type CreateRoomReq struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
+	ID string `json:"id"`
 }
 
 func (h *Handler) createRoom(c *gin.Context) {
@@ -22,7 +21,6 @@ func (h *Handler) createRoom(c *gin.Context) {
 
 	h.hub.Rooms[req.ID] = &ws.Room{
 		ID:      req.ID,
-		Name:    req.Name,
 		Clients: make(map[string]*ws.Client),
 	}
 
@@ -70,8 +68,7 @@ func (h *Handler) joinRoom(c *gin.Context) {
 }
 
 type RoomRes struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
+	ID string `json:"id"`
 }
 
 func (h *Handler) getRooms(c *gin.Context) {
@@ -79,8 +76,7 @@ func (h *Handler) getRooms(c *gin.Context) {
 
 	for _, r := range h.hub.Rooms {
 		rooms = append(rooms, RoomRes{
-			ID:   r.ID,
-			Name: r.Name,
+			ID: r.ID,
 		})
 	}
 
