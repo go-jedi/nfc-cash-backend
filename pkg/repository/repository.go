@@ -38,6 +38,10 @@ type TodoMessage interface {
 	GetRoomMessages(uidRoom string) ([]appl_row.Message, int, error)
 }
 
+type TodoOrder interface {
+	OrderCreate(orderForm appl_row.OrderCreate) (bool, int, error)
+}
+
 type TodoUser interface {
 	GetUserProfile(id int) ([]appl_row.UserProfile, int, error)
 	CheckIsAdmin(id int) (bool, int, error)
@@ -56,6 +60,7 @@ type Repository struct {
 	TodoRecovery
 	TodoRoom
 	TodoMessage
+	TodoOrder
 	TodoUser
 	TodoAdmin
 }
@@ -67,6 +72,7 @@ func NewRepository(db *sqlx.DB) *Repository {
 		TodoRecovery: NewRecoveryPostgres(db),
 		TodoRoom:     NewRoomPostgres(db),
 		TodoMessage:  NewMessagePostgres(db),
+		TodoOrder:    NewOrderPostgres(db),
 		TodoUser:     NewUserPostgres(db),
 		TodoAdmin:    NewAdminPostgres(db),
 	}

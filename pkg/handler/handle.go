@@ -90,6 +90,7 @@ func (h *Handler) InitRoutes() *gin.Engine { // обработчик роуто�
 	order := router.Group("/order")
 	{
 		order.POST("/create-order", h.orderCreate) // создание ордера (заказа)
+		order.POST("/get-order", h.getOrder)       // получить нужный ордер (заказ)
 	}
 
 	api := router.Group("/api-v1", h.userIdentity)

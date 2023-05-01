@@ -38,6 +38,10 @@ type TodoMessage interface {
 	GetRoomMessages(uidRoom string) ([]appl_row.Message, int, error)
 }
 
+type TodoOrder interface {
+	OrderCreate(orderForm appl_row.OrderCreate) (bool, int, error)
+}
+
 type TodoUser interface {
 	GetUserProfile(id int) ([]appl_row.UserProfile, int, error)
 	CheckIsAdmin(id int) (bool, int, error)
@@ -55,6 +59,7 @@ type Service struct {
 	TodoRecovery
 	TodoRoom
 	TodoMessage
+	TodoOrder
 	TodoUser
 	TodoAdmin
 }
@@ -66,6 +71,7 @@ func NewService(r *repository.Repository) *Service {
 		TodoRecovery: NewRecoveryService(r.TodoRecovery),
 		TodoRoom:     NewRoomService(r.TodoRoom),
 		TodoMessage:  NewMessageService(r.TodoMessage),
+		TodoOrder:    NewOrderService(r.TodoOrder),
 		TodoUser:     NewUserService(r.TodoUser),
 		TodoAdmin:    NewAdminService(r.TodoAdmin),
 	}
