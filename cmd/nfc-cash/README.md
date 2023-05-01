@@ -581,3 +581,58 @@ POSSIBLE MISTAKES:
   -message: "некорректно переданы данные в body";
   -message: "ошибка выполнения функции room_leave из базы данных, {err}";
 ````
+
+### Создание сообщения в чате
+
+````sh
+Url: http://localhost:8080/message/create-message
+```js
+{
+  "body": {
+    "uidRoom": string, <- uid комнаты
+    "uidUser": string, <- uid пользователя
+    "message": string, <- сообщение
+  }
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "успешное создание сообщения" <- typeof string
+  -result: true <- typeof bool
+OR:
+  -status: 200 <- typeof int
+  -message: "ошибка создания сообщения" <- typeof string
+  -result: false <- typeof bool
+
+POSSIBLE MISTAKES:
+  -message: "некорректно переданы данные в body";
+  -message: "ошибка конвертации messageForm, {err}";
+  -message: "ошибка выполнения функции message_create из базы данных, {err}";
+````
+
+### Получение всех сообщений нужного чата
+
+````sh
+Url: http://localhost:8080/message/get-room-messages
+```js
+{
+  "body": {
+    "uidRoom": string, <- uid комнаты
+  }
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "успешное получение сообщений чата" <- typeof string
+  -result: []appl_row.GetRoomMessages{} <- typeof bool
+OR:
+  -status: 200 <- typeof int
+  -message: "успешное получение сообщений чата" <- typeof string
+  -result: []appl_row.GetRoomMessages{} <- typeof bool
+
+POSSIBLE MISTAKES:
+  -message: "некорректно переданы данные в body";
+  -message: "ошибка конвертации messageForm, {err}";
+  -message: "ошибка выполнения функции messages_get_room из базы данных, {err}";
+  -message: "ошибка конвертации в функции GetRoomMessages, {err}";
+````

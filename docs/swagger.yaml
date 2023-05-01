@@ -37,6 +37,15 @@ definitions:
       uid:
         type: string
     type: object
+  appl_row.CreateMessage:
+    properties:
+      message:
+        type: string
+      uidRoom:
+        type: string
+      uidUser:
+        type: string
+    type: object
   appl_row.CreateUser:
     properties:
       email:
@@ -51,6 +60,11 @@ definitions:
     - email
     - password
     - username
+    type: object
+  appl_row.GetRoomMessages:
+    properties:
+      uidRoom:
+        type: string
     type: object
   appl_row.LeaveRoom:
     properties:
@@ -371,6 +385,76 @@ paths:
       summary: SignUp
       tags:
       - auth
+  /message/create-message:
+    post:
+      consumes:
+      - application/json
+      description: create message
+      operationId: create-message
+      parameters:
+      - description: account info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/appl_row.CreateMessage'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: CreateMessage
+      tags:
+      - message
+  /message/get-room-messages:
+    post:
+      consumes:
+      - application/json
+      description: get room messages
+      operationId: get-room-messages
+      parameters:
+      - description: account info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/appl_row.GetRoomMessages'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: GetRoomMessages
+      tags:
+      - message
   /recovery-password-compare:
     post:
       consumes:

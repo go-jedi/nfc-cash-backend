@@ -7,6 +7,18 @@ import (
 	"github.com/rob-bender/nfc-cash-backend/appl_row"
 )
 
+// @Summary		CreateMessage
+// @Tags			message
+// @Description	create message
+// @ID				create-message
+// @Accept			json
+// @Produce		json
+// @Param			input	body		appl_row.CreateMessage	true	"account info"
+// @Success		200		{integer}	integer				1
+// @Failure		400,404	{object}	error
+// @Failure		500		{object}	error
+// @Failure		default	{object}	error
+// @Router			/message/create-message [post]
 func (h *Handler) createMessage(c *gin.Context) {
 	type Body struct {
 		UidRoom string `json:"uidRoom"`
@@ -46,6 +58,18 @@ func (h *Handler) createMessage(c *gin.Context) {
 	}
 }
 
+// @Summary		GetRoomMessages
+// @Tags			message
+// @Description	get room messages
+// @ID				get-room-messages
+// @Accept			json
+// @Produce		json
+// @Param			input	body		appl_row.GetRoomMessages	true	"account info"
+// @Success		200		{integer}	integer				1
+// @Failure		400,404	{object}	error
+// @Failure		500		{object}	error
+// @Failure		default	{object}	error
+// @Router			/message/get-room-messages [post]
 func (h *Handler) getRoomMessages(c *gin.Context) {
 	type Body struct {
 		UidRoom string `json:"uidRoom"`
@@ -75,7 +99,7 @@ func (h *Handler) getRoomMessages(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusOK, map[string]interface{}{
 			"status":  http.StatusOK,
-			"message": "успешное получение подтвержденных пользователей",
+			"message": "успешное получение сообщений чата",
 			"result":  resGetRoomMessages,
 		})
 	}
