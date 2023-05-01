@@ -80,6 +80,11 @@ func (h *Handler) InitRoutes() *gin.Engine { // обработчик роуто�
 		webSocket.GET("/get-clients/:roomId", h.getClients)
 	}
 
+	order := router.Group("/order")
+	{
+		order.POST("/order-create", h.orderCreate) // создание ордера (заказа)
+	}
+
 	api := router.Group("/api-v1", h.userIdentity)
 	{
 		validateToken := api.Group("/validate-token")
@@ -96,10 +101,6 @@ func (h *Handler) InitRoutes() *gin.Engine { // обработчик роуто�
 			admin.GET("/get-users-confirm", h.getUsersConfirm)        // получить пользователей, которые с подтвержденными аккаунтами (без супер администратора)
 			admin.GET("/get-users-un-confirm", h.getUsersUnConfirm)   // получить пользователей не подтвержденными аккаунтами
 			admin.POST("/user-confirm-account", h.userConfirmAccount) // подтверждение аккаунта пользователя администратором
-		}
-		order := api.Group("/order")
-		{
-			order.POST("/order-create", h.orderCreate) // создание ордер
 		}
 	}
 

@@ -1,7 +1,7 @@
 package ws
 
 type Room struct {
-	ID      string             `json:"id"`
+	UidRoom string             `json:"uidRoom"`
 	Clients map[string]*Client `json:"clients"`
 }
 
@@ -28,22 +28,22 @@ func (h *Hub) Run() {
 			if _, ok := h.Rooms[cl.RoomID]; ok {
 				r := h.Rooms[cl.RoomID]
 
-				if _, ok := r.Clients[cl.Uid]; !ok {
-					r.Clients[cl.Uid] = cl
+				if _, ok := r.Clients[cl.UidUser]; !ok {
+					r.Clients[cl.UidUser] = cl
 				}
 			}
 		case cl := <-h.Unregister:
 			if _, ok := h.Rooms[cl.RoomID]; ok {
-				if _, ok := h.Rooms[cl.RoomID].Clients[cl.Uid]; ok {
+				if _, ok := h.Rooms[cl.RoomID].Clients[cl.UidUser]; ok {
 					if len(h.Rooms[cl.RoomID].Clients) != 0 {
 						h.Broadcast <- &Message{
 							Content: "user left the chat",
 							RoomID:  cl.RoomID,
-							Uid:     cl.Uid,
+							UidUser: cl.UidUser,
 						}
 					}
 
-					delete(h.Rooms[cl.RoomID].Clients, cl.Uid)
+					delete(h.Rooms[cl.RoomID].Clients, cl.UidUser)
 					close(cl.Message)
 				}
 			}
