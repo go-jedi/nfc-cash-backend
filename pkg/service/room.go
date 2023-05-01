@@ -21,3 +21,7 @@ func (s *RoomService) CreateRoom() (string, int, error) {
 func (s *RoomService) JoinRoom(uidRoom string, uidUser string) (string, int, error) {
 	return s.repo.JoinRoom(uidRoom, uidUser)
 }
+
+func (s *RoomService) LeaveRoom(uidRoom string, uidUser string) (int, error) {
+	return s.repo.LeaveRoom(uidRoom, uidUser)
+}

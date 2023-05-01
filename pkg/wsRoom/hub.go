@@ -1,5 +1,7 @@
 package wsRoom
 
+import "fmt"
+
 type Room struct {
 	UidRoom string             `json:"uidRoom"`
 	Clients map[string]*Client `json:"clients"`
@@ -36,6 +38,8 @@ func (h *Hub) Run() {
 			if _, ok := h.Rooms[cl.RoomID]; ok {
 				if _, ok := h.Rooms[cl.RoomID].Clients[cl.UidUser]; ok {
 					if len(h.Rooms[cl.RoomID].Clients) != 0 {
+						fmt.Println("cl.RoomID -->", cl.RoomID)
+						fmt.Println("cl.UidUser -->", cl.UidUser)
 						h.Broadcast <- &Message{
 							Content: "user left the chat",
 							RoomID:  cl.RoomID,

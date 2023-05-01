@@ -44,3 +44,11 @@ func (r *RoomPostgres) JoinRoom(uidRoom string, uidUser string) (string, int, er
 	}
 	return userUidCheck, http.StatusOK, nil
 }
+
+func (r *RoomPostgres) LeaveRoom(uidRoom string, uidUser string) (int, error) {
+	_, err := r.db.Exec("SELECT room_leave($1, $2)", uidRoom, uidUser)
+	if err != nil {
+		return http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции room_leave из базы данных, %s", err)
+	}
+	return http.StatusOK, nil
+}

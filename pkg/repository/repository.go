@@ -30,6 +30,7 @@ type TodoRecovery interface {
 type TodoRoom interface {
 	CreateRoom() (string, int, error)
 	JoinRoom(uidRoom string, uidUser string) (string, int, error)
+	LeaveRoom(uidRoom string, uidUser string) (int, error)
 }
 
 type TodoUser interface {

@@ -74,10 +74,11 @@ func (h *Handler) InitRoutes() *gin.Engine { // обработчик роуто�
 
 	webSocket := router.Group("/ws")
 	{
-		webSocket.POST("/create-room", h.createRoom)
 		webSocket.GET("/join-room/:roomId", h.joinRoom)
 		webSocket.GET("/get-rooms", h.getRooms)
 		webSocket.GET("/get-clients/:roomId", h.getClients)
+		webSocket.POST("/create-room", h.createRoom)
+		webSocket.POST("/leave-room", h.leaveRoom)
 	}
 
 	order := router.Group("/order")

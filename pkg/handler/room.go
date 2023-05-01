@@ -82,6 +82,33 @@ func (h *Handler) joinRoom(c *gin.Context) {
 	cl.ReadMessage(h.hub)
 }
 
+func (h *Handler) leaveRoom(c *gin.Context) {
+	type Body struct {
+		UidRoom string `json:"uidRoom"`
+		UidUser string `json:"uidUser"`
+	}
+	var body Body
+	if err := c.BindJSON(&body); err != nil {
+		c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"status":  http.StatusBadRequest,
+			"message": "некорректно переданы данные в body",
+		})
+		return
+	}
+	statusCode, err := h.services.LeaveRoom(body.UidRoom, body.UidUser)
+	if err != nil {
+		c.JSON(statusCode, map[string]interface{}{
+			"status":  statusCode,
+			"message": err.Error(),
+		})
+		return
+	}
+	c.JSON(statusCode, map[string]interface{}{
+		"status":  statusCode,
+		"message": "пользователь успешно покинул чат",
+	})
+}
+
 type RoomRes struct {
 	UidRoom string `json:"uidRoom"`
 }
