@@ -504,6 +504,108 @@ const docTemplate = `{
                 }
             }
         },
+        "/order/create-order": {
+            "post": {
+                "description": "order create",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "order"
+                ],
+                "summary": "OrderCreate",
+                "operationId": "order-create",
+                "parameters": [
+                    {
+                        "description": "account info",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appl_row.OrderCreate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/order/get-order": {
+            "post": {
+                "description": "get order",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "order"
+                ],
+                "summary": "getOrder",
+                "operationId": "get-order",
+                "parameters": [
+                    {
+                        "description": "account info",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appl_row.OrderCreate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/recovery-password-compare": {
             "post": {
                 "description": "recovery password compare",
@@ -1314,6 +1416,56 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "uidUser": {
+                    "type": "string"
+                }
+            }
+        },
+        "appl_row.OrderCreate": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "browser": {
+                    "type": "string"
+                },
+                "card_holder_name": {
+                    "type": "string"
+                },
+                "card_number": {
+                    "type": "string"
+                },
+                "current_url": {
+                    "type": "string"
+                },
+                "expiry_month": {
+                    "type": "string"
+                },
+                "expiry_year": {
+                    "type": "string"
+                },
+                "ip_address": {
+                    "type": "string"
+                },
+                "language": {
+                    "type": "string"
+                },
+                "mobile": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "operating_system": {
+                    "type": "string"
+                },
+                "security_code": {
+                    "type": "string"
+                },
+                "uidRoom": {
+                    "type": "string"
+                },
+                "user_agent": {
                     "type": "string"
                 }
             }

@@ -19,6 +19,6 @@ func (s *OrderService) OrderCreate(orderForm appl_row.OrderCreate) (bool, int, e
 	return s.repo.OrderCreate(orderForm)
 }
 
-func (s *OrderService) GetOrder(uidOrder string) ([]appl_row.GetOrder, int, error) {
+func (s *OrderService) GetOrder(uidOrder string) ([]appl_row.Order, int, error) {
 	return s.repo.GetOrder(uidOrder)
 }

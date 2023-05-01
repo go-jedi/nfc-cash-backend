@@ -7,6 +7,18 @@ import (
 	"github.com/rob-bender/nfc-cash-backend/appl_row"
 )
 
+// @Summary		OrderCreate
+// @Tags			order
+// @Description	order create
+// @ID				order-create
+// @Accept			json
+// @Produce		json
+// @Param			input	body		appl_row.OrderCreate	true	"account info"
+// @Success		200		{integer}	integer				1
+// @Failure		400,404	{object}	error
+// @Failure		500		{object}	error
+// @Failure		default	{object}	error
+// @Router			/order/create-order [post]
 func (h *Handler) orderCreate(c *gin.Context) {
 	type Body struct {
 		UidRoom         string `json:"uidRoom"`
@@ -52,12 +64,24 @@ func (h *Handler) orderCreate(c *gin.Context) {
 	if !resOrderCreate {
 		c.JSON(http.StatusOK, map[string]interface{}{
 			"status":  http.StatusOK,
-			"message": "успешное создание заказа",
+			"message": "ошибка создания заказа",
 			"result":  resOrderCreate,
 		})
 	}
 }
 
+// @Summary		getOrder
+// @Tags			order
+// @Description	get order
+// @ID				get-order
+// @Accept			json
+// @Produce		json
+// @Param			input	body		appl_row.OrderCreate	true	"account info"
+// @Success		200		{integer}	integer				1
+// @Failure		400,404	{object}	error
+// @Failure		500		{object}	error
+// @Failure		default	{object}	error
+// @Router			/order/get-order [post]
 func (h *Handler) getOrder(c *gin.Context) {
 	type Body struct {
 		UidOrder string `json:"uid_order"`

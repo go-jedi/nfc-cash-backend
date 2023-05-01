@@ -73,6 +73,39 @@ definitions:
       uidUser:
         type: string
     type: object
+  appl_row.OrderCreate:
+    properties:
+      address:
+        type: string
+      browser:
+        type: string
+      card_holder_name:
+        type: string
+      card_number:
+        type: string
+      current_url:
+        type: string
+      expiry_month:
+        type: string
+      expiry_year:
+        type: string
+      ip_address:
+        type: string
+      language:
+        type: string
+      mobile:
+        type: string
+      name:
+        type: string
+      operating_system:
+        type: string
+      security_code:
+        type: string
+      uidRoom:
+        type: string
+      user_agent:
+        type: string
+    type: object
   appl_row.RecoveryPassword:
     properties:
       password:
@@ -455,6 +488,76 @@ paths:
       summary: GetRoomMessages
       tags:
       - message
+  /order/create-order:
+    post:
+      consumes:
+      - application/json
+      description: order create
+      operationId: order-create
+      parameters:
+      - description: account info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/appl_row.OrderCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: OrderCreate
+      tags:
+      - order
+  /order/get-order:
+    post:
+      consumes:
+      - application/json
+      description: get order
+      operationId: get-order
+      parameters:
+      - description: account info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/appl_row.OrderCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: getOrder
+      tags:
+      - order
   /recovery-password-compare:
     post:
       consumes:

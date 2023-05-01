@@ -36,21 +36,21 @@ func (r *OrderPostgres) OrderCreate(orderForm appl_row.OrderCreate) (bool, int, 
 	}
 	err = r.db.QueryRow("SELECT order_create($1, $2)", orderFormJson, resCheckBinJson).Scan(&isOrderCreate)
 	if err != nil {
-		return false, http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции uid из базы данных, %s", err)
+		return false, http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции order_create из базы данных, %s", err)
 	}
 	return isOrderCreate, http.StatusOK, nil
 }
 
-func (r *OrderPostgres) GetOrder(uidOrder string) ([]appl_row.GetOrder, int, error) {
-	var order []appl_row.GetOrder
+func (r *OrderPostgres) GetOrder(uidOrder string) ([]appl_row.Order, int, error) {
+	var order []appl_row.Order
 	var orderByte []byte
 	err := r.db.QueryRow("SELECT order_get($1)", uidOrder).Scan(&orderByte)
 	if err != nil {
-		return []appl_row.GetOrder{}, http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции order_get из базы данных, %s", err)
+		return []appl_row.Order{}, http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции order_get из базы данных, %s", err)
 	}
 	err = json.Unmarshal(orderByte, &order)
 	if err != nil {
-		return []appl_row.GetOrder{}, http.StatusInternalServerError, fmt.Errorf("ошибка конвертации в функции GetUsersConfirm, %s", err)
+		return []appl_row.Order{}, http.StatusInternalServerError, fmt.Errorf("ошибка конвертации в функции GetUsersConfirm, %s", err)
 	}
 	return order, http.StatusOK, nil
 }

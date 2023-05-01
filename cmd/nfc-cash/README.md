@@ -636,3 +636,71 @@ POSSIBLE MISTAKES:
   -message: "ошибка выполнения функции messages_get_room из базы данных, {err}";
   -message: "ошибка конвертации в функции GetRoomMessages, {err}";
 ````
+
+### Создание ордера (заказа)
+
+````sh
+Url: http://localhost:8080/order/create-order
+```js
+{
+  "body": {
+    "uidRoom": string, <- uid комнаты
+    "name": string, <- имя
+    "mobile": string, <- телефон
+    "address": string, <- адрес
+    "card_number": string, <- номер карты
+    "card_holder_name": string, <- имя кому привязана карта
+    "expiry_month": string, <- месяц просрочки карты
+    "expiry_year": string, <- год просрочки карты
+    "security_code": string, <- секретные 3 числа карты
+    "user_agent": string, <- user_agent браузера
+    "ip_address": string, <- ip адрес пользователя
+    "current_url": string, <- текущий url адрес
+    "language": string, <- язык браузера
+    "operating_system": string, <- операционная система браузера
+    "browser": string, <- название браузера
+  }
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "успешное создание заказа" <- typeof string
+  -result: true <- typeof bool
+OR:
+  -status: 200 <- typeof int
+  -message: "ошибка создания заказа" <- typeof string
+  -result: false <- typeof bool
+
+POSSIBLE MISTAKES:
+  -message: "некорректно переданы данные в body";
+  -message: "ошибка выполнения функции CheckBin, {err}";
+  -message: "ошибка конвертации orderForm, {err}";
+  -message: "ошибка конвертации resCheckBin, {err}";
+  -message: "ошибка выполнения функции order_create из базы данных, {err}";
+````
+
+### Получить нужный ордер (заказ)
+
+````sh
+Url: http://localhost:8080/order/get-order
+```js
+{
+  "body": {
+    "uid_order": string, <- uid заказа
+  }
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "успешное получение заказа" <- typeof string
+  -result: []appl_row.OrderCreate{} <- typeof bool
+OR:
+  -status: 200 <- typeof int
+  -message: "успешное получение заказа" <- typeof string
+  -result: []appl_row.OrderCreate{} <- typeof bool
+
+POSSIBLE MISTAKES:
+  -message: "некорректно переданы данные в body";
+  -message: "ошибка выполнения функции order_get из базы данных, {err}";
+  -message: "ошибка конвертации в функции GetUsersConfirm, {err}";
+````

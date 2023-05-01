@@ -40,7 +40,7 @@ type TodoMessage interface {
 
 type TodoOrder interface {
 	OrderCreate(orderForm appl_row.OrderCreate) (bool, int, error)
-	GetOrder(uidOrder string) ([]appl_row.GetOrder, int, error)
+	GetOrder(uidOrder string) ([]appl_row.Order, int, error)
 }
 
 type TodoUser interface {
