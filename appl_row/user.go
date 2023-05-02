@@ -12,6 +12,7 @@ type User struct {
 
 type UserProfile struct {
 	Id       int    `json:"id"`
+	Uid      string `json:"uid"`
 	Username string `json:"username"`
 	Email    string `json:"email"`
 	Role     string `json:"role"`
