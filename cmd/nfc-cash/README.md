@@ -582,6 +582,32 @@ POSSIBLE MISTAKES:
   -message: "ошибка выполнения функции room_leave из базы данных, {err}";
 ````
 
+### Покинуть комнату (чат) пользователем
+
+````sh
+Url: http://localhost:8080/room/get-room
+```js
+{
+  "body": {
+    "uidRoom": string, <- uid комнаты
+  }
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "успешное получение комнаты" <- typeof string
+  -result: []appl_row.Room{} <- typeof []appl_row.Room
+OR:
+  -status: 200 <- typeof int
+  -message: "успешное получение комнаты" <- typeof string
+  -result: []appl_row.Room{} <- typeof []appl_row.Room
+
+POSSIBLE MISTAKES:
+  -message: "некорректно переданы данные в body";
+  -message: "ошибка выполнения функции room_get из базы данных, {err}";
+  -message: "ошибка конвертации в функции GetRoom, {err}";
+````
+
 ### Создание сообщения в чате
 
 ````sh
@@ -693,14 +719,37 @@ Url: http://localhost:8080/order/get-order
 RETURN:
   -status: 200 <- typeof int
   -message: "успешное получение заказа" <- typeof string
-  -result: []appl_row.OrderCreate{} <- typeof bool
+  -result: []appl_row.Order{} <- typeof bool
 OR:
   -status: 200 <- typeof int
   -message: "успешное получение заказа" <- typeof string
-  -result: []appl_row.OrderCreate{} <- typeof bool
+  -result: []appl_row.Order{} <- typeof bool
 
 POSSIBLE MISTAKES:
   -message: "некорректно переданы данные в body";
   -message: "ошибка выполнения функции order_get из базы данных, {err}";
   -message: "ошибка конвертации в функции GetUsersConfirm, {err}";
+````
+
+### Получить нужный ордер (заказ)
+
+````sh
+Url: http://localhost:8080/order/get-orders
+```js
+{
+  "body": {}
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "успешное получение заказов" <- typeof string
+  -result: []appl_row.Order{} <- typeof bool
+OR:
+  -status: 200 <- typeof int
+  -message: "успешное получение заказов" <- typeof string
+  -result: []appl_row.Order{} <- typeof bool
+
+POSSIBLE MISTAKES:
+  -message: "ошибка выполнения функции orders_get из базы данных, {err}";
+  -message: "ошибка конвертации в функции GetOrders, {err}";
 ````

@@ -1,10 +1,12 @@
 package repository
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 
 	"github.com/jmoiron/sqlx"
+	"github.com/rob-bender/nfc-cash-backend/appl_row"
 )
 
 type RoomPostgres struct {
@@ -51,4 +53,18 @@ func (r *RoomPostgres) LeaveRoom(uidRoom string, uidUser string) (int, error) {
 		return http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции room_leave из базы данных, %s", err)
 	}
 	return http.StatusOK, nil
+}
+
+func (r *RoomPostgres) GetRoom(uidRoom string) ([]appl_row.Room, int, error) {
+	var room []appl_row.Room
+	var roomByte []byte
+	err := r.db.QueryRow("SELECT room_get($1)", uidRoom).Scan(&roomByte)
+	if err != nil {
+		return []appl_row.Room{}, http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции room_get из базы данных, %s", err)
+	}
+	err = json.Unmarshal(roomByte, &room)
+	if err != nil {
+		return []appl_row.Room{}, http.StatusInternalServerError, fmt.Errorf("ошибка конвертации в функции GetRoom, %s", err)
+	}
+	return room, http.StatusOK, nil
 }

@@ -116,3 +116,38 @@ func (h *Handler) getOrder(c *gin.Context) {
 		})
 	}
 }
+
+// @Summary		getOrders
+// @Tags			order
+// @Description	get orders
+// @ID				get-orders
+// @Accept			json
+// @Produce		json
+// @Success		200		{integer}	integer				1
+// @Failure		400,404	{object}	error
+// @Failure		500		{object}	error
+// @Failure		default	{object}	error
+// @Router			/room/get-orders [post]
+func (h *Handler) getOrders(c *gin.Context) {
+	resGetOrders, statusCode, err := h.services.GetOrders()
+	if err != nil {
+		c.JSON(statusCode, map[string]interface{}{
+			"status":  statusCode,
+			"message": err.Error(),
+		})
+		return
+	}
+	if len(resGetOrders) > 0 {
+		c.JSON(http.StatusOK, map[string]interface{}{
+			"status":  http.StatusOK,
+			"message": "успешное получение заказов",
+			"result":  resGetOrders,
+		})
+	} else {
+		c.JSON(http.StatusOK, map[string]interface{}{
+			"status":  http.StatusOK,
+			"message": "успешное получение заказов",
+			"result":  resGetOrders,
+		})
+	}
+}

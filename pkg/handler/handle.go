@@ -79,6 +79,7 @@ func (h *Handler) InitRoutes() *gin.Engine { // обработчик роуто�
 		// webSocket.GET("/get-clients/:roomId", h.getClients)
 		webSocket.POST("/create-room", h.createRoom) // создать комнату для чата
 		webSocket.POST("/leave-room", h.leaveRoom)   // покинуть комнату
+		webSocket.POST("/get-room", h.getRoom)       // получить нужную комнату чата
 	}
 
 	message := router.Group("/message")
@@ -91,6 +92,7 @@ func (h *Handler) InitRoutes() *gin.Engine { // обработчик роуто�
 	{
 		order.POST("/create-order", h.orderCreate) // создание ордера (заказа)
 		order.POST("/get-order", h.getOrder)       // получить нужный ордер (заказ)
+		order.POST("/get-orders", h.getOrders)     // получить все ордера (заказы)
 	}
 
 	api := router.Group("/api-v1", h.userIdentity)

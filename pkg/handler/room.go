@@ -143,10 +143,58 @@ func (h *Handler) leaveRoom(c *gin.Context) {
 	})
 }
 
-type RoomRes struct {
-	UidRoom string `json:"uidRoom"`
+// @Summary		GetRoom
+// @Tags			room
+// @Description	get room
+// @ID				get-room
+// @Accept			json
+// @Produce		json
+// @Param			input	body		appl_row.Room	true	"account info"
+// @Success		200		{integer}	integer				1
+// @Failure		400,404	{object}	error
+// @Failure		500		{object}	error
+// @Failure		default	{object}	error
+// @Router			/room/get-room [post]
+func (h *Handler) getRoom(c *gin.Context) {
+	type Body struct {
+		UidRoom string `json:"uidRoom"`
+	}
+	var body Body
+	if err := c.BindJSON(&body); err != nil {
+		c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"status":  http.StatusBadRequest,
+			"message": "некорректно переданы данные в body",
+		})
+		return
+	}
+	resGetRoom, statusCode, err := h.services.GetRoom(body.UidRoom)
+	if err != nil {
+		c.JSON(statusCode, map[string]interface{}{
+			"status":  statusCode,
+			"message": err.Error(),
+			"result":  resGetRoom,
+		})
+		return
+	}
+	if len(resGetRoom) > 0 {
+		c.JSON(http.StatusOK, map[string]interface{}{
+			"status":  http.StatusOK,
+			"message": "успешное получение комнаты",
+			"result":  resGetRoom,
+		})
+	} else {
+		c.JSON(http.StatusOK, map[string]interface{}{
+			"status":  http.StatusOK,
+			"message": "успешное получение комнаты",
+			"result":  resGetRoom,
+		})
+	}
 }
 
+// type RoomRes struct {
+// 	UidRoom string `json:"uidRoom"`
+// }
+//
 // func (h *Handler) getRooms(c *gin.Context) {
 // 	rooms := make([]RoomRes, 0)
 

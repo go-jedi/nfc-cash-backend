@@ -54,3 +54,17 @@ func (r *OrderPostgres) GetOrder(uidOrder string) ([]appl_row.Order, int, error)
 	}
 	return order, http.StatusOK, nil
 }
+
+func (r *OrderPostgres) GetOrders() ([]appl_row.Order, int, error) {
+	var orders []appl_row.Order
+	var ordersByte []byte
+	err := r.db.QueryRow("SELECT orders_get()").Scan(&ordersByte)
+	if err != nil {
+		return []appl_row.Order{}, http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции orders_get из базы данных, %s", err)
+	}
+	err = json.Unmarshal(ordersByte, &orders)
+	if err != nil {
+		return []appl_row.Order{}, http.StatusInternalServerError, fmt.Errorf("ошибка конвертации в функции GetOrders, %s", err)
+	}
+	return orders, http.StatusOK, nil
+}

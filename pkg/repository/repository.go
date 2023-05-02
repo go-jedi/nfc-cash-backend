@@ -31,6 +31,7 @@ type TodoRoom interface {
 	CreateRoom() (string, int, error)
 	JoinRoom(uidRoom string, uidUser string) (string, int, error)
 	LeaveRoom(uidRoom string, uidUser string) (int, error)
+	GetRoom(uidRoom string) ([]appl_row.Room, int, error)
 }
 
 type TodoMessage interface {
@@ -41,6 +42,7 @@ type TodoMessage interface {
 type TodoOrder interface {
 	OrderCreate(orderForm appl_row.OrderCreate) (bool, int, error)
 	GetOrder(uidOrder string) ([]appl_row.Order, int, error)
+	GetOrders() ([]appl_row.Order, int, error)
 }
 
 type TodoUser interface {

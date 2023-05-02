@@ -125,6 +125,17 @@ definitions:
       email:
         type: string
     type: object
+  appl_row.Room:
+    properties:
+      id:
+        type: integer
+      is_works:
+        type: boolean
+      member_count:
+        type: integer
+      uid_room:
+        type: string
+    type: object
   appl_row.UserConfirmAccount:
     properties:
       id:
@@ -759,6 +770,69 @@ paths:
           description: ""
           schema: {}
       summary: CreateRoom
+      tags:
+      - room
+  /room/get-orders:
+    post:
+      consumes:
+      - application/json
+      description: get orders
+      operationId: get-orders
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: getOrders
+      tags:
+      - order
+  /room/get-room:
+    post:
+      consumes:
+      - application/json
+      description: get room
+      operationId: get-room
+      parameters:
+      - description: account info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/appl_row.Room'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: GetRoom
       tags:
       - room
   /room/join-room/:roomId:
