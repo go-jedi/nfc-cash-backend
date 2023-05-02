@@ -23,6 +23,6 @@ func (s *OrderService) GetOrder(uidOrder string) ([]appl_row.Order, int, error) 
 	return s.repo.GetOrder(uidOrder)
 }
 
-func (s *OrderService) GetOrders() ([]appl_row.Order, int, error) {
+func (s *OrderService) GetOrders() ([]appl_row.Orders, int, error) {
 	return s.repo.GetOrders()
 }
