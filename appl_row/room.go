@@ -1,10 +1,11 @@
 package appl_row
 
 type Room struct {
-	Id          int    `json:"id"`
-	UidRoom     string `json:"uid_room"`
-	MemberCount int    `json:"member_count"`
-	IsWorks     bool   `json:"is_works"`
+	Id          int      `json:"id"`
+	UidRoom     string   `json:"uid_room"`
+	MemberCount int      `json:"member_count"`
+	IsWorks     bool     `json:"is_works"`
+	Members     []string `json:"members"`
 }
 
 type LeaveRoom struct {

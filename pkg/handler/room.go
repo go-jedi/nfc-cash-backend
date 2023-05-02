@@ -91,14 +91,14 @@ func (h *Handler) joinRoom(c *gin.Context) {
 		UidUser: resJoinRoom,
 	}
 
-	m := &wsRoom.Message{
-		Content: "A new user has joined the room",
-		RoomID:  uidRoom,
-		UidUser: resJoinRoom,
-	}
+	// m := &wsRoom.Message{
+	// 	Content: "A new user has joined the room",
+	// 	RoomID:  uidRoom,
+	// 	UidUser: resJoinRoom,
+	// }
 
 	h.hub.Register <- cl
-	h.hub.Broadcast <- m
+	// h.hub.Broadcast <- m
 
 	go cl.WriteMessage()
 	cl.ReadMessage(h.hub)
