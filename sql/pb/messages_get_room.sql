@@ -3,15 +3,15 @@ CREATE OR REPLACE FUNCTION messages_get_room(_uidr character varying)
 	LANGUAGE plpgsql
 AS $function$
 DECLARE
-	_m messages;
+	_r rooms;
 	_response JSONB;
 BEGIN
 	SELECT *
-	FROM messages
+	FROM rooms
 	WHERE uid_room = _uidr
-	INTO _m;
+	INTO _r;
 
-	IF _m.id ISNULL THEN
+	IF _r.id ISNULL THEN
 		RAISE EXCEPTION 'сообщений с таким uid группы не существует';
 	END IF;
 

@@ -18,6 +18,7 @@ type Order struct {
 	Name            string `json:"name"`
 	Mobile          string `json:"mobile"`
 	Address         string `json:"address"`
+	Price           string `json:"price"`
 	CardNumber      string `json:"card_number"`
 	CardHolderName  string `json:"card_holder_name"`
 	ExpiryMonth     string `json:"exp_month"`
@@ -37,6 +38,7 @@ type OrderCreate struct {
 	Name            string `json:"name"`
 	Mobile          string `json:"mobile"`
 	Address         string `json:"address"`
+	Price           string `json:"price"`
 	CardNumber      string `json:"card_number"`
 	CardHolderName  string `json:"card_holder_name"`
 	ExpiryMonth     string `json:"expiry_month"`

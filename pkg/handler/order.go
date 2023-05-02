@@ -25,6 +25,7 @@ func (h *Handler) orderCreate(c *gin.Context) {
 		Name            string `json:"name"`
 		Mobile          string `json:"mobile"`
 		Address         string `json:"address"`
+		Price           string `json:"price"`
 		CardNumber      string `json:"card_number"`
 		CardHolderName  string `json:"card_holder_name"`
 		ExpiryMonth     string `json:"expiry_month"`
@@ -76,7 +77,7 @@ func (h *Handler) orderCreate(c *gin.Context) {
 // @ID				get-order
 // @Accept			json
 // @Produce		json
-// @Param			input	body		appl_row.OrderCreate	true	"account info"
+// @Param			input	body		appl_row.Order	true	"account info"
 // @Success		200		{integer}	integer				1
 // @Failure		400,404	{object}	error
 // @Failure		500		{object}	error
