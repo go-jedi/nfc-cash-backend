@@ -17,7 +17,8 @@ CREATE TABLE IF NOT EXISTS rooms(
 	uid_room VARCHAR(255) NOT NULL,
 	member_count INTEGER NOT NULL DEFAULT 0,
 	is_works BOOLEAN NOT NULL DEFAULT 'f',
-	members TEXT[] NOT NULL DEFAULT '{}'
+	members TEXT[] NOT NULL DEFAULT '{}',
+	member_fixed TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE IF NOT EXISTS users_room(

@@ -6,6 +6,7 @@ type Room struct {
 	MemberCount int      `json:"member_count"`
 	IsWorks     bool     `json:"is_works"`
 	Members     []string `json:"members"`
+	MemberFixed string   `json:"member_fixed"`
 }
 
 type LeaveRoom struct {

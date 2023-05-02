@@ -22,7 +22,7 @@ BEGIN
 		SELECT json_agg(ag.*)::JSONB s
 		FROM
 		(
-			SELECT r.id, r.uid_room, r.member_count, r.is_works, r.members
+			SELECT r.id, r.uid_room, r.member_count, r.is_works, r.members, r.member_fixed
 			FROM rooms r
 			WHERE r.uid_room = _uidr
 		) ag

@@ -5,6 +5,7 @@ AS $function$
 DECLARE
 	_r rooms;
 	_ur users_room;
+	_u users;
 BEGIN
 	SELECT *
 	FROM rooms
@@ -17,8 +18,19 @@ BEGIN
 	AND entry_room = _uidr
 	INTO _ur;
 
+	SELECT *
+	FROM users
+	WHERE uid = _uidu
+	INTO _u;
+
 	IF _r.id ISNULL THEN
 		RAISE EXCEPTION 'комната с таким uid не существует';
+	END IF;
+
+	IF _u.id ISNULL THEN
+		-- do nothing
+	ELSE
+		UPDATE rooms SET member_fixed = _u.username WHERE uid_room = _uidr;
 	END IF;
 
 	IF _ur.id ISNULL THEN
