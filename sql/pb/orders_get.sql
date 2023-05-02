@@ -11,12 +11,13 @@ BEGIN
 	(
 		SELECT json_agg(ag.*)::JSONB s
 		FROM (
-			SELECT o.id, o.uid_order, o.created, o.status
-			FROM orders o
+			SELECT o.id, o.uid_order, o.created, o.status, r.member_fixed
+			FROM orders o, rooms r
+			WHERE o.uid_order = r.uid_room
 		) ag
 	) og
 	INTO _response;
 
 	RETURN _response;
 END;
-$function$ 
+$function$

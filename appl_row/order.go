@@ -1,10 +1,11 @@
 package appl_row
 
 type Orders struct {
-	Id       int    `json:"id"`
-	UidOrder string `json:"uid_order"`
-	Status   string `json:"status"`
-	Created  string `json:"created"`
+	Id          int    `json:"id"`
+	UidOrder    string `json:"uid_order"`
+	Status      string `json:"status"`
+	Created     string `json:"created"`
+	MemberFixed string `json:"member_fixed"`
 }
 
 type Order struct {
