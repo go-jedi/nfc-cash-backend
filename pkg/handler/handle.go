@@ -31,7 +31,7 @@ func (h *Handler) InitRoutes() *gin.Engine { // обработчик роуто�
 	// router.Use(cors.Default())
 
 	router.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:9000"},
+		AllowOrigins:     []string{"http://localhost:9000", "http://localhost:5173"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"},
 		AllowHeaders:     []string{"Origin", "Content-Length", "Content-Type", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
