@@ -35,13 +35,13 @@ func (h *Hub) Run() {
 		case cl := <-h.Unregister:
 			if _, ok := h.Rooms[cl.RoomID]; ok {
 				if _, ok := h.Rooms[cl.RoomID].Clients[cl.UidUser]; ok {
-					if len(h.Rooms[cl.RoomID].Clients) != 0 {
-						h.Broadcast <- &Message{
-							Content: "user left the chat",
-							RoomID:  cl.RoomID,
-							UidUser: cl.UidUser,
-						}
-					}
+					// if len(h.Rooms[cl.RoomID].Clients) != 0 {
+					// 	h.Broadcast <- &Message{ // сообщение о том, что пользователь покинул чат
+					// 		Content: "user left the chat",
+					// 		RoomID:  cl.RoomID,
+					// 		UidUser: cl.UidUser,
+					// 	}
+					// }
 
 					delete(h.Rooms[cl.RoomID].Clients, cl.UidUser)
 					close(cl.Message)
