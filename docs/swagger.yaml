@@ -10,6 +10,11 @@ definitions:
     - password
     - username
     type: object
+  appl_row.BlockIp:
+    properties:
+      ip_address:
+        type: string
+    type: object
   appl_row.CheckConfirmAccount:
     properties:
       password:
@@ -20,6 +25,11 @@ definitions:
   appl_row.CheckEmailExist:
     properties:
       email:
+        type: string
+    type: object
+  appl_row.CheckIpBlock:
+    properties:
+      ip_address:
         type: string
     type: object
   appl_row.CheckRecoveryPassword:
@@ -73,6 +83,55 @@ definitions:
       uidUser:
         type: string
     type: object
+  appl_row.Order:
+    properties:
+      address:
+        type: string
+      bin_bank:
+        type: string
+      bin_brand:
+        type: string
+      bin_country:
+        type: string
+      bin_type:
+        type: string
+      browser:
+        type: string
+      card_holder_name:
+        type: string
+      card_number:
+        type: string
+      created:
+        type: string
+      current_url:
+        type: string
+      exp_month:
+        type: string
+      exp_year:
+        type: string
+      id:
+        type: integer
+      ip_address:
+        type: string
+      lang:
+        type: string
+      mobile:
+        type: string
+      name:
+        type: string
+      operating_system:
+        type: string
+      price:
+        type: string
+      security_code:
+        type: string
+      status:
+        type: string
+      uid_order:
+        type: string
+      user_agent:
+        type: string
+    type: object
   appl_row.OrderCreate:
     properties:
       address:
@@ -98,6 +157,8 @@ definitions:
       name:
         type: string
       operating_system:
+        type: string
+      price:
         type: string
       security_code:
         type: string
@@ -133,6 +194,12 @@ definitions:
         type: boolean
       member_count:
         type: integer
+      member_fixed:
+        type: string
+      members:
+        items:
+          type: string
+        type: array
       uid_room:
         type: string
     type: object
@@ -429,6 +496,76 @@ paths:
       summary: SignUp
       tags:
       - auth
+  /ip/block-ip:
+    post:
+      consumes:
+      - application/json
+      description: block ip
+      operationId: block-ip
+      parameters:
+      - description: account info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/appl_row.BlockIp'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: BlockIp
+      tags:
+      - ip
+  /ip/check-ip-block:
+    post:
+      consumes:
+      - application/json
+      description: check ip block
+      operationId: check-ip-block
+      parameters:
+      - description: account info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/appl_row.CheckIpBlock'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: CheckIpBlock
+      tags:
+      - ip
   /message/create-message:
     post:
       consumes:
@@ -546,7 +683,7 @@ paths:
         name: input
         required: true
         schema:
-          $ref: '#/definitions/appl_row.OrderCreate'
+          $ref: '#/definitions/appl_row.Order'
       produces:
       - application/json
       responses:

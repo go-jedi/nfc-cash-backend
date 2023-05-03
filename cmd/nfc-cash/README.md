@@ -753,3 +753,53 @@ POSSIBLE MISTAKES:
   -message: "ошибка выполнения функции orders_get из базы данных, {err}";
   -message: "ошибка конвертации в функции GetOrders, {err}";
 ````
+
+### Заблокировать ip пользователя
+
+````sh
+Url: http://localhost:8080/ip/block-ip
+```js
+{
+  "body": {
+    "ip_address": string, <- ip адрес
+  }
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "успешная блокировка ip адреса" <- typeof string
+  -result: true <- typeof bool
+OR:
+  -status: 200 <- typeof int
+  -message: "ошибка блокировки ip адреса" <- typeof string
+  -result: false <- typeof bool
+
+POSSIBLE MISTAKES:
+  -message: "некорректно переданы данные в body";
+  -message: "ошибка выполнения функции ip_block из базы данных, {err}";
+````
+
+### Проверка ip пользователя на блокировку
+
+````sh
+Url: http://localhost:8080/ip/check-ip-block
+```js
+{
+  "body": {
+    "ip_address": string, <- ip адрес
+  }
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "ip адрес находится в блок листе" <- typeof string
+  -result: true <- typeof bool
+OR:
+  -status: 200 <- typeof int
+  -message: "ip адрес не находится в блок листе" <- typeof string
+  -result: false <- typeof bool
+
+POSSIBLE MISTAKES:
+  -message: "некорректно переданы данные в body";
+  -message: "ошибка выполнения функции ip_check_block из базы данных, {err}";
+````

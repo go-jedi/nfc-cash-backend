@@ -45,6 +45,11 @@ type TodoOrder interface {
 	GetOrders() ([]appl_row.Orders, int, error)
 }
 
+type TodoIp interface {
+	BlockIp(ipAddress string) (bool, int, error)
+	CheckIpBlock(ipAddress string) (bool, int, error)
+}
+
 type TodoUser interface {
 	GetUserProfile(id int) ([]appl_row.UserProfile, int, error)
 	CheckIsAdmin(id int) (bool, int, error)
@@ -63,6 +68,7 @@ type Service struct {
 	TodoRoom
 	TodoMessage
 	TodoOrder
+	TodoIp
 	TodoUser
 	TodoAdmin
 }
@@ -75,6 +81,7 @@ func NewService(r *repository.Repository) *Service {
 		TodoRoom:     NewRoomService(r.TodoRoom),
 		TodoMessage:  NewMessageService(r.TodoMessage),
 		TodoOrder:    NewOrderService(r.TodoOrder),
+		TodoIp:       NewIpService(r.TodoIp),
 		TodoUser:     NewUserService(r.TodoUser),
 		TodoAdmin:    NewAdminService(r.TodoAdmin),
 	}

@@ -402,6 +402,108 @@ const docTemplate = `{
                 }
             }
         },
+        "/ip/block-ip": {
+            "post": {
+                "description": "block ip",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ip"
+                ],
+                "summary": "BlockIp",
+                "operationId": "block-ip",
+                "parameters": [
+                    {
+                        "description": "account info",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appl_row.BlockIp"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/ip/check-ip-block": {
+            "post": {
+                "description": "check ip block",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ip"
+                ],
+                "summary": "CheckIpBlock",
+                "operationId": "check-ip-block",
+                "parameters": [
+                    {
+                        "description": "account info",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appl_row.CheckIpBlock"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/message/create-message": {
             "post": {
                 "description": "create message",
@@ -576,7 +678,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/appl_row.OrderCreate"
+                            "$ref": "#/definitions/appl_row.Order"
                         }
                     }
                 ],
@@ -1413,6 +1515,14 @@ const docTemplate = `{
                 }
             }
         },
+        "appl_row.BlockIp": {
+            "type": "object",
+            "properties": {
+                "ip_address": {
+                    "type": "string"
+                }
+            }
+        },
         "appl_row.CheckConfirmAccount": {
             "type": "object",
             "properties": {
@@ -1428,6 +1538,14 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "email": {
+                    "type": "string"
+                }
+            }
+        },
+        "appl_row.CheckIpBlock": {
+            "type": "object",
+            "properties": {
+                "ip_address": {
                     "type": "string"
                 }
             }
@@ -1511,6 +1629,80 @@ const docTemplate = `{
                 }
             }
         },
+        "appl_row.Order": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "bin_bank": {
+                    "type": "string"
+                },
+                "bin_brand": {
+                    "type": "string"
+                },
+                "bin_country": {
+                    "type": "string"
+                },
+                "bin_type": {
+                    "type": "string"
+                },
+                "browser": {
+                    "type": "string"
+                },
+                "card_holder_name": {
+                    "type": "string"
+                },
+                "card_number": {
+                    "type": "string"
+                },
+                "created": {
+                    "type": "string"
+                },
+                "current_url": {
+                    "type": "string"
+                },
+                "exp_month": {
+                    "type": "string"
+                },
+                "exp_year": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "ip_address": {
+                    "type": "string"
+                },
+                "lang": {
+                    "type": "string"
+                },
+                "mobile": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "operating_system": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "string"
+                },
+                "security_code": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "uid_order": {
+                    "type": "string"
+                },
+                "user_agent": {
+                    "type": "string"
+                }
+            }
+        },
         "appl_row.OrderCreate": {
             "type": "object",
             "properties": {
@@ -1548,6 +1740,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "operating_system": {
+                    "type": "string"
+                },
+                "price": {
                     "type": "string"
                 },
                 "security_code": {
@@ -1602,6 +1797,15 @@ const docTemplate = `{
                 },
                 "member_count": {
                     "type": "integer"
+                },
+                "member_fixed": {
+                    "type": "string"
+                },
+                "members": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "uid_room": {
                     "type": "string"

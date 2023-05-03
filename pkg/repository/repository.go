@@ -45,6 +45,11 @@ type TodoOrder interface {
 	GetOrders() ([]appl_row.Orders, int, error)
 }
 
+type TodoIp interface {
+	BlockIp(ipAddress string) (bool, int, error)
+	CheckIpBlock(ipAddress string) (bool, int, error)
+}
+
 type TodoUser interface {
 	GetUserProfile(id int) ([]appl_row.UserProfile, int, error)
 	CheckIsAdmin(id int) (bool, int, error)
@@ -64,6 +69,7 @@ type Repository struct {
 	TodoRoom
 	TodoMessage
 	TodoOrder
+	TodoIp
 	TodoUser
 	TodoAdmin
 }
@@ -76,6 +82,7 @@ func NewRepository(db *sqlx.DB) *Repository {
 		TodoRoom:     NewRoomPostgres(db),
 		TodoMessage:  NewMessagePostgres(db),
 		TodoOrder:    NewOrderPostgres(db),
+		TodoIp:       NewIpPostgres(db),
 		TodoUser:     NewUserPostgres(db),
 		TodoAdmin:    NewAdminPostgres(db),
 	}
