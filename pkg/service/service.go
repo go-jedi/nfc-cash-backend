@@ -50,6 +50,12 @@ type TodoIp interface {
 	CheckIpBlock(ipAddress string) (bool, int, error)
 }
 
+type TodoTelegram interface {
+	BotCreate(botForm appl_row.BotCreate) (bool, int, error)
+	BotDelete(botForm appl_row.BotDelete) (bool, int, error)
+	GetBots(uid string) ([]appl_row.Bot, int, error)
+}
+
 type TodoUser interface {
 	GetUserProfile(id int) ([]appl_row.UserProfile, int, error)
 	CheckIsAdmin(id int) (bool, int, error)
@@ -69,6 +75,7 @@ type Service struct {
 	TodoMessage
 	TodoOrder
 	TodoIp
+	TodoTelegram
 	TodoUser
 	TodoAdmin
 }
@@ -82,6 +89,7 @@ func NewService(r *repository.Repository) *Service {
 		TodoMessage:  NewMessageService(r.TodoMessage),
 		TodoOrder:    NewOrderService(r.TodoOrder),
 		TodoIp:       NewIpService(r.TodoIp),
+		TodoTelegram: NewTelegramService(r.TodoTelegram),
 		TodoUser:     NewUserService(r.TodoUser),
 		TodoAdmin:    NewAdminService(r.TodoAdmin),
 	}

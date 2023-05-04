@@ -99,6 +99,13 @@ func (h *Handler) InitRoutes() *gin.Engine { // обработчик роуто�
 		ip.POST("/check-ip-block", h.checkIpBlock) // проверка ip пользователя на блокировку
 	}
 
+	telegram := router.Group("/telegram")
+	{
+		telegram.POST("/create-bot", h.botCreate) // создать бота для рассылки в группу
+		telegram.POST("/delete-bot", h.botDelete) // удалить бота
+		telegram.POST("/get-bots", h.getBots)     // получить всех ботов
+	}
+
 	api := router.Group("/api-v1", h.userIdentity)
 	{
 		validateToken := api.Group("/validate-token")

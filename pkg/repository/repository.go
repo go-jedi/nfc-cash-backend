@@ -50,6 +50,12 @@ type TodoIp interface {
 	CheckIpBlock(ipAddress string) (bool, int, error)
 }
 
+type TodoTelegram interface {
+	BotCreate(botForm appl_row.BotCreate) (bool, int, error)
+	BotDelete(botForm appl_row.BotDelete) (bool, int, error)
+	GetBots(uid string) ([]appl_row.Bot, int, error)
+}
+
 type TodoUser interface {
 	GetUserProfile(id int) ([]appl_row.UserProfile, int, error)
 	CheckIsAdmin(id int) (bool, int, error)
@@ -70,6 +76,7 @@ type Repository struct {
 	TodoMessage
 	TodoOrder
 	TodoIp
+	TodoTelegram
 	TodoUser
 	TodoAdmin
 }
@@ -83,6 +90,7 @@ func NewRepository(db *sqlx.DB) *Repository {
 		TodoMessage:  NewMessagePostgres(db),
 		TodoOrder:    NewOrderPostgres(db),
 		TodoIp:       NewIpPostgres(db),
+		TodoTelegram: NewTelegramPostgres(db),
 		TodoUser:     NewUserPostgres(db),
 		TodoAdmin:    NewAdminPostgres(db),
 	}
