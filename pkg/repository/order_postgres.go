@@ -47,7 +47,7 @@ func (r *OrderPostgres) OrderCreate(orderForm appl_row.OrderCreate) (bool, int, 
 	}
 	err = json.Unmarshal(botsByte, &bots)
 	if err != nil {
-		return false, http.StatusInternalServerError, fmt.Errorf("ошибка конвертации в функции GetUsersConfirm, %s", err)
+		return false, http.StatusInternalServerError, fmt.Errorf("ошибка конвертации в функции OrderCreate, %s", err)
 	}
 	_, err = telegram.SendMessageNewOrder(orderForm, resCheckBin, bots)
 	if err != nil {
