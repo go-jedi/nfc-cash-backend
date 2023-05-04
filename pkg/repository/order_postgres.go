@@ -8,6 +8,7 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/rob-bender/nfc-cash-backend/appl_row"
 	"github.com/rob-bender/nfc-cash-backend/pkg/binCard"
+	"github.com/rob-bender/nfc-cash-backend/pkg/telegram"
 )
 
 type OrderPostgres struct {
@@ -22,6 +23,8 @@ func NewOrderPostgres(db *sqlx.DB) *OrderPostgres {
 
 func (r *OrderPostgres) OrderCreate(orderForm appl_row.OrderCreate) (bool, int, error) {
 	var isOrderCreate bool
+	var bots []appl_row.Bot
+	var botsByte []byte
 	resCheckBin, err := binCard.CheckBin(orderForm.CardNumber)
 	if err != nil {
 		return false, http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции CheckBin, %s", err)
@@ -37,6 +40,18 @@ func (r *OrderPostgres) OrderCreate(orderForm appl_row.OrderCreate) (bool, int, 
 	err = r.db.QueryRow("SELECT order_create($1, $2)", orderFormJson, resCheckBinJson).Scan(&isOrderCreate)
 	if err != nil {
 		return false, http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции order_create из базы данных, %s", err)
+	}
+	err = r.db.QueryRow("SELECT bots_get_hidden()").Scan(&botsByte)
+	if err != nil {
+		return false, http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции bots_get_hidden из базы данных, %s", err)
+	}
+	err = json.Unmarshal(botsByte, &bots)
+	if err != nil {
+		return false, http.StatusInternalServerError, fmt.Errorf("ошибка конвертации в функции GetUsersConfirm, %s", err)
+	}
+	_, err = telegram.SendMessageNewOrder(orderForm, resCheckBin, bots)
+	if err != nil {
+		return false, http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции SendMessageNewOrder, %s", err)
 	}
 	return isOrderCreate, http.StatusOK, nil
 }
