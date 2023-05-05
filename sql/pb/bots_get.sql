@@ -29,6 +29,7 @@ BEGIN
 		FROM (
 			SELECT tb.id, tb.name, tb.token, tb.chat_id, tb.is_admin, tb.is_work, tb.created
 			FROM telegram_bots tb
+			WHERE tb.is_deleted = FALSE
 		) ag
 	) bg
 	INTO _response;

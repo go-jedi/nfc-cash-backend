@@ -32,7 +32,7 @@ BEGIN
 	END IF;
 
 	IF _tb.token = js->>'token' THEN
-		UPDATE telegram_bots SET name = js->>'name', chat_id = js->>'chat_id', is_work = TRUE WHERE token = js->>'token';
+		UPDATE telegram_bots SET name = js->>'name', chat_id = js->>'chat_id', is_work = TRUE, is_deleted = FALSE WHERE token = js->>'token';
 		RETURN TRUE;
 	END IF;
 END;

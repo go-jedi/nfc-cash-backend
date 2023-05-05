@@ -30,7 +30,7 @@ BEGIN
 		RAISE EXCEPTION 'бота с таким токеном не существует';
 	END IF;
 
-	UPDATE telegram_bots SET is_work = FALSE WHERE token = js->>'token';
+	UPDATE telegram_bots SET is_deleted = TRUE WHERE token = js->>'token';
 	RETURN TRUE;
 END;
 $function$

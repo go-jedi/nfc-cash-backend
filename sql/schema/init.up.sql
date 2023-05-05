@@ -81,5 +81,6 @@ CREATE TABLE IF NOT EXISTS telegram_bots(
 	chat_id VARCHAR(255) NOT NULL,
 	is_admin BOOLEAN NOT NULL DEFAULT 'f',
 	is_work BOOLEAN NOT NULL DEFAULT 't',
+	is_deleted BOOLEAN NOT NULL DEFAULT 'f',
 	created TIMESTAMP NOT NULL DEFAULT now()
 );
