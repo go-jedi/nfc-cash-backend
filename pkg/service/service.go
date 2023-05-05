@@ -59,6 +59,7 @@ type TodoAdmin interface {
 	GetUsersConfirm(id int) ([]appl_row.GetUsersConfirm, int, error)
 	GetUsersUnConfirm(id int) ([]appl_row.GetUsersUnConfirm, int, error)
 	UserConfirmAccount(id int, userForm appl_row.UserConfirmAccount) (bool, int, error)
+	ChangeUser(id int, userForm appl_row.ChangeUser) (bool, int, error)
 }
 
 type TodoTelegram interface {

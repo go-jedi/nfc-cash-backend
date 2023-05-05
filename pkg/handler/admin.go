@@ -176,3 +176,73 @@ func (h *Handler) userConfirmAccount(c *gin.Context) {
 		}
 	}
 }
+
+// @Summary		ChangeUser
+// @Tags			admin
+// @Description	change user
+// @ID				change-user
+// @Accept			json
+// @Produce		json
+// @Param			input	body		appl_row.ChangeUser	true	"account info"
+// @Success		200		{integer}	integer				1
+// @Failure		400,404	{object}	error
+// @Failure		500		{object}	error
+// @Failure		default	{object}	error
+// @Router			/admin/change-user [post]
+func (h *Handler) changeUser(c *gin.Context) {
+	userId, err := getUserId(c)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, map[string]interface{}{
+			"status":  http.StatusUnauthorized,
+			"message": err.Error(),
+		})
+		return
+	}
+	if userId == 0 {
+		c.JSON(http.StatusUnauthorized, map[string]interface{}{
+			"status":  http.StatusUnauthorized,
+			"message": "идентификатор пользователя имеет недопустимый тип",
+		})
+		return
+	}
+	if userId > 0 {
+		type Body struct {
+			Id       int    `json:"id"`
+			Username string `json:"username"`
+			TeleId   int64  `json:"tele_id"`
+			Email    string `json:"email"`
+			Role     string `json:"role"`
+		}
+		var body Body
+		if err := c.BindJSON(&body); err != nil {
+			c.JSON(http.StatusBadRequest, map[string]interface{}{
+				"status":  http.StatusBadRequest,
+				"message": "некорректно переданы данные в body",
+			})
+			return
+		}
+		resChangeUser, statusCode, err := h.services.ChangeUser(userId, appl_row.ChangeUser(body))
+		if err != nil {
+			c.JSON(statusCode, map[string]interface{}{
+				"status":  statusCode,
+				"message": err.Error(),
+				"result":  resChangeUser,
+			})
+			return
+		}
+		if resChangeUser {
+			c.JSON(http.StatusOK, map[string]interface{}{
+				"status":  http.StatusOK,
+				"message": "успешное изменение пользователя",
+				"result":  resChangeUser,
+			})
+		}
+		if !resChangeUser {
+			c.JSON(http.StatusOK, map[string]interface{}{
+				"status":  http.StatusOK,
+				"message": "ошибка изменения пользователя",
+				"result":  resChangeUser,
+			})
+		}
+	}
+}

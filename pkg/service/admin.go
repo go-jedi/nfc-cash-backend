@@ -43,3 +43,7 @@ func (s *AdminService) UserConfirmAccount(id int, userForm appl_row.UserConfirmA
 		return false, statusCode, err
 	}
 }
+
+func (s *AdminService) ChangeUser(id int, userForm appl_row.ChangeUser) (bool, int, error) {
+	return s.repo.ChangeUser(id, userForm)
+}

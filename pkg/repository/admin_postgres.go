@@ -73,3 +73,16 @@ func (r *AdminPostgres) UserConfirmAccount(id int, userForm appl_row.UserConfirm
 	}
 	return isUserConfirmAccount, http.StatusOK, nil
 }
+
+func (r *AdminPostgres) ChangeUser(id int, userForm appl_row.ChangeUser) (bool, int, error) {
+	var isChangeUser bool
+	userFormJson, err := json.Marshal(userForm)
+	if err != nil {
+		return false, http.StatusInternalServerError, fmt.Errorf("ошибка конвертации userForm, %s", err)
+	}
+	err = r.db.QueryRow("SELECT admin_change_user($1, $2)", id, userFormJson).Scan(&isChangeUser)
+	if err != nil {
+		return false, http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции admin_change_user из базы данных, %s", err)
+	}
+	return isChangeUser, http.StatusOK, nil
+}

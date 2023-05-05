@@ -516,6 +516,40 @@ POSSIBLE MISTAKES:
   -message: "ошибка выполнения функции admin_user_confirm_account из базы данных, {err}";
 ````
 
+### Изменение данных пользователя
+
+````sh
+Url: http://localhost:8080/admin/change-user
+```js
+{
+  "body": {
+	"id": int, <- id пользователя
+	"username": string, <- имя пользователя
+	"tele_id": string, <- telegram id пользователя
+	"email": string, <- email пользователя
+	"role": string, <- роль (user, admin)
+  }
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "успешное изменение пользователя" <- typeof string
+  -result: true <- typeof bool
+OR:
+  -status: 200 <- typeof int
+  -message: "ошибка изменения пользователя" <- typeof string
+  -result: false <- typeof bool
+
+POSSIBLE MISTAKES:
+  -message: "пустой заголовок авторизации";
+  -message: "неверный заголовок авторизации";
+  -message: "идентификатор пользователя не найден";
+  -message: "идентификатор пользователя имеет недопустимый тип";
+  -message: "некорректно переданы данные в body";
+  -message: "ошибка конвертации userForm, {err}";
+  -message: "ошибка выполнения функции admin_change_user из базы данных, {err}";
+````
+
 ### Создание комнаты для чата
 
 ````sh

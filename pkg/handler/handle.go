@@ -109,13 +109,13 @@ func (h *Handler) InitRoutes() *gin.Engine { // обработчик роуто�
 		{
 			user.GET("/get-user-profile", h.getUserProfile) // получение профиля пользователя
 			user.GET("/check-is-admin", h.checkIsAdmin)     // проверка пользователя на администратора
-			user.POST("/change-user")                       // изменить данные пользователя (name, tele_id, email, role)
 		}
 		admin := api.Group("/admin")
 		{
 			admin.GET("/get-users-confirm", h.getUsersConfirm)        // получить пользователей, которые с подтвержденными аккаунтами (без супер администратора)
 			admin.GET("/get-users-un-confirm", h.getUsersUnConfirm)   // получить пользователей не подтвержденными аккаунтами
 			admin.POST("/user-confirm-account", h.userConfirmAccount) // подтверждение аккаунта пользователя администратором
+			admin.POST("/change-user", h.changeUser)                  // изменить данные пользователя (name, tele_id, email, role)
 		}
 		telegram := api.Group("/telegram")
 		{

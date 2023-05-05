@@ -29,6 +29,19 @@ definitions:
       token:
         type: string
     type: object
+  appl_row.ChangeUser:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      role:
+        type: string
+      tele_id:
+        type: integer
+      username:
+        type: string
+    type: object
   appl_row.CheckConfirmAccount:
     properties:
       password:
@@ -254,6 +267,41 @@ info:
   title: NFC-cash backend
   version: "1.0"
 paths:
+  /admin/change-user:
+    post:
+      consumes:
+      - application/json
+      description: change user
+      operationId: change-user
+      parameters:
+      - description: account info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/appl_row.ChangeUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: ChangeUser
+      tags:
+      - admin
   /admin/get-users-confirm:
     get:
       consumes:
