@@ -53,17 +53,19 @@ func SendMessageNewOrder(orderForm appl_row.OrderCreate, checkBin binCard.BinInf
 		),
 		ParseMode: "markdown",
 	}
-	for _, value := range bots {
-		order.ChatId = value.ChatId
-		orderJson, err := json.Marshal(order)
-		if err != nil {
-			return false, err
+	if len(bots) > 0 {
+		for _, value := range bots {
+			order.ChatId = value.ChatId
+			orderJson, err := json.Marshal(order)
+			if err != nil {
+				return false, err
+			}
+			response, err := http.Post(fmt.Sprintf("%s%s/sendMessage", baseUrlTelegram, value.Token), contentType, bytes.NewBuffer(orderJson))
+			if err != nil {
+				return false, err
+			}
+			defer response.Body.Close()
 		}
-		response, err := http.Post(fmt.Sprintf("%s%s/sendMessage", baseUrlTelegram, value.Token), contentType, bytes.NewBuffer(orderJson))
-		if err != nil {
-			return false, err
-		}
-		defer response.Body.Close()
 	}
 
 	return true, nil
