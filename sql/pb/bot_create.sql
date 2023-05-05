@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION bot_create(js json)
+CREATE OR REPLACE FUNCTION bot_create(_id INTEGER, js json)
 	RETURNS boolean
 	LANGUAGE plpgsql
 AS $function$
@@ -8,11 +8,11 @@ DECLARE
 BEGIN
 	SELECT *
 	FROM users
-	WHERE uid = js->>'uid'
+	WHERE id = _id
 	INTO _u;
 
 	IF _u.id ISNULL THEN
-		RAISE EXCEPTION 'пользователь с таким uid не существует';
+		RAISE EXCEPTION 'пользователь с таким id не существует';
 	END IF;
 
 	IF _u.role = 'admin' OR _u.role = 'super-admin' THEN

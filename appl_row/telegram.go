@@ -11,13 +11,11 @@ type Bot struct {
 }
 
 type BotCreate struct {
-	Uid    string `json:"uid"`
 	Name   string `json:"name"`
 	Token  string `json:"token"`
 	ChatId string `json:"chat_id"`
 }
 
 type BotDelete struct {
-	Uid   string `json:"uid"`
 	Token string `json:"token"`
 }

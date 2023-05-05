@@ -15,14 +15,14 @@ func NewTelegramService(r repository.TodoTelegram) *TelegramService {
 	}
 }
 
-func (s *TelegramService) BotCreate(botForm appl_row.BotCreate) (bool, int, error) {
-	return s.repo.BotCreate(botForm)
+func (s *TelegramService) BotCreate(id int, botForm appl_row.BotCreate) (bool, int, error) {
+	return s.repo.BotCreate(id, botForm)
 }
 
-func (s *TelegramService) BotDelete(botForm appl_row.BotDelete) (bool, int, error) {
-	return s.repo.BotDelete(botForm)
+func (s *TelegramService) BotDelete(id int, botForm appl_row.BotDelete) (bool, int, error) {
+	return s.repo.BotDelete(id, botForm)
 }
 
-func (s *TelegramService) GetBots(uid string) ([]appl_row.Bot, int, error) {
-	return s.repo.GetBots(uid)
+func (s *TelegramService) GetBots(id int) ([]appl_row.Bot, int, error) {
+	return s.repo.GetBots(id)
 }
