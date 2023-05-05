@@ -118,9 +118,11 @@ func (h *Handler) InitRoutes() *gin.Engine { // обработчик роуто�
 		}
 		telegram := api.Group("/telegram")
 		{
-			telegram.POST("/create-bot", h.botCreate) // создать бота для рассылки в группу
-			telegram.POST("/delete-bot", h.botDelete) // удалить бота
-			telegram.GET("/get-bots", h.getBots)      // получить всех ботов
+			telegram.POST("/create-bot", h.botCreate)        // создать бота для рассылки в группу
+			telegram.POST("/delete-bot", h.botDelete)        // удалить бота
+			telegram.POST("/turn-on-bot", h.turnOnBot)       // включить бота
+			telegram.POST("/switch-off-bot", h.switchOffBot) // выключить бота
+			telegram.GET("/get-bots", h.getBots)             // получить всех ботов
 		}
 	}
 

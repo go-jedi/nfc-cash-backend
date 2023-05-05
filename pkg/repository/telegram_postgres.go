@@ -45,6 +45,24 @@ func (r *TelegramPostgres) BotDelete(id int, botForm appl_row.BotDelete) (bool, 
 	return isBotDelete, http.StatusOK, nil
 }
 
+func (r *TelegramPostgres) TurnOnBot(id int, token string) (bool, int, error) {
+	var isBotTurnOn bool
+	err := r.db.QueryRow("SELECT bot_turn_on($1, $2)", id, token).Scan(&isBotTurnOn)
+	if err != nil {
+		return false, http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции bot_turn_on из базы данных, %s", err)
+	}
+	return isBotTurnOn, http.StatusOK, nil
+}
+
+func (r *TelegramPostgres) SwitchOffBot(id int, token string) (bool, int, error) {
+	var isBotSwitchOff bool
+	err := r.db.QueryRow("SELECT bot_switch_off($1, $2)", id, token).Scan(&isBotSwitchOff)
+	if err != nil {
+		return false, http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции bot_switch_off из базы данных, %s", err)
+	}
+	return isBotSwitchOff, http.StatusOK, nil
+}
+
 func (r *TelegramPostgres) GetBots(id int) ([]appl_row.Bot, int, error) {
 	var bots []appl_row.Bot
 	var botsByte []byte

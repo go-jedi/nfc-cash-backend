@@ -64,6 +64,8 @@ type TodoAdmin interface {
 type TodoTelegram interface {
 	BotCreate(id int, botForm appl_row.BotCreate) (bool, int, error)
 	BotDelete(id int, botForm appl_row.BotDelete) (bool, int, error)
+	TurnOnBot(id int, token string) (bool, int, error)
+	SwitchOffBot(id int, token string) (bool, int, error)
 	GetBots(id int) ([]appl_row.Bot, int, error)
 }
 

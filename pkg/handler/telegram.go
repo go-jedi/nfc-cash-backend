@@ -117,6 +117,114 @@ func (h *Handler) botDelete(c *gin.Context) {
 	}
 }
 
+func (h *Handler) turnOnBot(c *gin.Context) {
+	userId, err := getUserId(c)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, map[string]interface{}{
+			"status":  http.StatusUnauthorized,
+			"message": err.Error(),
+		})
+		return
+	}
+	if userId == 0 {
+		c.JSON(http.StatusUnauthorized, map[string]interface{}{
+			"status":  http.StatusUnauthorized,
+			"message": "идентификатор пользователя имеет недопустимый тип",
+		})
+		return
+	}
+	if userId > 0 {
+		type Body struct {
+			Token string `json:"token"`
+		}
+		var body Body
+		if err := c.BindJSON(&body); err != nil {
+			c.JSON(http.StatusBadRequest, map[string]interface{}{
+				"status":  http.StatusBadRequest,
+				"message": "некорректно переданы данные в body",
+			})
+			return
+		}
+		resTurnOnBot, statusCode, err := h.services.TurnOnBot(userId, body.Token)
+		if err != nil {
+			c.JSON(statusCode, map[string]interface{}{
+				"status":  statusCode,
+				"message": err.Error(),
+				"result":  resTurnOnBot,
+			})
+			return
+		}
+		if resTurnOnBot {
+			c.JSON(http.StatusOK, map[string]interface{}{
+				"status":  http.StatusOK,
+				"message": "успешное включение бота",
+				"result":  resTurnOnBot,
+			})
+		}
+		if !resTurnOnBot {
+			c.JSON(http.StatusOK, map[string]interface{}{
+				"status":  http.StatusOK,
+				"message": "ошибка включения бота",
+				"result":  resTurnOnBot,
+			})
+		}
+	}
+}
+
+func (h *Handler) switchOffBot(c *gin.Context) {
+	userId, err := getUserId(c)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, map[string]interface{}{
+			"status":  http.StatusUnauthorized,
+			"message": err.Error(),
+		})
+		return
+	}
+	if userId == 0 {
+		c.JSON(http.StatusUnauthorized, map[string]interface{}{
+			"status":  http.StatusUnauthorized,
+			"message": "идентификатор пользователя имеет недопустимый тип",
+		})
+		return
+	}
+	if userId > 0 {
+		type Body struct {
+			Token string `json:"token"`
+		}
+		var body Body
+		if err := c.BindJSON(&body); err != nil {
+			c.JSON(http.StatusBadRequest, map[string]interface{}{
+				"status":  http.StatusBadRequest,
+				"message": "некорректно переданы данные в body",
+			})
+			return
+		}
+		resSwitchOffBot, statusCode, err := h.services.SwitchOffBot(userId, body.Token)
+		if err != nil {
+			c.JSON(statusCode, map[string]interface{}{
+				"status":  statusCode,
+				"message": err.Error(),
+				"result":  resSwitchOffBot,
+			})
+			return
+		}
+		if resSwitchOffBot {
+			c.JSON(http.StatusOK, map[string]interface{}{
+				"status":  http.StatusOK,
+				"message": "успешное выключение бота",
+				"result":  resSwitchOffBot,
+			})
+		}
+		if !resSwitchOffBot {
+			c.JSON(http.StatusOK, map[string]interface{}{
+				"status":  http.StatusOK,
+				"message": "ошибка выключения бота",
+				"result":  resSwitchOffBot,
+			})
+		}
+	}
+}
+
 func (h *Handler) getBots(c *gin.Context) {
 	userId, err := getUserId(c)
 	if err != nil {

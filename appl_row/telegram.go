@@ -19,3 +19,11 @@ type BotCreate struct {
 type BotDelete struct {
 	Token string `json:"token"`
 }
+
+type TurnOnBot struct {
+	Token string `json:"token"`
+}
+
+type SwitchOffBot struct {
+	Token string `json:"token"`
+}

@@ -23,6 +23,14 @@ func (s *TelegramService) BotDelete(id int, botForm appl_row.BotDelete) (bool, i
 	return s.repo.BotDelete(id, botForm)
 }
 
+func (s *TelegramService) TurnOnBot(id int, token string) (bool, int, error) {
+	return s.repo.TurnOnBot(id, token)
+}
+
+func (s *TelegramService) SwitchOffBot(id int, token string) (bool, int, error) {
+	return s.repo.SwitchOffBot(id, token)
+}
+
 func (s *TelegramService) GetBots(id int) ([]appl_row.Bot, int, error) {
 	return s.repo.GetBots(id)
 }
