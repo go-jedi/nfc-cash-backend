@@ -803,3 +803,150 @@ POSSIBLE MISTAKES:
   -message: "некорректно переданы данные в body";
   -message: "ошибка выполнения функции ip_check_block из базы данных, {err}";
 ````
+
+### Создание бота
+
+````sh
+Url: http://localhost:8080/telegram/create-bot
+```js
+{
+  "body": {
+    "name": string, <- имя бота
+    "token": string, <- токен бота
+    "chat_id": string, <- id чата
+  }
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "успешное создание бота" <- typeof string
+  -result: true <- typeof bool
+OR:
+  -status: 200 <- typeof int
+  -message: "ошибка создания бота" <- typeof string
+  -result: false <- typeof bool
+
+POSSIBLE MISTAKES:
+  -message: "пустой заголовок авторизации";
+  -message: "неверный заголовок авторизации";
+  -message: "идентификатор пользователя не найден";
+  -message: "идентификатор пользователя имеет недопустимый тип";
+  -message: "некорректно переданы данные в body";
+  -message: "ошибка конвертации botForm, {err}";
+  -message: "ошибка выполнения функции bot_create из базы данных, {err}";
+````
+
+### Удаление бота
+
+````sh
+Url: http://localhost:8080/telegram/delete-bot
+```js
+{
+  "body": {
+    "token": string, <- токен бота
+  }
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "успешное удаление бота" <- typeof string
+  -result: true <- typeof bool
+OR:
+  -status: 200 <- typeof int
+  -message: "ошибка удаления бота" <- typeof string
+  -result: false <- typeof bool
+
+POSSIBLE MISTAKES:
+  -message: "пустой заголовок авторизации";
+  -message: "неверный заголовок авторизации";
+  -message: "идентификатор пользователя не найден";
+  -message: "идентификатор пользователя имеет недопустимый тип";
+  -message: "некорректно переданы данные в body";
+  -message: "ошибка конвертации botForm, {err}";
+  -message: "ошибка выполнения функции bot_delete из базы данных, {err}";
+````
+
+### Включить бота
+
+````sh
+Url: http://localhost:8080/telegram/turn-on-bot
+```js
+{
+  "body": {
+    "token": string, <- токен бота
+  }
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "успешное включение бота" <- typeof string
+  -result: true <- typeof bool
+OR:
+  -status: 200 <- typeof int
+  -message: "ошибка включения бота" <- typeof string
+  -result: false <- typeof bool
+
+POSSIBLE MISTAKES:
+  -message: "пустой заголовок авторизации";
+  -message: "неверный заголовок авторизации";
+  -message: "идентификатор пользователя не найден";
+  -message: "идентификатор пользователя имеет недопустимый тип";
+  -message: "некорректно переданы данные в body";
+  -message: "ошибка выполнения функции bot_turn_on из базы данных, {err}";
+````
+
+### Выключение бота
+
+````sh
+Url: http://localhost:8080/telegram/switch-off-bot
+```js
+{
+  "body": {
+    "token": string, <- токен бота
+  }
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "успешное выключение бота" <- typeof string
+  -result: true <- typeof bool
+OR:
+  -status: 200 <- typeof int
+  -message: "ошибка выключения бота" <- typeof string
+  -result: false <- typeof bool
+
+POSSIBLE MISTAKES:
+  -message: "пустой заголовок авторизации";
+  -message: "неверный заголовок авторизации";
+  -message: "идентификатор пользователя не найден";
+  -message: "идентификатор пользователя имеет недопустимый тип";
+  -message: "некорректно переданы данные в body";
+  -message: "ошибка выполнения функции bot_switch_off из базы данных, {err}";
+````
+
+### Получение ботов
+
+````sh
+Url: http://localhost:8080/telegram/get-bots
+```js
+{
+  "body": {}
+}
+```sh
+RETURN:
+  -status: 200 <- typeof int
+  -message: "успешное получение работающих ботов" <- typeof string
+  -result: []appl_row.Bot{} <- typeof []appl_row.Bot
+OR:
+  -status: 200 <- typeof int
+  -message: "успешное получение работающих ботов" <- typeof string
+  -result: []appl_row.Bot{} <- typeof []appl_row.Bot
+
+POSSIBLE MISTAKES:
+  -message: "пустой заголовок авторизации";
+  -message: "неверный заголовок авторизации";
+  -message: "идентификатор пользователя не найден";
+  -message: "идентификатор пользователя имеет недопустимый тип";
+  -message: "ошибка выполнения функции bots_get из базы данных, {err}";
+  -message: "ошибка конвертации в функции GetBots, {err}";
+````

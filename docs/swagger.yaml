@@ -15,6 +15,20 @@ definitions:
       ip_address:
         type: string
     type: object
+  appl_row.BotCreate:
+    properties:
+      chat_id:
+        type: string
+      name:
+        type: string
+      token:
+        type: string
+    type: object
+  appl_row.BotDelete:
+    properties:
+      token:
+        type: string
+    type: object
   appl_row.CheckConfirmAccount:
     properties:
       password:
@@ -201,6 +215,16 @@ definitions:
           type: string
         type: array
       uid_room:
+        type: string
+    type: object
+  appl_row.SwitchOffBot:
+    properties:
+      token:
+        type: string
+    type: object
+  appl_row.TurnOnBot:
+    properties:
+      token:
         type: string
     type: object
   appl_row.UserConfirmAccount:
@@ -1035,6 +1059,174 @@ paths:
       summary: LeaveRoom
       tags:
       - room
+  /telegram/create-bot:
+    post:
+      consumes:
+      - application/json
+      description: bot create
+      operationId: bot-create
+      parameters:
+      - description: account info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/appl_row.BotCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: BotCreate
+      tags:
+      - telegram
+  /telegram/delete-bot:
+    post:
+      consumes:
+      - application/json
+      description: bot delete
+      operationId: bot-delete
+      parameters:
+      - description: account info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/appl_row.BotDelete'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: BotDelete
+      tags:
+      - telegram
+  /telegram/get-bots:
+    get:
+      consumes:
+      - application/json
+      description: get bots
+      operationId: get-bots
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: GetBots
+      tags:
+      - telegram
+  /telegram/switch-off-bot:
+    post:
+      consumes:
+      - application/json
+      description: switch off bot
+      operationId: switch-off-bot
+      parameters:
+      - description: account info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/appl_row.SwitchOffBot'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: SwitchOffBot
+      tags:
+      - telegram
+  /telegram/turn-on-bot:
+    post:
+      consumes:
+      - application/json
+      description: turn on bot
+      operationId: turn-on-bot
+      parameters:
+      - description: account info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/appl_row.TurnOnBot'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: TurnOnBot
+      tags:
+      - telegram
   /user/check-is-admin:
     get:
       consumes:

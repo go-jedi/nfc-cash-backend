@@ -7,6 +7,18 @@ import (
 	"github.com/rob-bender/nfc-cash-backend/appl_row"
 )
 
+// @Summary		BotCreate
+// @Tags			telegram
+// @Description	bot create
+// @ID				bot-create
+// @Accept			json
+// @Produce		json
+// @Param			input	body		appl_row.BotCreate	true	"account info"
+// @Success		200		{integer}	integer				1
+// @Failure		400,404	{object}	error
+// @Failure		500		{object}	error
+// @Failure		default	{object}	error
+// @Router			/telegram/create-bot [post]
 func (h *Handler) botCreate(c *gin.Context) {
 	userId, err := getUserId(c)
 	if err != nil {
@@ -63,6 +75,18 @@ func (h *Handler) botCreate(c *gin.Context) {
 	}
 }
 
+// @Summary		BotDelete
+// @Tags			telegram
+// @Description	bot delete
+// @ID				bot-delete
+// @Accept			json
+// @Produce		json
+// @Param			input	body		appl_row.BotDelete	true	"account info"
+// @Success		200		{integer}	integer				1
+// @Failure		400,404	{object}	error
+// @Failure		500		{object}	error
+// @Failure		default	{object}	error
+// @Router			/telegram/delete-bot [post]
 func (h *Handler) botDelete(c *gin.Context) {
 	userId, err := getUserId(c)
 	if err != nil {
@@ -117,6 +141,18 @@ func (h *Handler) botDelete(c *gin.Context) {
 	}
 }
 
+// @Summary		TurnOnBot
+// @Tags			telegram
+// @Description	turn on bot
+// @ID				turn-on-bot
+// @Accept			json
+// @Produce		json
+// @Param			input	body		appl_row.TurnOnBot	true	"account info"
+// @Success		200		{integer}	integer				1
+// @Failure		400,404	{object}	error
+// @Failure		500		{object}	error
+// @Failure		default	{object}	error
+// @Router			/telegram/turn-on-bot [post]
 func (h *Handler) turnOnBot(c *gin.Context) {
 	userId, err := getUserId(c)
 	if err != nil {
@@ -171,6 +207,18 @@ func (h *Handler) turnOnBot(c *gin.Context) {
 	}
 }
 
+// @Summary		SwitchOffBot
+// @Tags			telegram
+// @Description	switch off bot
+// @ID				switch-off-bot
+// @Accept			json
+// @Produce		json
+// @Param			input	body		appl_row.SwitchOffBot	true	"account info"
+// @Success		200		{integer}	integer				1
+// @Failure		400,404	{object}	error
+// @Failure		500		{object}	error
+// @Failure		default	{object}	error
+// @Router			/telegram/switch-off-bot [post]
 func (h *Handler) switchOffBot(c *gin.Context) {
 	userId, err := getUserId(c)
 	if err != nil {
@@ -225,6 +273,17 @@ func (h *Handler) switchOffBot(c *gin.Context) {
 	}
 }
 
+// @Summary		GetBots
+// @Tags			telegram
+// @Description	get bots
+// @ID				get-bots
+// @Accept			json
+// @Produce		json
+// @Success		200		{integer}	integer				1
+// @Failure		400,404	{object}	error
+// @Failure		500		{object}	error
+// @Failure		default	{object}	error
+// @Router			/telegram/get-bots [get]
 func (h *Handler) getBots(c *gin.Context) {
 	userId, err := getUserId(c)
 	if err != nil {

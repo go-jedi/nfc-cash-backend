@@ -109,6 +109,7 @@ func (h *Handler) InitRoutes() *gin.Engine { // обработчик роуто�
 		{
 			user.GET("/get-user-profile", h.getUserProfile) // получение профиля пользователя
 			user.GET("/check-is-admin", h.checkIsAdmin)     // проверка пользователя на администратора
+			user.POST("/change-user")                       // изменить данные пользователя (name, tele_id, email, role)
 		}
 		admin := api.Group("/admin")
 		{

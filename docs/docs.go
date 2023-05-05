@@ -1185,6 +1185,250 @@ const docTemplate = `{
                 }
             }
         },
+        "/telegram/create-bot": {
+            "post": {
+                "description": "bot create",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "telegram"
+                ],
+                "summary": "BotCreate",
+                "operationId": "bot-create",
+                "parameters": [
+                    {
+                        "description": "account info",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appl_row.BotCreate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/telegram/delete-bot": {
+            "post": {
+                "description": "bot delete",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "telegram"
+                ],
+                "summary": "BotDelete",
+                "operationId": "bot-delete",
+                "parameters": [
+                    {
+                        "description": "account info",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appl_row.BotDelete"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/telegram/get-bots": {
+            "get": {
+                "description": "get bots",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "telegram"
+                ],
+                "summary": "GetBots",
+                "operationId": "get-bots",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/telegram/switch-off-bot": {
+            "post": {
+                "description": "switch off bot",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "telegram"
+                ],
+                "summary": "SwitchOffBot",
+                "operationId": "switch-off-bot",
+                "parameters": [
+                    {
+                        "description": "account info",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appl_row.SwitchOffBot"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/telegram/turn-on-bot": {
+            "post": {
+                "description": "turn on bot",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "telegram"
+                ],
+                "summary": "TurnOnBot",
+                "operationId": "turn-on-bot",
+                "parameters": [
+                    {
+                        "description": "account info",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appl_row.TurnOnBot"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/user/check-is-admin": {
             "get": {
                 "description": "check is admin",
@@ -1523,6 +1767,28 @@ const docTemplate = `{
                 }
             }
         },
+        "appl_row.BotCreate": {
+            "type": "object",
+            "properties": {
+                "chat_id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "appl_row.BotDelete": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
         "appl_row.CheckConfirmAccount": {
             "type": "object",
             "properties": {
@@ -1808,6 +2074,22 @@ const docTemplate = `{
                     }
                 },
                 "uid_room": {
+                    "type": "string"
+                }
+            }
+        },
+        "appl_row.SwitchOffBot": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "appl_row.TurnOnBot": {
+            "type": "object",
+            "properties": {
+                "token": {
                     "type": "string"
                 }
             }
