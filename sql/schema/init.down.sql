@@ -1,4 +1,5 @@
 DROP TABLE users;
+DROP TABLE refresh_tokens;
 DROP TABLE rooms;
 DROP TABLE users_room;
 DROP TABLE messages;

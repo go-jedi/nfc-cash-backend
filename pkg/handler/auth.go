@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -73,7 +74,7 @@ func (h *Handler) signIn(c *gin.Context) { // Авторизация польз�
 		})
 		return
 	}
-	token, err := h.services.GenerateToken(body.Username, body.Password)
+	accessToken, refreshToken, err := h.services.GenerateTokens(body.Username, body.Password)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"status":  http.StatusInternalServerError,
@@ -81,10 +82,36 @@ func (h *Handler) signIn(c *gin.Context) { // Авторизация польз�
 		})
 		return
 	}
+	c.Header("Set-Cookie", fmt.Sprintf("refresh-token=%s; HttpOnly", refreshToken))
 	c.JSON(http.StatusOK, map[string]interface{}{
 		"status":  http.StatusOK,
 		"message": "успешная авторизация пользователя",
-		"token":   token,
+		"token":   accessToken,
+	})
+}
+
+func (h *Handler) refresh(c *gin.Context) { // обновление токена access
+	refreshToken, err := c.Cookie("refresh-token")
+	if err != nil {
+		c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"status":  http.StatusBadRequest,
+			"message": "некорректно переданы данные в cookie",
+		})
+		return
+	}
+	accessToken, refreshToken, err := h.services.RefreshTokens(refreshToken)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"status":  http.StatusInternalServerError,
+			"message": err.Error(),
+		})
+		return
+	}
+	c.Header("Set-Cookie", fmt.Sprintf("refresh-token=%s; HttpOnly", refreshToken))
+	c.JSON(http.StatusOK, map[string]interface{}{
+		"status":  http.StatusOK,
+		"message": "успешная обновление токена",
+		"token":   accessToken,
 	})
 }
 

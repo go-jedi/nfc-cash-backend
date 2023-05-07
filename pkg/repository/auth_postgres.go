@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/jmoiron/sqlx"
 	"github.com/rob-bender/nfc-cash-backend/appl_row"
@@ -87,4 +88,21 @@ func (r *AuthPostgres) CheckConfirmAccount(userForm appl_row.CheckConfirmAccount
 		return true, http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции user_check_confirm_account из базы данных, %s", err)
 	}
 	return isConfirmAccount, http.StatusOK, nil
+}
+
+func (r *AuthPostgres) AddRefreshToken(id int, refreshToken string, expiresAt time.Time) (int, error) {
+	_, err := r.db.Exec("SELECT refresh_token_add($1, $2, $3)", id, refreshToken, expiresAt)
+	if err != nil {
+		return http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции refresh_token_add из базы данных, %s", err)
+	}
+	return http.StatusOK, nil
+}
+
+func (r *AuthPostgres) GetUserIdByRefreshToken(refreshToken string) (int, int, error) {
+	var userId int
+	err := r.db.QueryRow("SELECT refresh_get_user_id($1)", refreshToken).Scan(&userId)
+	if err != nil {
+		return 0, http.StatusInternalServerError, fmt.Errorf("ошибка выполнения функции user_check_confirm_account из базы данных, %s", err)
+	}
+	return userId, http.StatusOK, nil
 }

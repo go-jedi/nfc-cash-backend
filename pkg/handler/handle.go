@@ -31,7 +31,7 @@ func (h *Handler) InitRoutes() *gin.Engine { // обработчик роуто�
 	// router.Use(cors.Default())
 
 	router.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"https://localhost:9000", "https://localhost:5173"},
+		AllowOrigins:     []string{"http://localhost:9000", "http://localhost:5173"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"},
 		AllowHeaders:     []string{"Origin", "Content-Length", "Content-Type", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
@@ -45,6 +45,7 @@ func (h *Handler) InitRoutes() *gin.Engine { // обработчик роуто�
 	{
 		auth.POST("/sign-up", h.signUp)                            // Регистрация пользователя
 		auth.POST("/sign-in", h.signIn)                            // Авторизация пользователя
+		auth.GET("/refresh", h.refresh)                            // обновление токена access
 		auth.POST("/check-email-exist", h.checkEmailExist)         // Есть ли в базе данных зарегистрированный email
 		auth.POST("/check-username-exist", h.checkUsernameExist)   // Есть ли в базе данных зарегистрированный username
 		auth.POST("/check-confirm-account", h.checkConfirmAccount) // подтверждён ли аккаунт администратором
@@ -101,10 +102,6 @@ func (h *Handler) InitRoutes() *gin.Engine { // обработчик роуто�
 
 	api := router.Group("/api-v1", h.userIdentity)
 	{
-		validateToken := api.Group("/validate-token")
-		{
-			validateToken.GET("/", h.checkValidateToken) // проверка на валидный токен
-		}
 		user := api.Group("/user")
 		{
 			user.GET("/get-user-profile", h.getUserProfile) // получение профиля пользователя

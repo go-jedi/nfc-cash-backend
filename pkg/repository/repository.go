@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"time"
+
 	"github.com/jmoiron/sqlx"
 	"github.com/rob-bender/nfc-cash-backend/appl_row"
 )
@@ -11,6 +13,8 @@ type TodoAuth interface {
 	CheckEmailExist(userForm appl_row.CheckEmailExist) (bool, int, error)
 	CheckUsernameExist(userForm appl_row.CheckUsernameExist) (bool, int, error)
 	CheckConfirmAccount(userForm appl_row.CheckConfirmAccount) (bool, int, error)
+	AddRefreshToken(id int, refreshToken string, expiresAt time.Time) (int, error)
+	GetUserIdByRefreshToken(refreshToken string) (int, int, error)
 }
 
 type TodoVerify interface {

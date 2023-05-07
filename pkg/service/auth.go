@@ -2,6 +2,7 @@ package service
 
 import (
 	"fmt"
+	"math/rand"
 	"net/http"
 	"time"
 
@@ -15,7 +16,7 @@ import (
 
 const (
 	signingKey = "qrkjk#4#%35FSFJlja#4353KSFjH"
-	tokenTTL   = 12 * time.Hour
+	tokenTTL   = 15 * time.Minute
 )
 
 type tokenClaims struct {
@@ -50,17 +51,30 @@ func (s *AuthService) CreateUser(userForm appl_row.CreateUser) (int, error) {
 	return statusCodeSendActivationMail, nil
 }
 
-func (s *AuthService) GenerateToken(username string, password string) (string, error) {
+func newRefreshToken() (string, error) { // генерация refresh токена
+	b := make([]byte, 32)
+
+	s := rand.NewSource(time.Now().Unix())
+	r := rand.New(s)
+
+	if _, err := r.Read(b); err != nil {
+		return "", err
+	}
+
+	return fmt.Sprintf("%x", b), nil
+}
+
+func (s *AuthService) GenerateTokens(username string, password string) (string, string, error) {
 	resGeneratePasswordHash, err := hash.GeneratePasswordHash(password)
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
 	user, err := s.repo.GetUser(username, resGeneratePasswordHash)
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
 	if len(user) == 0 {
-		return "", fmt.Errorf("неправильный логин или пароль")
+		return "", "", fmt.Errorf("неправильный логин или пароль")
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, &tokenClaims{
@@ -70,7 +84,55 @@ func (s *AuthService) GenerateToken(username string, password string) (string, e
 		},
 		user[0].Id,
 	})
-	return token.SignedString([]byte(signingKey))
+
+	accessToken, err := token.SignedString([]byte(signingKey))
+	if err != nil {
+		return "", "", err
+	}
+
+	refreshToken, err := newRefreshToken()
+	if err != nil {
+		return "", "", err
+	}
+
+	_, err = s.repo.AddRefreshToken(user[0].Id, refreshToken, time.Now().Add(time.Hour*24*30))
+	if err != nil {
+		return "", "", err
+	}
+
+	return accessToken, refreshToken, nil
+}
+
+func (s *AuthService) RefreshTokens(refreshToken string) (string, string, error) {
+	resGetUserIdByRefreshToken, _, err := s.repo.GetUserIdByRefreshToken(refreshToken)
+	if err != nil {
+		return "", "", err
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, &tokenClaims{
+		jwt.StandardClaims{
+			ExpiresAt: time.Now().Add(tokenTTL).Unix(),
+			IssuedAt:  time.Now().Unix(),
+		},
+		resGetUserIdByRefreshToken,
+	})
+
+	accessToken, err := token.SignedString([]byte(signingKey))
+	if err != nil {
+		return "", "", err
+	}
+
+	refreshToken, err = newRefreshToken()
+	if err != nil {
+		return "", "", err
+	}
+
+	_, err = s.repo.AddRefreshToken(resGetUserIdByRefreshToken, refreshToken, time.Now().Add(time.Hour*24*30))
+	if err != nil {
+		return "", "", err
+	}
+
+	return accessToken, refreshToken, nil
 }
 
 func (s *AuthService) ParseToken(accessToken string) (int, error) {
