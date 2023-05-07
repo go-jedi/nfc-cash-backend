@@ -7,7 +7,7 @@ import (
 
 type TodoAuth interface {
 	CreateUser(userForm appl_row.CreateUser) (int, error)
-	GenerateTokens(username string, password string) (string, string, error)
+	SignIn(username string, password string) (string, string, error)
 	RefreshTokens(refreshToken string) (string, string, error)
 	ParseToken(token string) (int, error)
 	CheckEmailExist(userForm appl_row.CheckEmailExist) (bool, int, error)

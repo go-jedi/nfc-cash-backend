@@ -74,7 +74,7 @@ func (h *Handler) signIn(c *gin.Context) { // Авторизация польз�
 		})
 		return
 	}
-	accessToken, refreshToken, err := h.services.GenerateTokens(body.Username, body.Password)
+	accessToken, refreshToken, err := h.services.SignIn(body.Username, body.Password)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"status":  http.StatusInternalServerError,
